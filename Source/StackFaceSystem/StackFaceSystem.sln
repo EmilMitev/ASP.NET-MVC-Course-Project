@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackFaceSystem.Data", "Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackFaceSystem.Data.Models", "Data\StackFaceSystem.Data.Models\StackFaceSystem.Data.Models.csproj", "{60DC7A6F-D7CD-4138-B80D-DF61045A656C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackFaceSystem.Data.Common", "Data\StackFaceSystem.Data.Common\StackFaceSystem.Data.Common.csproj", "{36F9FE63-9388-4158-A12E-492016C98B81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{60DC7A6F-D7CD-4138-B80D-DF61045A656C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60DC7A6F-D7CD-4138-B80D-DF61045A656C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60DC7A6F-D7CD-4138-B80D-DF61045A656C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F9FE63-9388-4158-A12E-492016C98B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F9FE63-9388-4158-A12E-492016C98B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F9FE63-9388-4158-A12E-492016C98B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F9FE63-9388-4158-A12E-492016C98B81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,5 +47,6 @@ Global
 		{3B0F32E1-F2C7-4BD4-9563-6B77E57A583F} = {7BF6BCD7-02C6-4F6D-BE8D-415A77CC1077}
 		{8B022DCE-31D7-4A23-A1E8-7CFB57BC8211} = {2059CE29-CD7D-44F0-8018-6A8C5014713A}
 		{60DC7A6F-D7CD-4138-B80D-DF61045A656C} = {2059CE29-CD7D-44F0-8018-6A8C5014713A}
+		{36F9FE63-9388-4158-A12E-492016C98B81} = {2059CE29-CD7D-44F0-8018-6A8C5014713A}
 	EndGlobalSection
 EndGlobal
