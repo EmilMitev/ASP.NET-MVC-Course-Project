@@ -1,12 +1,23 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url("../Resource/Background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
+    padding-left: 300px;
     padding-right: 15px;
+}
+
+@media (max-width: 1024px) {
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
