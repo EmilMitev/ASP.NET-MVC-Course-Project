@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{2059CE29-CD7D-44F0-8018-6A8C5014713A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E9C40305-0DCA-462A-849C-51A94BC5D961}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{7BF6BCD7-02C6-4F6D-BE8D-415A77CC1077}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackFaceSystem.Web", "Web\StackFaceSystem.Web\StackFaceSystem.Web.csproj", "{3B0F32E1-F2C7-4BD4-9563-6B77E57A583F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B0F32E1-F2C7-4BD4-9563-6B77E57A583F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B0F32E1-F2C7-4BD4-9563-6B77E57A583F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B0F32E1-F2C7-4BD4-9563-6B77E57A583F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B0F32E1-F2C7-4BD4-9563-6B77E57A583F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3B0F32E1-F2C7-4BD4-9563-6B77E57A583F} = {7BF6BCD7-02C6-4F6D-BE8D-415A77CC1077}
+	EndGlobalSection
+EndGlobal
