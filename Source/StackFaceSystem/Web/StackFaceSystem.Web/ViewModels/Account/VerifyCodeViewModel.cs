@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace StackFaceSystem.Web.ViewModels.Account
+﻿namespace StackFaceSystem.Web.ViewModels.Account
 {
+    using System.ComponentModel.DataAnnotations;
 
     public class VerifyCodeViewModel
     {
@@ -12,6 +10,7 @@ namespace StackFaceSystem.Web.ViewModels.Account
         [Required]
         [Display(Name = "Code")]
         public string Code { get; set; }
+
         public string ReturnUrl { get; set; }
 
         [Display(Name = "Remember this browser?")]

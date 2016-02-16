@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-
-namespace StackFaceSystem.Web.ViewModels.Manage
+﻿namespace StackFaceSystem.Web.ViewModels.Manage
 {
+    using System.ComponentModel.DataAnnotations;
 
     public class SetPasswordViewModel
     {
