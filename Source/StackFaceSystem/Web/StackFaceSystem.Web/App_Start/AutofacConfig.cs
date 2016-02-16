@@ -8,6 +8,7 @@
     using StackFaceSystem.Data;
     using StackFaceSystem.Data.Common;
     using Services.Common;
+    using Controllers;
     public static class AutofacConfig
     {
         public static void RegisterAutofac()
@@ -51,6 +52,9 @@
             builder.RegisterGeneric(typeof(DbRepository<>))
                             .As(typeof(IDbRepository<>))
                             .InstancePerRequest();
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .AssignableTo<BaseController>().PropertiesAutowired();
         }
     }
 }
