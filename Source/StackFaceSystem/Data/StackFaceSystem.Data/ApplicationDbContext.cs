@@ -1,11 +1,12 @@
 ﻿namespace StackFaceSystem.Data
 {
-    using Common.Models;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using StackFaceSystem.Data.Models;
     using System;
     using System.Data.Entity;
     using System.Linq;
+    using Common.Models;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using StackFaceSystem.Data.Models;
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

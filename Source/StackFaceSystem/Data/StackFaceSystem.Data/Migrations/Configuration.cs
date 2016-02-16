@@ -1,4 +1,4 @@
-namespace StackFaceSystem.Data.Migrations
+﻿namespace StackFaceSystem.Data.Migrations
 {
     using System.Data.Entity.Migrations;
     using System.Linq;
