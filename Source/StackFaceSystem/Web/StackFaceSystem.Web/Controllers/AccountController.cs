@@ -1,18 +1,14 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using StackFaceSystem.Web.Models;
-using StackFaceSystem.Web.ViewModels.Account;
-
-namespace StackFaceSystem.Web.Controllers
+﻿namespace StackFaceSystem.Web.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+    using StackFaceSystem.Web.ViewModels.Account;
+    using Data.Models;
     [Authorize]
     public class AccountController : Controller
     {
