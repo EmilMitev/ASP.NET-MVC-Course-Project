@@ -1,12 +1,12 @@
 ﻿namespace StackFaceSystem.Web
 {
-    using System;
     using System.Data.Entity;
-    using System.Diagnostics;
     using System.Reflection;
     using System.Web.Mvc;
     using Autofac;
     using Autofac.Integration.Mvc;
+    using StackFaceSystem.Data;
+    using StackFaceSystem.Data.Common;
 
     public static class AutofacConfig
     {
@@ -40,6 +40,13 @@
 
         private static void RegisterServices(ContainerBuilder builder)
         {
+            builder.Register(x => new ApplicationDbContext())
+                .As<DbContext>()
+                .InstancePerRequest();
+
+            builder.RegisterGeneric(typeof(DbRepository<>))
+                            .As(typeof(IDbRepository<>))
+                            .InstancePerRequest();
         }
     }
 }

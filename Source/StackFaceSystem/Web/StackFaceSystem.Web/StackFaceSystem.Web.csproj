@@ -327,6 +327,10 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\StackFaceSystem.Data.Common\StackFaceSystem.Data.Common.csproj">
+      <Project>{36f9fe63-9388-4158-a12e-492016c98b81}</Project>
+      <Name>StackFaceSystem.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\StackFaceSystem.Data.Models\StackFaceSystem.Data.Models.csproj">
       <Project>{60dc7a6f-d7cd-4138-b80d-df61045a656c}</Project>
       <Name>StackFaceSystem.Data.Models</Name>
