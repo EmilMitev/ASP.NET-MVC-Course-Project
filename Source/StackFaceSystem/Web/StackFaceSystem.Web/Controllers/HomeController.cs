@@ -4,8 +4,16 @@
 
     public class HomeController : Controller
     {
+        private IService service;
+
+        public HomeController(IService service)
+        {
+            this.service = service;
+        }
+
         public ActionResult Index()
         {
+            this.service.Work();
             return this.View();
         }
 
