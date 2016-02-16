@@ -4,10 +4,12 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
-    using Data.Models;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
+
+    using StackFaceSystem.Data.Models;
     using StackFaceSystem.Web.ViewModels.Account;
 
     [Authorize]
@@ -17,6 +19,7 @@
         private const string XsrfKey = "XsrfId";
 
         private ApplicationSignInManager signInManager;
+
         private ApplicationUserManager userManager;
 
         public AccountController()
@@ -55,13 +58,7 @@
             }
         }
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return this.HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
 
         // GET: /Account/Login
         [AllowAnonymous]
@@ -84,7 +81,13 @@
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await this.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result =
+                await
+                this.SignInManager.PasswordSignInAsync(
+                    model.Email,
+                    model.Password,
+                    model.RememberMe,
+                    shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -92,7 +95,9 @@
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return this.RedirectToAction(
+                        "SendCode",
+                        new { ReturnUrl = returnUrl, model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -110,7 +115,9 @@
                 return this.View("Error");
             }
 
-            return this.View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return
+                this.View(
+                    new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         // POST: /Account/VerifyCode
@@ -128,7 +135,13 @@
             // If a user enters incorrect codes for a specified amount of time then the user account
             // will be locked out for a specified amount of time.
             // You can configure the account lockout settings in IdentityConfig
-            var result = await this.SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result =
+                await
+                this.SignInManager.TwoFactorSignInAsync(
+                    model.Provider,
+                    model.Code,
+                    isPersistent: model.RememberMe,
+                    rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -207,7 +220,7 @@
             if (this.ModelState.IsValid)
             {
                 var user = await this.UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await this.UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null || !await this.UserManager.IsEmailConfirmedAsync(user.Id))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return this.View("ForgotPasswordConfirmation");
@@ -281,7 +294,9 @@
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+            return new ChallengeResult(
+                provider,
+                this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
         // GET: /Account/SendCode
@@ -295,8 +310,11 @@
             }
 
             var userFactors = await this.UserManager.GetValidTwoFactorProvidersAsync(userId);
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return this.View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            var factorOptions =
+                userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+            return
+                this.View(
+                    new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         // POST: /Account/SendCode
@@ -316,7 +334,9 @@
                 return this.View("Error");
             }
 
-            return this.RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+            return this.RedirectToAction(
+                "VerifyCode",
+                new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
         }
 
         // GET: /Account/ExternalLoginCallback
@@ -341,10 +361,13 @@
                     return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
                 default:
+
                     // If the user does not have an account, then prompt the user to create an account
                     this.ViewBag.ReturnUrl = returnUrl;
                     this.ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return this.View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    return this.View(
+                        "ExternalLoginConfirmation",
+                        new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
 
@@ -352,7 +375,9 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(
+            ExternalLoginConfirmationViewModel model,
+            string returnUrl)
         {
             if (this.User.Identity.IsAuthenticated)
             {
@@ -443,12 +468,7 @@
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
+            public ChallengeResult(string provider, string redirectUri, string userId = null)
             {
                 this.LoginProvider = provider;
                 this.RedirectUri = redirectUri;

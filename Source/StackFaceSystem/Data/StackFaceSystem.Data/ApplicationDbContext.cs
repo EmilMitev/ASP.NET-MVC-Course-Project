@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Data
+﻿    namespace StackFaceSystem.Data
 {
     using Microsoft.AspNet.Identity.EntityFramework;
     using StackFaceSystem.Data.Models;

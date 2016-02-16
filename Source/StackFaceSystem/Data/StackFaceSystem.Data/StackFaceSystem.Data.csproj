@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +72,10 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\StackFaceSystem.Common\StackFaceSystem.Common.csproj">
+      <Project>{d02a9b24-703a-4a6d-97cb-275068ea2e5c}</Project>
+      <Name>StackFaceSystem.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StackFaceSystem.Data.Models\StackFaceSystem.Data.Models.csproj">
       <Project>{60dc7a6f-d7cd-4138-b80d-df61045a656c}</Project>
       <Name>StackFaceSystem.Data.Models</Name>
