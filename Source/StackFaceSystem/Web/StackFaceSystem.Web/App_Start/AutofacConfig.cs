@@ -7,7 +7,7 @@
     using Autofac.Integration.Mvc;
     using StackFaceSystem.Data;
     using StackFaceSystem.Data.Common;
-
+    using Services.Common;
     public static class AutofacConfig
     {
         public static void RegisterAutofac()
@@ -43,6 +43,10 @@
             builder.Register(x => new ApplicationDbContext())
                 .As<DbContext>()
                 .InstancePerRequest();
+
+            builder.Register(x => new HttpCacheService())
+               .As<ICacheService>()
+               .InstancePerRequest();
 
             builder.RegisterGeneric(typeof(DbRepository<>))
                             .As(typeof(IDbRepository<>))
