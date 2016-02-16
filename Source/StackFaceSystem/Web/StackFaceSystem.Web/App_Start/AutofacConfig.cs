@@ -2,12 +2,12 @@
 {
     using System;
     using System.Data.Entity;
+    using System.Diagnostics;
     using System.Reflection;
     using System.Web.Mvc;
-
     using Autofac;
     using Autofac.Integration.Mvc;
-    using System.Diagnostics;
+
     public static class AutofacConfig
     {
         public static void RegisterAutofac()
@@ -40,22 +40,6 @@
 
         private static void RegisterServices(ContainerBuilder builder)
         {
-            builder.Register(x => new Service())
-                .As<IService>()
-                .InstancePerRequest();
-        }
-    }
-
-    public interface IService
-    {
-        void Work();
-    }
-
-    public class Service : IService
-    {
-        public void Work()
-        {
-            Trace.WriteLine("I am working...");
         }
     }
 }
