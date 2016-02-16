@@ -339,9 +339,10 @@
       <Project>{8b022dce-31d7-4a23-a1e8-7cfb57bc8211}</Project>
       <Name>StackFaceSystem.Data</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <ProjectReference Include="..\StackFaceSystem.Web.Infrastructure\StackFaceSystem.Web.Infrastructure.csproj">
+      <Project>{59502bd3-77ee-4f21-8f3f-5517168110cf}</Project>
+      <Name>StackFaceSystem.Web.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
