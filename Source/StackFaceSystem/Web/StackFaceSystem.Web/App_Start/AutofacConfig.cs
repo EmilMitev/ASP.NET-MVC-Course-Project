@@ -5,10 +5,11 @@
     using System.Web.Mvc;
     using Autofac;
     using Autofac.Integration.Mvc;
+    using Controllers;
+    using Services.Common;
     using StackFaceSystem.Data;
     using StackFaceSystem.Data.Common;
-    using Services.Common;
-    using Controllers;
+
     public static class AutofacConfig
     {
         public static void RegisterAutofac()

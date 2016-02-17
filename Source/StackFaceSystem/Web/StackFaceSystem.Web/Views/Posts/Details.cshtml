@@ -19,7 +19,11 @@
             <a href="#" class="label label-default">tag2</a>
             <a href="#" class="label label-default">tag3</a>
         </div>
-        <a href="#" class="pull-right btn btn-primary btn-sm"><i class="glyphicon glyphicon-comment"></i>  Answer</a>
+        @* TODO: UnComment that *@
+        @*@if (User.Identity.IsAuthenticated)
+        {*@
+            <a href="#" class="pull-right btn btn-primary btn-sm"><i class="glyphicon glyphicon-comment"></i>  Answer</a>
+        @*  *@}
     </div>
 </div>
 <div class="container col-md-12">
