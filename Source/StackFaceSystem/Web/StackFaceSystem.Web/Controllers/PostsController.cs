@@ -10,6 +10,9 @@
             return this.View();
         }
 
-
+        public ActionResult Details(int id = 1)
+        {
+            return this.View();
+        }
     }
 }

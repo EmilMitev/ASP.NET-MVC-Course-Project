@@ -314,6 +314,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Shared\_Posts.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Shared\_AnswersOnPost.cshtml" />
+    <Content Include="Views\Shared\_CommentsOnAnswer.cshtml" />
+    <Content Include="Views\Shared\_ThumbsUpOrDown.cshtml" />
+    <Content Include="Views\Shared\_ViewsAndAnswers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

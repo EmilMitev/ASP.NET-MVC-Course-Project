@@ -1,0 +1,30 @@
+﻿<hr class="style" />
+<h3>Title on post</h3>
+<hr class="style" />
+
+<div class="row">
+    @Html.Partial("_ThumbsUpOrDown")@* TODO: Give an object*@
+    <div class="col-md-10">
+        <p>asidjgfpdsihgipdfszhgszdgjbsadjgbdf</p>
+        <div class="row post-info note">
+            <hr class="post-info" />
+            <span class="pull-left">
+                before one day in <a href="#">Category</a> author <a href="#">Username</a> (725 points)
+            </span>
+        </div>
+        <hr class="post-info" />
+        <div class="tags">
+            <i class="glyphicon glyphicon-tag"></i>
+            <a href="#" class="label label-default">tag1</a>
+            <a href="#" class="label label-default">tag2</a>
+            <a href="#" class="label label-default">tag3</a>
+        </div>
+        <a href="#" class="pull-right btn btn-primary btn-sm"><i class="glyphicon glyphicon-comment"></i>  Answer</a>
+    </div>
+</div>
+<div class="container col-md-12">
+    <h4>Answers</h4>
+    <hr class="style" />
+</div>
+
+@Html.Partial("_AnswersOnPost")@* TODO: Give an object*@
