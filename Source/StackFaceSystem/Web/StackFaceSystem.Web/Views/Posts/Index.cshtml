@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <h3 style="display:inline;">
+        All post in one page
+    </h3>
+
+    <div class="form-inline pull-right">
+        <div class="input-group">
+            <input type="text" class="form-control input-sm" placeholder="Search" maxlength="100" value="">
+            <div class="input-group-btn">
+                <button class="btn btn-default btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group pull-right">
+        <a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+            <i class="glyphicon glyphicon-sort"></i> Order by
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">Title</a></li>
+            <li><a href="#">User</a></li>
+            <li><a href="#">Date</a></li>
+        </ul>
+    </div>
+
+    <a href="#" class="btn btn-default btn-sm pull-right"><i class="glyphicon glyphicon-plus"></i> Add new post</a>
+</div>
+<hr />
+
+@Html.Partial("_Posts")@* TODO: Give an object*@
+
+<div class="custom-pager text-center">
+    <ul class="pagination pagination-sm">
+        <li><a href="#">&larr; Older</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li class="next"><a href="#">Newer &rarr;</a></li>
+    </ul>
+</div>
