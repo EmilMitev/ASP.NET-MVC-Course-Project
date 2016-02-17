@@ -258,6 +258,7 @@
     <Content Include="Content\images\Background.jpg" />
     <Content Include="Content\images\ComingSoon.png" />
     <Content Include="Content\images\Logo.png" />
+    <Content Include="Content\images\User-Profile.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -1,7 +1,73 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@*<img id="comingSoon" src="~/Content/images/ComingSoon.png" alt="ComingSoon" />*@
+<div class="jumbotron">
+    <div class="row">
+        <h1 class="text-center">Welcome to StackFace</h1>
+        <h3 class="text-center">Find your problem or friend</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h5>Latest posts</h5></div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item row">
+                        <div class="col-xs-2 hidden-xs">
+                            <div class="forum-well text-center">
+                                <div class="row font-size-24">+6</div>
+                                <div class="row">votes</div>
+                            </div>
+                        </div>
 
-<h2>@ViewBag.Title.</h2>
+                        <div class="col-xs-2 hidden-xs">
+                            <div class="forum-well text-center">
+                                <div class="row font-size-24">0</div>
+                                <div class="row">answers</div>
+                            </div>
+                        </div>
 
-<img id="comingSoon" src="~/Content/images/ComingSoon.png" alt="ComingSoon" />
+                        <div class="col-xs-8">
+                            <h4 class="list-group-item-heading">List group item heading</h4>
+                            <div class="list-group-item-text">
+                                <div class="footer">
+                                    before 19 часа in Category by Username(10000 points)
+                                </div>
+                                <div class="tags">
+                                    <span class="label label-default">tag1</span>
+                                    <span class="label label-default">tag2</span>
+                                    <span class="label label-default">tag3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="note"> <strong>Note:</strong> latest posts are updated every 15 minutes</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-md-offset-1">
+        <div class="panel panel-info">
+            <div class="panel-heading"><h5>Active users</h5></div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item row">
+                        <div class="col-xs-2">
+                            <img src="~/Content/images/User-Profile.png" width="15" height="15" alt="Avatar" />
+                        </div>
+                        <div class="col-xs-10">
+                            <h6 class="list-group-item-heading">User name</h6>
+                            <div class="list-group-item-text">Register on:</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
