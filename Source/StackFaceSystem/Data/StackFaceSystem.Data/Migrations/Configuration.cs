@@ -17,29 +17,74 @@
 
         protected override void Seed(ApplicationDbContext context)
         {
-            const string AdministratorUserName = "admin@admin.com";
-            const string AdministratorPassword = AdministratorUserName;
-
             if (!context.Roles.Any())
             {
-                // Create admin role
+                var seed = new SeedData();
+
+                // For roles
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
-                var role = new IdentityRole { Name = GlobalConstants.AdministratorRoleName };
-                roleManager.Create(role);
 
-                // Create moderator role
-                role = new IdentityRole { Name = GlobalConstants.ModeratorRoleName };
-                roleManager.Create(role);
-
-                // Create admin user
+                // For users
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
-                var user = new ApplicationUser { UserName = AdministratorUserName, Email = AdministratorUserName };
-                userManager.Create(user, AdministratorPassword);
 
-                // Assign user to admin role
-                userManager.AddToRole(user.Id, GlobalConstants.AdministratorRoleName);
+                // Add roles
+                foreach (var role in seed.Roles)
+                {
+                    roleManager.Create(role);
+                }
+
+                // Add users and user to role
+                foreach (var user in seed.Users)
+                {
+                    if (user.UserName == GlobalConstants.AdministratorUserName)
+                    {
+                        userManager.Create(user, GlobalConstants.AdministratorPassword);
+                        userManager.AddToRole(user.Id, GlobalConstants.AdministratorRoleName);
+                    }
+                    else if (user.UserName == GlobalConstants.ModeratorUserName)
+                    {
+                        userManager.Create(user, GlobalConstants.ModeratorPassword);
+                        userManager.AddToRole(user.Id, GlobalConstants.ModeratorRoleName);
+                    }
+                    else
+                    {
+                        var userPassword = user.UserName;
+                        userManager.Create(user, userPassword);
+                        userManager.AddToRole(user.Id, GlobalConstants.UserRoleName);
+                    }
+                }
+
+                // Add categories
+                foreach (var category in seed.Categories)
+                {
+                    context.Categories.Add(category);
+                }
+
+                // Add tags
+                foreach (var tag in seed.Tags)
+                {
+                    context.Tags.Add(tag);
+                }
+
+                // Add posts
+                foreach (var post in seed.Posts)
+                {
+                    context.Posts.Add(post);
+                }
+
+                // Add answers
+                foreach (var answer in seed.Answers)
+                {
+                    context.Answers.Add(answer);
+                }
+
+                // Add comments
+                foreach (var comment in seed.Comments)
+                {
+                    context.Comments.Add(comment);
+                }
             }
         }
     }

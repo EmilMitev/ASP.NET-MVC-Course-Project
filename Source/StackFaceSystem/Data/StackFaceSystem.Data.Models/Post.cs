@@ -37,6 +37,7 @@
 
         public virtual ICollection<RatingPost> Ratings { get; set; }
 
+        [Required]
         public virtual ICollection<Tag> Tags { get; set; }
     }
 }
