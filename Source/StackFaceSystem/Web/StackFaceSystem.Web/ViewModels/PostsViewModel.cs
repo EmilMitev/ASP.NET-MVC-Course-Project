@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Web.ViewModels.Home
+﻿namespace StackFaceSystem.Web.ViewModels
 {
     using System;
     using System.Collections.Generic;

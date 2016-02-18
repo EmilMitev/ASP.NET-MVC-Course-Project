@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<StackFaceSystem.Web.ViewModels.PostsViewModel>
+@{
     ViewBag.Title = "Index";
 }
 
@@ -33,7 +34,10 @@
 </div>
 <hr class="style" />
 
-@Html.Partial("_Posts")@* TODO: Give an object*@
+@foreach (var post in Model)
+{
+    @Html.Partial("_Posts", post)
+}
 
 <div class="custom-pager text-center">
     <ul class="pagination pagination-sm">

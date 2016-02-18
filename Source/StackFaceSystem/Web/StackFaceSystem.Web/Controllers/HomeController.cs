@@ -4,8 +4,7 @@
     using System.Web.Mvc;
     using Infrastructure.Mapping;
     using Services.Data;
-    using ViewModels.Home;
-
+    using ViewModels;
     public class HomeController : BaseController
     {
         private readonly IPostsService posts;
@@ -15,9 +14,16 @@
             this.posts = posts;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             var postsList = this.posts.GetPostsByPage(1, 5).To<PostsViewModel>().ToList();
+
+            //var categories =
+            //    this.Cache.Get(
+            //        "categories",
+            //        () => this.jokeCategories.GetAll().To<JokeCategoryViewModel>().ToList(),
+            //        30 * 60);
 
             return this.View(postsList);
         }

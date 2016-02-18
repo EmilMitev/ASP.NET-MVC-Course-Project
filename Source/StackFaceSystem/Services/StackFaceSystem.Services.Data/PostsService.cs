@@ -18,7 +18,9 @@
 
         public Post GetById(string id)
         {
-            return null;
+            var intId = this.identifierProvider.DecodeId(id);
+            var post = this.posts.GetById(intId);
+            return post;
         }
 
         public IQueryable<Post> GetPostsByPage(int page, int count)

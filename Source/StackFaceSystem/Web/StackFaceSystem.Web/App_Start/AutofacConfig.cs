@@ -51,6 +51,10 @@
                .As<ICacheService>()
                .InstancePerRequest();
 
+            builder.Register(x => new HtmlSanitizerAdapter())
+               .As<ISanitizer>()
+               .InstancePerRequest();
+
             builder.Register(x => new IdentifierProvider())
                .As<IIdentifierProvider>()
                .InstancePerRequest();
