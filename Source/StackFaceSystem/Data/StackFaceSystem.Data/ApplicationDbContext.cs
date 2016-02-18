@@ -20,13 +20,7 @@
 
         public IDbSet<Answer> Answers { get; set; }
 
-        public IDbSet<Comment> Comments { get; set; }
-
-        public IDbSet<RatingAnswer> RatingsAnswers { get; set; }
-
-        public IDbSet<RatingComment> RatingsComments { get; set; }
-
-        public IDbSet<RatingPost> RatingsPosts { get; set; }
+        public IDbSet<Rating> Ratings { get; set; }
 
         public IDbSet<Tag> Tags { get; set; }
 

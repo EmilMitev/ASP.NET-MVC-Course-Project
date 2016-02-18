@@ -10,7 +10,7 @@
         public Post()
         {
             this.Answers = new HashSet<Answer>();
-            this.Ratings = new HashSet<RatingPost>();
+            this.Ratings = new HashSet<Rating>();
             this.Tags = new HashSet<Tag>();
         }
 
@@ -35,7 +35,7 @@
 
         public virtual ICollection<Answer> Answers { get; set; }
 
-        public virtual ICollection<RatingPost> Ratings { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
 
         [Required]
         public virtual ICollection<Tag> Tags { get; set; }

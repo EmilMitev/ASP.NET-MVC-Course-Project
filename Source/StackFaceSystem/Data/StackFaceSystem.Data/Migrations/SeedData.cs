@@ -18,7 +18,7 @@
             this.Tags = new List<Tag>();
             this.Posts = new List<Post>();
             this.Answers = new List<Answer>();
-            this.Comments = new List<Comment>();
+            this.Ratings = new List<Rating>();
 
             this.CreateRoles();
             this.CreateUsers();
@@ -26,7 +26,7 @@
             this.CreateTags();
             this.CreatePosts();
             this.CreateAnswers();
-            this.CreateComments();
+            this.CreateRatings();
         }
 
         public List<IdentityRole> Roles { get; private set; }
@@ -41,26 +41,76 @@
 
         public List<Answer> Answers { get; private set; }
 
-        public List<Comment> Comments { get; private set; }
+        public List<Rating> Ratings { get; private set; }
 
-        private void CreateComments()
+        private void CreateRatings()
         {
-            for (int i = 0; i < this.Answers.Count; i++)
-            {
-                var randomAnswerNumber = this.Random(0, 4);
+            Rating rating;
+            RatingValue value;
 
-                for (int j = 1; j <= randomAnswerNumber; j++)
+            for (int i = 0; i < this.Posts.Count; i++)
+            {
+                for (int j = 0; j < 10; j++)
                 {
                     var randomUserNumber = this.Random(0, this.Users.Count);
 
-                    var comment = new Comment()
+                    switch (this.Random(0, 3))
                     {
-                        Content = "Lorem ipsum dolor sit amet. Vivamus dapibus luctus nulla eget molestie. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam eget ullamcorper eros, aliquam varius sem. Vestibulum ultricies vehicula lectus, commodo bibendum leo",
+                        case 0:
+                            value = RatingValue.Positive;
+                            break;
+                        case 1:
+                            value = RatingValue.Neutral;
+                            break;
+                        case 2:
+                            value = RatingValue.Positive;
+                            break;
+                        default:
+                            value = RatingValue.Neutral;
+                            break;
+                    }
+
+                    rating = new Rating
+                    {
+                        Value = value,
+                        User = this.Users[randomUserNumber],
+                        Post = this.Posts[i]
+                    };
+
+                    this.Ratings.Add(rating);
+                }
+            }
+
+            for (int i = 0; i < this.Answers.Count; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    var randomUserNumber = this.Random(0, this.Users.Count);
+
+                    switch (this.Random(0, 3))
+                    {
+                        case 0:
+                            value = RatingValue.Positive;
+                            break;
+                        case 1:
+                            value = RatingValue.Neutral;
+                            break;
+                        case 2:
+                            value = RatingValue.Positive;
+                            break;
+                        default:
+                            value = RatingValue.Neutral;
+                            break;
+                    }
+
+                    rating = new Rating
+                    {
+                        Value = value,
                         User = this.Users[randomUserNumber],
                         Answer = this.Answers[i]
                     };
 
-                    this.Comments.Add(comment);
+                    this.Ratings.Add(rating);
                 }
             }
         }
@@ -80,6 +130,28 @@
                         Content = "Donec in elit tellus. Aenean vel consequat dolor. Nulla in nibh quis tellus suscipit interdum. Quisque feugiat pulvinar diam id aliquam. Cras ac nunc id turpis rutrum ultricies sed sed leo. Maecenas eleifend, mauris sed fringilla faucibus, neque justo laoreet est.",
                         User = this.Users[randomUserNumber],
                         Post = this.Posts[i]
+                    };
+
+                    this.Answers.Add(answer);
+                }
+            }
+
+            var answerOnPostCount = this.Answers.Count;
+
+            for (int i = 0; i < answerOnPostCount; i++)
+            {
+                var randomCommentsNumber = this.Random(0, 3);
+
+                for (int j = 1; j <= randomCommentsNumber; j++)
+                {
+                    var randomUserNumber = this.Random(0, this.Users.Count);
+
+                    var answer = new Answer()
+                    {
+                        Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at nisl aliquet, vulputate turpis et, lacinia tellus. Aliquam diam tortor, accumsan id interdum ac, convallis rhoncus enim. Proin sapien ipsum, fermentum consequat faucibus eu, aliquam at sapien. Morbi pretium quis tellus non convallis. Sed interdum aliquam auctor. Nulla tellus magna.",
+                        User = this.Users[randomUserNumber],
+                        Comment = this.Answers[i],
+                        Post = this.Answers[i].Post
                     };
 
                     this.Answers.Add(answer);

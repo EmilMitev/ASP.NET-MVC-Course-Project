@@ -80,11 +80,13 @@
                     context.Answers.Add(answer);
                 }
 
-                // Add comments
-                foreach (var comment in seed.Comments)
+                // Add rating
+                foreach (var rating in seed.Ratings)
                 {
-                    context.Comments.Add(comment);
+                    context.Ratings.Add(rating);
                 }
+
+                System.Console.WriteLine();
             }
         }
     }
