@@ -14,6 +14,22 @@
         {
         }
 
+        public IDbSet<Category> Categories { get; set; }
+
+        public IDbSet<Post> Posts { get; set; }
+
+        public IDbSet<Answer> Answers { get; set; }
+
+        public IDbSet<Comment> Comments { get; set; }
+
+        public IDbSet<RatingAnswer> RatingsAnswers { get; set; }
+
+        public IDbSet<RatingComment> RatingsComments { get; set; }
+
+        public IDbSet<RatingPost> RatingsPosts { get; set; }
+
+        public IDbSet<Tag> Tags { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
@@ -27,7 +43,6 @@
 
         private void ApplyAuditInfoRules()
         {
-            // Approach via @julielerman: http://bit.ly/123661P
             foreach (var entry in
                 this.ChangeTracker.Entries()
                     .Where(
