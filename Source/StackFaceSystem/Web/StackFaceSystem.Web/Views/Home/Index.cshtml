@@ -1,7 +1,9 @@
-﻿@{
+﻿@model IEnumerable<StackFaceSystem.Web.ViewModels.Home.PostsViewModel>
+@{
     ViewBag.Title = "Home Page";
 }
 @*<img id="comingSoon" src="~/Content/images/ComingSoon.png" alt="ComingSoon" />*@
+
 <div class="jumbotron">
     <div class="row">
         <h1 class="text-center">Welcome to StackFace</h1>
@@ -13,7 +15,10 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h5>Latest posts</h5></div>
             <div class="panel-body">
-                @Html.Partial("_Posts")@* TODO: Give an object*@ 
+                @foreach (var post in Model)
+                {
+                    @Html.Partial("_Posts", post)
+                }
             </div>
             <div class="panel-footer">
                 <div class="note"> <strong>Note:</strong> latest posts are updated every 15 minutes</div>
@@ -40,4 +45,3 @@
         </div>
     </div>
 </div>
-

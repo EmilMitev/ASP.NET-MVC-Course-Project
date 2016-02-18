@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPostsService.cs" />
+    <Compile Include="PostsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +52,20 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\StackFaceSystem.Data.Common\StackFaceSystem.Data.Common.csproj">
+      <Project>{36f9fe63-9388-4158-a12e-492016c98b81}</Project>
+      <Name>StackFaceSystem.Data.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\StackFaceSystem.Data.Models\StackFaceSystem.Data.Models.csproj">
+      <Project>{60dc7a6f-d7cd-4138-b80d-df61045a656c}</Project>
+      <Name>StackFaceSystem.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StackFaceSystem.Services.Common\StackFaceSystem.Services.Common.csproj">
+      <Project>{f07b19e4-66a7-4bf9-adfc-facd0f848d96}</Project>
+      <Name>StackFaceSystem.Services.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
