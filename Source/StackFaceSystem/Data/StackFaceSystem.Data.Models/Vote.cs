@@ -3,9 +3,9 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using Common.Models;
 
-    public class Rating : BaseModel<int>
+    public class Vote : BaseModel<int>
     {
-        public RatingValue Value { get; set; }
+        public VoteValue Value { get; set; }
 
         public string UserId { get; set; }
 
@@ -16,6 +16,11 @@
 
         [ForeignKey("AnswerId")]
         public virtual Answer Answer { get; set; }
+
+        public int? CommentId { get; set; }
+
+        [ForeignKey("CommentId")]
+        public virtual Comment Comment { get; set; }
 
         public int? PostId { get; set; }
 

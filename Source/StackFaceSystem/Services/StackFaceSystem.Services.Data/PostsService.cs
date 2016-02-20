@@ -23,13 +23,27 @@
             return post;
         }
 
-        public IQueryable<Post> GetPostsByPage(int page, int count)
+        public IQueryable<Post> GetPostsByPage(int page, int take)
+        {
+            var posts = this.posts
+                            .All()
+                            .OrderBy(x => x.CreatedOn)
+                            .Skip((page - 1) * take)
+                            .Take(take);
+            return posts;
+        }
+
+        public int GetPostsNumber()
+        {
+            return this.posts.All().Count();
+        }
+
+        public IQueryable<Post> GetNewestPost()
         {
             return this.posts
-                .All()
-                .OrderBy(x => x.CreatedOn)
-                .Skip((page - 1) * count)
-                .Take(count);
+                            .All()
+                            .OrderBy(x => x.CreatedOn)
+                            .Take(5);
         }
     }
 }

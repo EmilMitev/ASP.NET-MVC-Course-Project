@@ -5,39 +5,27 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using StackFaceSystem.Data.Common.Models;
 
-    public class Post : BaseModel<int>
+    public class Comment : BaseModel<int>
     {
-        public Post()
+        public Comment()
         {
-            this.Answers = new HashSet<Answer>();
             this.Votes = new HashSet<Vote>();
-            this.Tags = new HashSet<Tag>();
         }
 
         [Required]
-        [MaxLength(50)]
-        public string Title { get; set; }
-
-        [Required]
-        [MaxLength(1000)]
+        [MaxLength(500)]
         public string Content { get; set; }
 
-        [Required]
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
-        public int CategoryId { get; set; }
+        public int AnswerId { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public virtual Category Category { get; set; }
-
-        public virtual ICollection<Answer> Answers { get; set; }
+        [ForeignKey("AnswerId")]
+        public virtual Answer Answer { get; set; }
 
         public virtual ICollection<Vote> Votes { get; set; }
-
-        [Required]
-        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

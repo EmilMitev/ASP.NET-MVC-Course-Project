@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Web.ViewModels
+﻿namespace StackFaceSystem.Web.ViewModels.Posts
 {
     using System;
     using System.Collections.Generic;
@@ -38,7 +38,7 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Post, PostsViewModel>().ForMember(x => x.AnswersCount, opt => opt.MapFrom(x => x.Answers.Count));
-            configuration.CreateMap<Post, PostsViewModel>().ForMember(x => x.Votes, opt => opt.MapFrom(x => x.Ratings.Count));
+            configuration.CreateMap<Post, PostsViewModel>().ForMember(x => x.Votes, opt => opt.MapFrom(x => x.Votes.Count));
             configuration.CreateMap<Post, PostsViewModel>().ForMember(x => x.Category, opt => opt.MapFrom(x => x.Category.Name));
             configuration.CreateMap<Post, PostsViewModel>().ForMember(x => x.Author, opt => opt.MapFrom(x => x.User.UserName));
             configuration.CreateMap<Post, PostsViewModel>().ForMember(x => x.Tags, opt => opt.MapFrom(x => x.Tags.Select(t => t.Name)));

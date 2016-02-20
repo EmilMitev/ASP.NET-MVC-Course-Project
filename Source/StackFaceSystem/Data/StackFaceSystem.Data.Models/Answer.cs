@@ -9,7 +9,8 @@
     {
         public Answer()
         {
-            this.Ratings = new HashSet<Rating>();
+            this.Votes = new HashSet<Vote>();
+            this.Commets = new HashSet<Comment>();
         }
 
         [Required]
@@ -21,17 +22,13 @@
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
-        [Required]
         public int PostId { get; set; }
 
         [ForeignKey("PostId")]
         public virtual Post Post { get; set; }
 
-        public int? CommentId { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
 
-        [ForeignKey("CommentId")]
-        public virtual Answer Comment { get; set; }
-
-        public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Comment> Commets { get; set; }
     }
 }

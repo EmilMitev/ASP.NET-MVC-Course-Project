@@ -1,18 +1,21 @@
-﻿@model StackFaceSystem.Web.ViewModels.Posts.CommentsOnAnswerViewModel
-<div class="col-md-2">
-    <div class="forum-well text-center">
-        <a href="#"><i class="glyphicon glyphicon-thumbs-up pull-left"></i></a>
-        <span class="text-center">@Model.Rating</span>
-        <a href="#"><i class="glyphicon glyphicon-thumbs-down pull-right"></i></a>
+﻿@model StackFaceSystem.Web.ViewModels.Posts.CommentsPerAnswerViewModel
+<div class="panel-body">
+    <div class="col-md-2">
+        <div class="forum-well text-center">
+            <a href="#"><i class="glyphicon glyphicon-thumbs-up pull-left"></i></a>
+            <span class="text-center">@Model.VotesSum</span>
+            <a href="#"><i class="glyphicon glyphicon-thumbs-down pull-right"></i></a>
+        </div>
     </div>
-</div>
-<div class="col-md-10">
-    <p>@Model.SanitizedContent</p>
-    <div class="row post-info note">
+    <div class="col-md-10">
+        <p>@Model.SanitizedContent</p>
+        <div class="row post-info note">
+            <hr class="post-info" />
+            <span class="pull-left">
+                before @Html.DisplayFor(x => x.CreatedOn) author <a href="#">@Model.Author</a>
+            </span>
+        </div>
         <hr class="post-info" />
-        <span class="pull-left">
-            before @((DateTime.UtcNow - Model.CreatedOn).Hours) author <a href="#">@Model.Author</a>
-        </span>
     </div>
-    <hr class="post-info" />
+
 </div>

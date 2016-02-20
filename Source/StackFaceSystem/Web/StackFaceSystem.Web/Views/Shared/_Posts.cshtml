@@ -1,4 +1,4 @@
-﻿@model StackFaceSystem.Web.ViewModels.PostsViewModel
+﻿@model StackFaceSystem.Web.ViewModels.Posts.PostsViewModel
 <div class="list-group">
     <a href="@Model.Url" class="list-group-item row">
         <div class="col-xs-2 hidden-xs">
@@ -17,7 +17,7 @@
         <div class="col-xs-8">
             <h4 class="list-group-item-heading">@Model.Title</h4>
             <div class="list-group-item-text">
-                <div class="footer">
+                <div class="note-footer">
                     before @((DateTime.Now - Model.CreatedOn).Hours) hours in @Model.Category by @Model.Author
                 </div>
                 <div class="tags">

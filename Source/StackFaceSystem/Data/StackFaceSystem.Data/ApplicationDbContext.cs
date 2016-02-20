@@ -20,7 +20,9 @@
 
         public IDbSet<Answer> Answers { get; set; }
 
-        public IDbSet<Rating> Ratings { get; set; }
+        public IDbSet<Comment> Comments { get; set; }
+
+        public IDbSet<Vote> Votes { get; set; }
 
         public IDbSet<Tag> Tags { get; set; }
 

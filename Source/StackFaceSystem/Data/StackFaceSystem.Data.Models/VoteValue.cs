@@ -1,6 +1,6 @@
 ﻿namespace StackFaceSystem.Data.Models
 {
-    public enum RatingValue
+    public enum VoteValue
     {
         Negative = -1,
         Neutral = 0,

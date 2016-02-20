@@ -11,8 +11,8 @@
     {
         public Configuration()
         {
-            this.AutomaticMigrationsEnabled = false;
-            this.AutomaticMigrationDataLossAllowed = false;
+            this.AutomaticMigrationsEnabled = true;
+            this.AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(ApplicationDbContext context)
@@ -80,13 +80,17 @@
                     context.Answers.Add(answer);
                 }
 
-                // Add rating
-                foreach (var rating in seed.Ratings)
+                // Add comments
+                foreach (var comment in seed.Comments)
                 {
-                    context.Ratings.Add(rating);
+                    context.Comments.Add(comment);
                 }
 
-                System.Console.WriteLine();
+                // Add rating
+                foreach (var rating in seed.Votes)
+                {
+                    context.Votes.Add(rating);
+                }
             }
         }
     }

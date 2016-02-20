@@ -33,15 +33,15 @@
 
         public string Author { get; set; }
 
-        public int Rating { get; set; }
+        public int VotesSum { get; set; }
 
-        public ICollection<CommentsOnAnswerViewModel> Answers { get; set; }
+        public ICollection<CommentsPerAnswerViewModel> CommentsOnAnswer { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            configuration.CreateMap<Post, AnswersViewModel>().ForMember(x => x.Author, opt => opt.MapFrom(x => x.User.UserName));
-            configuration.CreateMap<Post, AnswersViewModel>().ForMember(x => x.Rating, opt => opt.MapFrom(x => x.Ratings.Any() ? x.Ratings.Where(r => r.AnswerId == this.Id).Sum(v => (int)v.Value) : 0));
-            configuration.CreateMap<Post, AnswersViewModel>().ForMember(x => x.Answers, opt => opt.MapFrom(x => x.Answers.Where(a => a.Id == this.Id)));
+            configuration.CreateMap<Answer, AnswersViewModel>().ForMember(x => x.Author, opt => opt.MapFrom(x => x.User.UserName));
+            configuration.CreateMap<Answer, AnswersViewModel>().ForMember(x => x.VotesSum, opt => opt.MapFrom(x => x.Votes.Any() ? x.Votes.Sum(v => (int)v.Value) : 0));
+            configuration.CreateMap<Answer, AnswersViewModel>().ForMember(x => x.CommentsOnAnswer, opt => opt.MapFrom(x => x.Commets));
         }
     }
 }

@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnswersService.cs" />
+    <Compile Include="IAnswersService.cs" />
     <Compile Include="IPostsService.cs" />
     <Compile Include="PostsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +63,10 @@
     <ProjectReference Include="..\..\Data\StackFaceSystem.Data.Models\StackFaceSystem.Data.Models.csproj">
       <Project>{60dc7a6f-d7cd-4138-b80d-df61045a656c}</Project>
       <Name>StackFaceSystem.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\StackFaceSystem.Web.Infrastructure\StackFaceSystem.Web.Infrastructure.csproj">
+      <Project>{59502bd3-77ee-4f21-8f3f-5517168110cf}</Project>
+      <Name>StackFaceSystem.Web.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\StackFaceSystem.Services.Common\StackFaceSystem.Services.Common.csproj">
       <Project>{f07b19e4-66a7-4bf9-adfc-facd0f848d96}</Project>

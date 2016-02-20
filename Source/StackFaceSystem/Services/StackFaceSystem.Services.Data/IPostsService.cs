@@ -8,5 +8,9 @@
         Post GetById(string id);
 
         IQueryable<Post> GetPostsByPage(int page, int count);
+
+        int GetPostsNumber();
+
+        IQueryable<Post> GetNewestPost();
     }
 }

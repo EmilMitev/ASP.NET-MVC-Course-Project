@@ -1,0 +1,17 @@
+﻿@model DateTime
+
+@if ((DateTime.Now - Model).Hours < 1)
+{
+    var minute = (DateTime.Now - Model).Minutes == 1 ? $"{(DateTime.Now - Model).Minutes} minute" : $"{(DateTime.Now - Model).Minutes} minutes";
+    <span> @minute</span>
+}
+else if ((DateTime.Now - Model).Hours < 24)
+{
+    var hour = (DateTime.Now - Model).Hours == 1 ? $"{(DateTime.Now - Model).Hours} hour" : $"{(DateTime.Now - Model).Hours} hours";
+    <span> @hour</span>
+}
+else
+{
+    var day = (DateTime.Now - Model).Days == 1 ? $"{(DateTime.Now - Model).Days} day" : $"{(DateTime.Now - Model).Days} day";
+    <span> @day</span>
+}

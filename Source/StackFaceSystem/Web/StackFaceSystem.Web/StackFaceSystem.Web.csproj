@@ -248,9 +248,11 @@
     <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
     <Compile Include="ViewModels\Posts\AnswersViewModel.cs" />
-    <Compile Include="ViewModels\Posts\CommentsOnAnswerViewModel.cs" />
-    <Compile Include="ViewModels\Posts\DetailsViewModel.cs" />
-    <Compile Include="ViewModels\PostsViewModel.cs" />
+    <Compile Include="ViewModels\Posts\CommentsPerAnswerViewModel.cs" />
+    <Compile Include="ViewModels\Posts\DetailsPostViewModel.cs" />
+    <Compile Include="ViewModels\Posts\DetailsPostWithPagableAnswersViewModel.cs" />
+    <Compile Include="ViewModels\Posts\PagablePostsViewModel.cs" />
+    <Compile Include="ViewModels\Posts\PostsViewModel.cs" />
     <Compile Include="ViewModels\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\ConfigureTwoFactorViewModel.cs" />
@@ -331,6 +333,7 @@
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Shared\_AnswersOnPost.cshtml" />
     <Content Include="Views\Shared\_CommentsOnAnswer.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

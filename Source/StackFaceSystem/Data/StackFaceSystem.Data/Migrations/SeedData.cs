@@ -18,7 +18,8 @@
             this.Tags = new List<Tag>();
             this.Posts = new List<Post>();
             this.Answers = new List<Answer>();
-            this.Ratings = new List<Rating>();
+            this.Comments = new List<Comment>();
+            this.Votes = new List<Vote>();
 
             this.CreateRoles();
             this.CreateUsers();
@@ -26,7 +27,8 @@
             this.CreateTags();
             this.CreatePosts();
             this.CreateAnswers();
-            this.CreateRatings();
+            this.CreateComments();
+            this.CreateVotes();
         }
 
         public List<IdentityRole> Roles { get; private set; }
@@ -41,12 +43,14 @@
 
         public List<Answer> Answers { get; private set; }
 
-        public List<Rating> Ratings { get; private set; }
+        public List<Comment> Comments { get; private set; }
 
-        private void CreateRatings()
+        public List<Vote> Votes { get; private set; }
+
+        private void CreateVotes()
         {
-            Rating rating;
-            RatingValue value;
+            Vote vote;
+            VoteValue value;
 
             for (int i = 0; i < this.Posts.Count; i++)
             {
@@ -56,28 +60,19 @@
 
                     switch (this.Random(0, 3))
                     {
-                        case 0:
-                            value = RatingValue.Positive;
-                            break;
-                        case 1:
-                            value = RatingValue.Neutral;
-                            break;
-                        case 2:
-                            value = RatingValue.Positive;
-                            break;
-                        default:
-                            value = RatingValue.Neutral;
-                            break;
+                        case 0: value = VoteValue.Positive; break;
+                        case 1: value = VoteValue.Negative; break;
+                        default: value = VoteValue.Positive; break;
                     }
 
-                    rating = new Rating
+                    vote = new Vote
                     {
                         Value = value,
                         User = this.Users[randomUserNumber],
                         Post = this.Posts[i]
                     };
 
-                    this.Ratings.Add(rating);
+                    this.Votes.Add(vote);
                 }
             }
 
@@ -89,28 +84,65 @@
 
                     switch (this.Random(0, 3))
                     {
-                        case 0:
-                            value = RatingValue.Positive;
-                            break;
-                        case 1:
-                            value = RatingValue.Neutral;
-                            break;
-                        case 2:
-                            value = RatingValue.Positive;
-                            break;
-                        default:
-                            value = RatingValue.Neutral;
-                            break;
+                        case 0: value = VoteValue.Positive; break;
+                        case 1: value = VoteValue.Negative; break;
+                        default: value = VoteValue.Positive; break;
                     }
 
-                    rating = new Rating
+                    vote = new Vote
                     {
                         Value = value,
                         User = this.Users[randomUserNumber],
                         Answer = this.Answers[i]
                     };
 
-                    this.Ratings.Add(rating);
+                    this.Votes.Add(vote);
+                }
+            }
+
+            for (int i = 0; i < this.Comments.Count; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    var randomUserNumber = this.Random(0, this.Users.Count);
+
+                    switch (this.Random(0, 3))
+                    {
+                        case 0: value = VoteValue.Positive; break;
+                        case 1: value = VoteValue.Negative; break;
+                        default: value = VoteValue.Positive; break;
+                    }
+
+                    vote = new Vote
+                    {
+                        Value = value,
+                        User = this.Users[randomUserNumber],
+                        Comment = this.Comments[i]
+                    };
+
+                    this.Votes.Add(vote);
+                }
+            }
+        }
+
+        private void CreateComments()
+        {
+            for (int i = 0; i < this.Answers.Count; i++)
+            {
+                var randomCommentsNumber = this.Random(0, 3);
+
+                for (int j = 1; j <= randomCommentsNumber; j++)
+                {
+                    var randomUserNumber = this.Random(0, this.Users.Count);
+
+                    var comment = new Comment()
+                    {
+                        Content = $"Answer{i} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at nisl aliquet, vulputate turpis et, lacinia tellus. Aliquam diam tortor, accumsan id interdum ac, convallis rhoncus enim. Proin sapien ipsum, fermentum consequat faucibus eu, aliquam at sapien. Morbi pretium quis tellus non convallis. Sed interdum aliquam auctor. Nulla tellus magna.",
+                        User = this.Users[randomUserNumber],
+                        Answer = this.Answers[i]
+                    };
+
+                    this.Comments.Add(comment);
                 }
             }
         }
@@ -119,39 +151,17 @@
         {
             for (int i = 0; i < this.Posts.Count; i++)
             {
-                var randomPostsNumber = this.Random(5, 10);
+                var randomAnswerNumber = this.Random(5, 10);
 
-                for (int j = 1; j <= randomPostsNumber; j++)
+                for (int j = 1; j <= randomAnswerNumber; j++)
                 {
                     var randomUserNumber = this.Random(0, this.Users.Count);
 
                     var answer = new Answer()
                     {
-                        Content = "Donec in elit tellus. Aenean vel consequat dolor. Nulla in nibh quis tellus suscipit interdum. Quisque feugiat pulvinar diam id aliquam. Cras ac nunc id turpis rutrum ultricies sed sed leo. Maecenas eleifend, mauris sed fringilla faucibus, neque justo laoreet est.",
+                        Content = $"Post{i}, Answer{j},Donec in elit tellus. Aenean vel consequat dolor. Nulla in nibh quis tellus suscipit interdum. Quisque feugiat pulvinar diam id aliquam. Cras ac nunc id turpis rutrum ultricies sed sed leo. Maecenas eleifend, mauris sed fringilla faucibus, neque justo laoreet est.",
                         User = this.Users[randomUserNumber],
                         Post = this.Posts[i]
-                    };
-
-                    this.Answers.Add(answer);
-                }
-            }
-
-            var answerOnPostCount = this.Answers.Count;
-
-            for (int i = 0; i < answerOnPostCount; i++)
-            {
-                var randomCommentsNumber = this.Random(0, 3);
-
-                for (int j = 1; j <= randomCommentsNumber; j++)
-                {
-                    var randomUserNumber = this.Random(0, this.Users.Count);
-
-                    var answer = new Answer()
-                    {
-                        Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at nisl aliquet, vulputate turpis et, lacinia tellus. Aliquam diam tortor, accumsan id interdum ac, convallis rhoncus enim. Proin sapien ipsum, fermentum consequat faucibus eu, aliquam at sapien. Morbi pretium quis tellus non convallis. Sed interdum aliquam auctor. Nulla tellus magna.",
-                        User = this.Users[randomUserNumber],
-                        Comment = this.Answers[i],
-                        Post = this.Answers[i].Post
                     };
 
                     this.Answers.Add(answer);
@@ -175,8 +185,8 @@
 
                 var post = new Post
                 {
-                    Title = $"This is post title{i}",
-                    Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum nisl nec libero ullamcorper luctus. Donec facilisis nulla sed nulla facilisis pretium. Aenean congue dolor ut mauris interdum.",
+                    Title = $"{i}This is post title",
+                    Content = $"{i}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum nisl nec libero ullamcorper luctus. Donec facilisis nulla sed nulla facilisis pretium. Aenean congue dolor ut mauris interdum.",
                     User = this.Users[randomUserNumber],
                     Category = this.Categories[randomCategoryNumber],
                     Tags = randomTags
