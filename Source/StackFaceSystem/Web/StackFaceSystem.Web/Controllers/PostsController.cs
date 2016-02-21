@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading;
     using System.Web.Mvc;
     using Data.Models;
     using Infrastructure.Mapping;
@@ -69,7 +70,7 @@
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult CreatePost()
         {
             var categories = this.Cache
                                   .Get(
@@ -87,7 +88,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(InputPostViewModel model)
+        public ActionResult CreatePost(InputPostViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -114,6 +115,34 @@
             // this.posts.CreatePost(post);
             this.TempData["Notification"] = "You successfully add your post.";
             return this.RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult CreateAnswer()
+        {
+            Thread.Sleep(2000);
+            return this.PartialView("_CreateAnswer");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAnswer(InputPostViewModel model)
+        {
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult CreateComment()
+        {
+            Thread.Sleep(2000);
+            return this.PartialView("_CreateComment");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment(InputPostViewModel model)
+        {
+            return null;
         }
     }
 }

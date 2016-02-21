@@ -2,9 +2,9 @@
 <div class="panel-body">
     <div class="col-md-2">
         <div class="forum-well text-center">
-            <a href="#"><i class="glyphicon glyphicon-thumbs-up pull-left"></i></a>
-            <span class="text-center">@Model.VotesSum</span>
-            <a href="#"><i class="glyphicon glyphicon-thumbs-down pull-right"></i></a>
+            <div data-id="@Model.Id" data-action="up" data-subject="comment"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+            <div class="row" data-id="@Model.Id" data-subject="comment" data-action="votesCount">@Model.VotesSum</div>
+            <div data-id="@Model.Id" data-action="down" data-subject="comment"><i class="glyphicon glyphicon-thumbs-down"></i></div>
         </div>
     </div>
     <div class="col-md-10">
@@ -17,5 +17,4 @@
         </div>
         <hr class="post-info" />
     </div>
-
 </div>

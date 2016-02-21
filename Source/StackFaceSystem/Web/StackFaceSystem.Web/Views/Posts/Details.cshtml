@@ -1,16 +1,16 @@
 ﻿@model StackFaceSystem.Web.ViewModels.Posts.DetailsPostWithPagableAnswersViewModel
 <hr class="style" />
+<h1 data-post-id="@Model.Post.EncodedId" style="display:none"></h1>
 <h3>@Model.Post.Title</h3>
 <hr class="style" />
 
 <div class="well">
     <div class="row">
-
         <div class="col-md-2">
             <div class="forum-well text-center">
-                <a href="#"><i class="glyphicon glyphicon-thumbs-up"></i></a>
-                <div class="row">@Model.Post.VotesSum</div>
-                <a href="#"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+                <div data-id="@Model.Post.Id" data-action="up" data-subject="post"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+                <div class="row" data-id="@Model.Post.Id" data-subject="post" data-action="votesCount">@Model.Post.VotesSum</div>
+                <div data-id="@Model.Post.Id" data-action="down" data-subject="post"><i class="glyphicon glyphicon-thumbs-down"></i></div>
             </div>
         </div>
 
@@ -31,10 +31,23 @@
                 {
                     <a href="#" class="label label-default">@tag</a>
                 }
-                <a href="#" class="pull-right btn btn-primary btn-sm"><i class="glyphicon glyphicon-comment"></i>  Answer</a>
+                @Ajax.ActionLink("Answer", "CreateAnswer", null,
+                                                new AjaxOptions
+                                                {
+                                                    UpdateTargetId = "addAnswerToPost",
+                                                    LoadingElementId = "addAnswerToPostLoading",
+                                                    HttpMethod = "GET",
+                                                    InsertionMode = InsertionMode.Replace,
+                                                    OnSuccess = "OnAjaxAnswerSuccess"
+                                                }, new { @class = "pull-right btn btn-primary btn-sm" })
             </div>
         </div>
     </div>
+</div>
+<div id="addAnswerToPost" style="display: none"></div>
+<div id="addAnswerToPostLoading" style="display: none">
+    <div class="circle"></div>
+    <div class="circle1"></div>
 </div>
 <div class="container col-md-12">
     <h4>Answers</h4>
@@ -46,3 +59,77 @@
         @Html.Partial("_AnswersOnPost", answer)
     }
 </div>
+
+<nav class="text-center">
+    <ul class="pagination">
+        @if (Model.CurrentPage > 1)
+            {
+        <li>
+            <a href="/Posts/Details/@(Model.Post.EncodedId)?page=@(Model.CurrentPage - 1)" aria-label="Previous">
+                <span aria-hidden="true">&larr;Previous</span>
+            </a>
+        </li>
+        }
+        @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                var className = string.Empty;
+                if (Model.CurrentPage == i)
+                {
+                    className = "active";
+                }
+        <li class="@className"><a href="/Posts/Details/@(Model.Post.EncodedId)?page=@i">@i</a></li>
+        }
+        @if (Model.CurrentPage < Model.TotalPages)
+        {
+        <li>
+            <a href="/Posts/Details/@(Model.Post.EncodedId)?page=@(Model.CurrentPage + 1)" aria-label="Next">
+                <span aria-hidden="true">Next &rarr;</span>
+            </a>
+        </li>
+        }
+    </ul>
+</nav>
+
+@section Scripts{
+    <script>
+        $("div[data-action='up'").click(function () {
+            var id = $(this).attr("data-id");
+            var subject = $(this).attr("data-subject");
+            voteClick(id, 1, subject);
+        });
+        $("div[data-action='down'").click(function () {
+            var id = $(this).attr("data-id");
+            var subject = $(this).attr("data-subject");
+            voteClick(id, -1, subject);
+        });
+
+        function voteClick(id, voteType, subject) {
+            $.post("/Votes/Vote", { subjectId: id, voteType: voteType, subjectType: subject },
+           function (data) {
+               var newVotesCount = data.Count;
+               $("div[data-subject='" + subject + "'][data-action='votesCount'][data-id='" + id + "']").html(newVotesCount)
+           });
+        }
+    </script>
+    <script>
+        var selector;
+        function OnAjaxAnswerSuccess(data) {
+            $("#addAnswerToPost").show(1000);
+        }
+
+        function OnAjaxCommentBegin(data) {
+            $(selector).hide(1000);
+        }
+
+        function OnAjaxCommentSuccess(data) {
+            $(selector).hide(1000);
+            selector = "#" + $(this).attr("updateTargetId");
+            console.log(selector);
+            $(selector).show(1000);
+        }
+
+        function hideAddComment() {
+            $(selector).hide(1000);
+        }
+    </script>
+}

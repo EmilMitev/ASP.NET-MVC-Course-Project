@@ -239,6 +239,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\VotesController.cs" />
     <Compile Include="CustomAttributes\ExcludeChar.cs" />
     <Compile Include="CustomAttributes\TagsAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -258,6 +259,8 @@
     <Compile Include="ViewModels\Posts\CommentsPerAnswerViewModel.cs" />
     <Compile Include="ViewModels\Posts\DetailsPostViewModel.cs" />
     <Compile Include="ViewModels\Posts\DetailsPostWithPagableAnswersViewModel.cs" />
+    <Compile Include="ViewModels\Posts\InputAnswerViewModel.cs" />
+    <Compile Include="ViewModels\Posts\InputCommentViewModel.cs" />
     <Compile Include="ViewModels\Posts\InputPostViewModel.cs" />
     <Compile Include="ViewModels\Posts\PagablePostsViewModel.cs" />
     <Compile Include="ViewModels\Posts\PostsViewModel.cs" />
@@ -597,9 +600,11 @@
     <Content Include="Views\Shared\_AnswersOnPost.cshtml" />
     <Content Include="Views\Shared\_CommentsOnAnswer.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
-    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\CreatePost.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
+    <Content Include="Views\Posts\_CreateAnswer.cshtml" />
+    <Content Include="Views\Posts\_CreateComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -614,6 +619,7 @@
     <Folder Include="Areas\User\Models\" />
     <Folder Include="Areas\User\Views\Shared\" />
     <Folder Include="ViewModels\Home\" />
+    <Folder Include="Views\Votes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

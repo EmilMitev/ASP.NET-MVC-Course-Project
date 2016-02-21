@@ -1,12 +1,13 @@
 ﻿@model StackFaceSystem.Web.ViewModels.Posts.AnswersViewModel
 <div class="panel-body">
+    <h1 data-answer-id="@Model.Id" style="display:none"></h1>
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-2">
                 <div class="forum-well text-center">
-                    <a href="#"><i class="glyphicon glyphicon-thumbs-up"></i></a>
-                    <div class="row">@Model.VotesSum</div>
-                    <a href="#"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+                    <div data-id="@Model.Id" data-action="up" data-subject="answer"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+                    <div class="row" data-id="@Model.Id" data-subject="answer" data-action="votesCount">@Model.VotesSum</div>
+                    <div data-id="@Model.Id" data-action="down" data-subject="answer"><i class="glyphicon glyphicon-thumbs-down"></i></div>
                 </div>
             </div>
 
@@ -19,10 +20,28 @@
                     </span>
                 </div>
                 <hr class="post-info" />
-                <a href="#" class="pull-right btn btn-primary btn-sm"><i class="glyphicon glyphicon-comment"></i>  Comment</a>
+                @Ajax.ActionLink("Comment", "CreateComment", null,
+                                                new AjaxOptions
+                                                {
+                                                    UpdateTargetId = "addCommentToAnswer" + Model.Id,
+                                                    LoadingElementId = "addCommentToAnswerLoading" + Model.Id,
+                                                    HttpMethod = "GET",
+                                                    InsertionMode = InsertionMode.Replace,
+                                                    OnBegin="OnAjaxCommentBegin",
+                                                    OnSuccess = "OnAjaxCommentSuccess"
+                                                }, new { @class = "pull-right btn btn-primary btn-sm", updateTargetId= "addCommentToAnswer" + Model.Id })
             </div>
             <div class="col-lg-offset-1 col-md-11">
                 <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div id="addCommentToAnswer@(Model.Id)" style="display: none"></div>
+                            <div id="addCommentToAnswerLoading@(Model.Id)" style="display: none">
+                                <div class="circle"></div>
+                                <div class="circle1"></div>
+                            </div>
+                        </div>
+                    </div>
                     @foreach (var comment in Model.CommentsOnAnswer)
                     {
                         @Html.Partial("_CommentsOnAnswer", comment)
@@ -32,4 +51,3 @@
         </div>
     </div>
 </div>
-
