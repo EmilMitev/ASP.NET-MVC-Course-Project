@@ -1,0 +1,31 @@
+﻿namespace StackFaceSystem.Web.ViewModels.Posts
+{
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web.Mvc;
+    using CustomAttributes;
+
+    public class InputPostViewModel
+    {
+        [Required]
+        [MaxLength(50)]
+        public string Title { get; set; }
+
+        [AllowHtml]
+        [DataType("tinymce_full")]
+        [UIHint("tinymce_full")]
+        public string Content { get; set; }
+
+        public int CategoryId { get; set; }
+
+        [NotMapped]
+        public ICollection<CategoriesViewModel> Categories { get; set; }
+
+        [NotMapped]
+        [Required]
+        [ExcludeChar(chars: "{}!@$%.^&", error: "{0}contains invalid character({}!@$%.^&).")]
+        [TagsAttribute(length: 10, error: "{0} contains tag with length > 10.")]
+        public string Tags { get; set; }
+    }
+}

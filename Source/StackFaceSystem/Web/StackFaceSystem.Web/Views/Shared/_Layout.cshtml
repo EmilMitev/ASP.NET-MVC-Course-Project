@@ -24,6 +24,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
                     <li><a href="/glimpse.axd">Glimpse</a></li>
+                    <li><a href="/elmah.axd">Elmah</a></li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -40,5 +41,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
