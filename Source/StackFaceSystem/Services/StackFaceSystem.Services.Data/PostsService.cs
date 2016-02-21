@@ -45,5 +45,11 @@
                             .OrderBy(x => x.CreatedOn)
                             .Take(5);
         }
+
+        public void CreatePost(Post post)
+        {
+            this.posts.Add(post);
+            this.posts.Save();
+        }
     }
 }

@@ -12,5 +12,7 @@
         int GetPostsNumber();
 
         IQueryable<Post> GetNewestPost();
+
+        void CreatePost(Post post);
     }
 }

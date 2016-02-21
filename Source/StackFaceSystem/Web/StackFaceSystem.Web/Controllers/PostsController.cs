@@ -3,7 +3,9 @@
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using Data.Models;
     using Infrastructure.Mapping;
+    using Microsoft.AspNet.Identity;
     using Services.Data;
     using ViewModels.Posts;
 
@@ -95,8 +97,21 @@
                 return this.View(model);
             }
 
-            var tags = this.ta
+            // TODO:implement tags!!!!!
+            var tags = this.tags.CheckExist(model.Tags).ToList();
 
+            var userId = this.User.Identity.GetUserId();
+
+            var post = new Post
+            {
+                CategoryId = model.CategoryId,
+                Content = model.Content,
+                Tags = tags,
+                Title = model.Title,
+                UserId = userId
+            };
+
+            // this.posts.CreatePost(post);
             this.TempData["Notification"] = "You successfully add your post.";
             return this.RedirectToAction("Index");
         }

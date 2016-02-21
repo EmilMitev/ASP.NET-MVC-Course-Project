@@ -1,15 +1,15 @@
-﻿using StackFaceSystem.Data.Models;
-using StackFaceSystem.Services.Common;
-using StackFaceSystem.Web.Infrastructure.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-
-namespace StackFaceSystem.Web.ViewModels.Posts
+﻿namespace StackFaceSystem.Web.ViewModels.Posts
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AutoMapper;
+    using StackFaceSystem.Data.Models;
+    using StackFaceSystem.Services.Common;
+    using StackFaceSystem.Web.Infrastructure.Mapping;
+
     public class CommentsPerAnswerViewModel : IMapFrom<Comment>, IHaveCustomMappings
     {
         private ISanitizer sanitizer;
