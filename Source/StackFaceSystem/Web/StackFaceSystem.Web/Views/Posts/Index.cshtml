@@ -1,5 +1,13 @@
 ﻿@model StackFaceSystem.Web.ViewModels.Posts.PagablePostsViewModel
 
+@using (Html.BeginForm("Index", "Posts", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.SortField, new { id="postSortField"})
+    @Html.HiddenFor(x => x.SortDirection, new { id="postSortDirection"})
+    @Html.HiddenFor(x => x.Search, new { id = "postSearch" })
+    @Html.HiddenFor(x => x.CurrentPage, new { id="postCurrentPage"})
+}
+
 <hr class="style" />
 <div class="row">
     <h3 style="display:inline;">
@@ -17,13 +25,25 @@
 
     <div class="btn-group pull-right">
         <a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-            <i class="glyphicon glyphicon-sort"></i> Order by
+            <i class="glyphicon glyphicon-sort"></i> Sort
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">Ascending</a></li>
+            <li><a href="#">Descending</a></li>
+        </ul>
+    </div>
+
+    <div class="btn-group pull-right">
+        <a href="#" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+            <i class="glyphicon glyphicon-filter"></i> Order by
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
             <li><a href="#">Title</a></li>
             <li><a href="#">User</a></li>
             <li><a href="#">Date</a></li>
+            <li><a href="#">Category</a></li>
         </ul>
     </div>
 
@@ -47,26 +67,26 @@
 <nav class="text-center">
     <ul class="pagination">
         @if (Model.CurrentPage > 1)
-            {
+        {
             <li>
-                <a href="/Posts/Index/@(Model.CurrentPage - 1)" aria-label="Previous">
+                <a class="pager-post" href="#" data-page-index="@(Model.CurrentPage - 1)" aria-label="Previous">
                     <span aria-hidden="true">&larr;Previous</span>
                 </a>
             </li>
         }
         @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            var className = string.Empty;
+            if (Model.CurrentPage == i)
             {
-                var className = string.Empty;
-                if (Model.CurrentPage == i)
-                {
-                    className = "active";
-                }
-                <li class="@className"><a href="/Posts/Index/@i">@i</a></li>
+                className = "active";
+            }
+            <li class="@className"><a class="pager-post" href="#" data-page-index="@i">@i</a></li>
         }
         @if (Model.CurrentPage < Model.TotalPages)
         {
             <li>
-                <a href="/Posts/Index/@(Model.CurrentPage + 1)" aria-label="Next">
+                <a class="pager-post" href="#" data-page-index="@(Model.CurrentPage + 1)" aria-label="Next">
                     <span aria-hidden="true">Next &rarr;</span>
                 </a>
             </li>

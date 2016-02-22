@@ -26,7 +26,7 @@
         [NotMapped]
         [Required]
         [ExcludeChar(chars: "{}!@$%.^&", error: "{0}contains invalid character({}!@$%.^&).")]
-        [TagsAttribute(length: 10, error: "{0} contains tag with length > 10.")]
+        [TagsAttribute(length: 10, error: "{0} contains tag with length > 10 or you enter more than 7 tags.")]
         public string Tags { get; set; }
     }
 }

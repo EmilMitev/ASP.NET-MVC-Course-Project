@@ -31,18 +31,34 @@
         public ActionResult Index(int id = 1)
         {
             var page = id;
-            var posts = this.posts.GetPostsByPage(page, ItemsPerPage).To<PostsViewModel>().ToList();
+            var posts = this.posts.GetPostsByPageAndSort("Date", "descending", page, ItemsPerPage).To<PostsViewModel>().ToList();
             var postsNumber = this.posts.GetPostsNumber();
             var totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
 
             var viewModel = new PagablePostsViewModel
             {
+                SortField = "Date",
+                SortDirection = "descending",
                 CurrentPage = page,
                 TotalPages = totalPages,
                 Posts = posts
             };
 
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Index(PagablePostsViewModel model)
+        {
+            //var page = id;
+            //var posts = this.posts.GetPostsByPage(page, ItemsPerPage).To<PostsViewModel>().ToList();
+            //var postsNumber = this.posts.GetPostsNumber();
+            //var totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
+
+            //var viewModel = model;
+            //viewModel.Posts = posts
+
+            return this.View();
         }
 
         [HttpGet]

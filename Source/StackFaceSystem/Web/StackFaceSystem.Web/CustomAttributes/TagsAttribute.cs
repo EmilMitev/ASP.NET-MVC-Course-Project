@@ -19,6 +19,12 @@
             {
                 var tagsAsString = value.ToString();
                 var tags = tagsAsString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (tags.Length > 7)
+                {
+                    var errorMessage = this.FormatErrorMessage(validationContext.DisplayName);
+                    return new ValidationResult(errorMessage);
+                }
+
                 foreach (var tag in tags)
                 {
                     if (tag.Length > this.length)
