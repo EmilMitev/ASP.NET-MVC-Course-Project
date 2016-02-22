@@ -33,7 +33,7 @@
             <div class="row post-info note">
                 <hr class="post-info" />
                 <span class="pull-left">
-                    before @Html.DisplayFor(x => x.Post.CreatedOn) category: <a href="#">@Model.Post.Category</a> author: <a href="#">@Model.Post.Author</a>
+                    before @Html.DisplayFor(x => x.Post.CreatedOn) category: <a href="/Categories/Index/@Model.Post.Category">@Model.Post.Category</a> author: <a href="#">@Model.Post.Author</a>
                 </span>
             </div>
 
@@ -136,8 +136,8 @@
         var selector;
         function OnAjaxAnswerSuccess(data) {
             $("#addAnswerToPost").show(1000);
-            $('html, body').animate({
-                scrollTop: $("#addAnswerToPost").offset().top
+            $("html, body").animate({
+                scrollTop: $("hr.post-info").offset().top
             }, 2000);
         }
 
@@ -150,17 +150,25 @@
             selector = "#" + $(this).attr("updateTargetId");
             console.log(selector);
             $(selector).show(1000);
-            $("body").animate({
+            $("html, body").animate({
                 scrollTop: $(selector).offset().top
             }, 2000);
         }
 
+        function scrollToTopOfPage() {
+            $("html, body").animate({
+                scrollTop: $("html").offset().top
+            }, 1000);
+        }
+
         function hideAddAnswer() {
             $("#addAnswerToPost").hide(1000);
+            scrollToTopOfPage();
         }
 
         function hideAddComment() {
             $(selector).hide(1000);
+            scrollToTopOfPage();
         }
     </script>
 }

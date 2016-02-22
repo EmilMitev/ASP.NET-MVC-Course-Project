@@ -237,6 +237,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnswersController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
@@ -256,13 +258,15 @@
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
+    <Compile Include="ViewModels\Categories\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\Categories\PagablePostsOnCategoryViewModel.cs" />
     <Compile Include="ViewModels\Posts\AnswersViewModel.cs" />
     <Compile Include="ViewModels\Posts\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\Posts\CommentsPerAnswerViewModel.cs" />
     <Compile Include="ViewModels\Posts\DetailsPostViewModel.cs" />
     <Compile Include="ViewModels\Posts\DetailsPostWithPagableAnswersViewModel.cs" />
     <Compile Include="ViewModels\Answers\InputAnswerViewModel.cs" />
-    <Compile Include="ViewModels\Posts\InputCommentViewModel.cs" />
+    <Compile Include="ViewModels\Comments\InputCommentViewModel.cs" />
     <Compile Include="ViewModels\Posts\InputPostViewModel.cs" />
     <Compile Include="ViewModels\Posts\PagablePostsViewModel.cs" />
     <Compile Include="ViewModels\Posts\PostsViewModel.cs" />
@@ -507,7 +511,7 @@
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
     <Content Include="Views\Answers\_CreateAnswer.cshtml" />
-    <Content Include="Views\Posts\_CreateComment.cshtml" />
+    <Content Include="Views\Comments\_CreateComment.cshtml" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
@@ -518,6 +522,7 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.json" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Views\Categories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

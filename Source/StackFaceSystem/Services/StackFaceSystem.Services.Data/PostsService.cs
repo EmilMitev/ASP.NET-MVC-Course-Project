@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using Common;
+    using Contracts.Data;
     using StackFaceSystem.Data.Common;
     using StackFaceSystem.Data.Models;
 
@@ -38,12 +39,27 @@
             return this.posts.All().Count();
         }
 
+        public int GetPostsNumberByCategory(string name)
+        {
+            return this.posts.All().Where(x => x.Category.Name == name).Count();
+        }
+
         public IQueryable<Post> GetNewestPost()
         {
             return this.posts
                             .All()
                             .OrderByDescending(x => x.CreatedOn)
                             .Take(5);
+        }
+
+        public IQueryable<Post> GetPostByCategory(string name, int page, int take)
+        {
+            return this.posts
+                            .All()
+                            .Where(x => x.Category.Name == name)
+                            .OrderByDescending(x => x.CreatedOn)
+                            .Skip((page - 1) * take)
+                            .Take(take);
         }
 
         public void CreatePost(Post post)

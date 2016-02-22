@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Contracts.Data;
     using StackFaceSystem.Data.Common;
     using StackFaceSystem.Data.Models;
 

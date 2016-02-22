@@ -43,11 +43,13 @@
   <ItemGroup>
     <Compile Include="AnswersService.cs" />
     <Compile Include="CategoriesService.cs" />
-    <Compile Include="IAnswersService.cs" />
-    <Compile Include="ICategoriesService.cs" />
-    <Compile Include="IPostsService.cs" />
-    <Compile Include="ITagsService.cs" />
-    <Compile Include="IVotesService.cs" />
+    <Compile Include="CommentsService.cs" />
+    <Compile Include="Contracts\IAnswersService.cs" />
+    <Compile Include="Contracts\ICategoriesService.cs" />
+    <Compile Include="Contracts\ICommentsService.cs" />
+    <Compile Include="Contracts\IPostsService.cs" />
+    <Compile Include="Contracts\ITagsService.cs" />
+    <Compile Include="Contracts\IVotesService.cs" />
     <Compile Include="PostsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagsService.cs" />

@@ -1,10 +1,12 @@
 ﻿namespace StackFaceSystem.Web.Controllers
 {
     using System.Web.Mvc;
+    using Microsoft.AspNet.Identity;
+    using Services.Contracts.Data;
     using StackFaceSystem.Data.Models;
     using StackFaceSystem.Services.Data;
     using StackFaceSystem.Web.ViewModels.Posts;
-    using Microsoft.AspNet.Identity;
+
     public class AnswersController : BaseController
     {
         private readonly IAnswersService answers;

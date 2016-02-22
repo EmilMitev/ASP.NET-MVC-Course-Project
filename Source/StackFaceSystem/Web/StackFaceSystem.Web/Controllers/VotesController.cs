@@ -1,12 +1,8 @@
 ﻿namespace StackFaceSystem.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
     using Microsoft.AspNet.Identity;
-    using Services.Data;
+    using Services.Contracts.Data;
 
     public class VotesController : BaseController
     {

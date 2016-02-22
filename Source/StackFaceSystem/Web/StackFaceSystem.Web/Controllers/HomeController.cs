@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Web.Mvc;
     using Infrastructure.Mapping;
+    using Services.Contracts.Data;
     using Services.Data;
     using ViewModels.Posts;
 

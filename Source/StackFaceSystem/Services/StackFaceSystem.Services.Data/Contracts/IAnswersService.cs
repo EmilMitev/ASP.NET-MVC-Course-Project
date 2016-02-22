@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Services.Data
+﻿namespace StackFaceSystem.Services.Contracts.Data
 {
     using System.Linq;
     using StackFaceSystem.Data.Models;

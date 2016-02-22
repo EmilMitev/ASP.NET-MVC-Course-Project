@@ -2,12 +2,11 @@
 {
     using System;
     using System.Linq;
-    using System.Threading;
     using System.Web.Mvc;
     using Data.Models;
     using Infrastructure.Mapping;
     using Microsoft.AspNet.Identity;
-    using Services.Data;
+    using Services.Contracts.Data;
     using ViewModels.Posts;
 
     public class PostsController : BaseController
@@ -114,20 +113,6 @@
             this.posts.CreatePost(post);
             this.TempData["Notification"] = "You successfully add your post.";
             return this.RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public ActionResult CreateComment()
-        {
-            Thread.Sleep(2000);
-            return this.PartialView("_CreateComment");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateComment(InputCommentViewModel model)
-        {
-            return null;
         }
     }
 }

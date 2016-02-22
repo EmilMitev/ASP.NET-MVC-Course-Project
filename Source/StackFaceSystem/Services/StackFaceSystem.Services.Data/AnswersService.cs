@@ -1,9 +1,11 @@
 ﻿namespace StackFaceSystem.Services.Data
 {
     using System.Linq;
+    using Common;
+    using Contracts.Data;
     using StackFaceSystem.Data.Common;
     using StackFaceSystem.Data.Models;
-    using Common;
+
     public class AnswersService : IAnswersService
     {
         private readonly IDbRepository<Answer> answers;

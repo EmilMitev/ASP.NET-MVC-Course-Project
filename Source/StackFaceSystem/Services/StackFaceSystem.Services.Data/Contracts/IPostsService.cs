@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Services.Data
+﻿namespace StackFaceSystem.Services.Contracts.Data
 {
     using System.Linq;
     using StackFaceSystem.Data.Models;
@@ -11,8 +11,12 @@
 
         int GetPostsNumber();
 
+        int GetPostsNumberByCategory(string name);
+
         IQueryable<Post> GetNewestPost();
 
         void CreatePost(Post post);
+
+        IQueryable<Post> GetPostByCategory(string name, int page, int take);
     }
 }

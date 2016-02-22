@@ -7,7 +7,6 @@
     {
         private readonly string chars;
 
-
         public ExcludeChar(string chars, string error)
             : base(error)
         {
