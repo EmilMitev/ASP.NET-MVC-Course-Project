@@ -7,5 +7,7 @@
     public interface ITagsService
     {
         IQueryable<Tag> CheckExist(string tags);
+
+        IQueryable<Tag> GetAllTags();
     }
 }

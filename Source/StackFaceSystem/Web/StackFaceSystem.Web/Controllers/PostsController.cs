@@ -98,7 +98,6 @@
                 return this.View(model);
             }
 
-            // TODO:implement tags!!!!!
             var tags = this.tags.CheckExist(model.Tags).ToList();
 
             var userId = this.User.Identity.GetUserId();
@@ -112,7 +111,7 @@
                 UserId = userId
             };
 
-            // this.posts.CreatePost(post);
+            this.posts.CreatePost(post);
             this.TempData["Notification"] = "You successfully add your post.";
             return this.RedirectToAction("Index");
         }

@@ -8,7 +8,7 @@
     using Microsoft.AspNet.Identity;
     using Services.Data;
 
-    public class VotesController : Controller
+    public class VotesController : BaseController
     {
         private readonly IVotesService votes;
 
