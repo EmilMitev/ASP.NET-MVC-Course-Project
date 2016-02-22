@@ -8,5 +8,7 @@
         IQueryable<Answer> GetAnswerOnPost(int postId, int page, int take);
 
         int GetAnswerNumberPerPost(int postId);
+
+        void CreateAnswer(string postId, Answer answer);
     }
 }

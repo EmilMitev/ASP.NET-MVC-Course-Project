@@ -2,7 +2,7 @@
 
 <fieldset>
     <legend>Add new answer</legend>
-    @using (Html.BeginForm("CreateAnswer", "Posts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("CreateAnswer", "Answers", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
 

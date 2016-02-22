@@ -3,14 +3,16 @@
     using System.Linq;
     using StackFaceSystem.Data.Common;
     using StackFaceSystem.Data.Models;
-
+    using Common;
     public class AnswersService : IAnswersService
     {
         private readonly IDbRepository<Answer> answers;
+        private readonly IIdentifierProvider identifierProvider;
 
-        public AnswersService(IDbRepository<Answer> answers)
+        public AnswersService(IDbRepository<Answer> answers, IIdentifierProvider identifierProvider)
         {
             this.answers = answers;
+            this.identifierProvider = identifierProvider;
         }
 
         public IQueryable<Answer> GetAnswerOnPost(int postId, int page, int take)
@@ -31,6 +33,14 @@
                             .All()
                             .Where(x => x.PostId == postId)
                             .Count();
+        }
+
+        public void CreateAnswer(string postId, Answer answer)
+        {
+            var intPostId = this.identifierProvider.DecodeId(postId);
+            answer.PostId = intPostId;
+            this.answers.Add(answer);
+            this.answers.Save();
         }
     }
 }

@@ -235,6 +235,7 @@
     <Compile Include="Areas\Moderator\ModeratorAreaRegistration.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnswersController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -260,7 +261,7 @@
     <Compile Include="ViewModels\Posts\CommentsPerAnswerViewModel.cs" />
     <Compile Include="ViewModels\Posts\DetailsPostViewModel.cs" />
     <Compile Include="ViewModels\Posts\DetailsPostWithPagableAnswersViewModel.cs" />
-    <Compile Include="ViewModels\Posts\InputAnswerViewModel.cs" />
+    <Compile Include="ViewModels\Answers\InputAnswerViewModel.cs" />
     <Compile Include="ViewModels\Posts\InputCommentViewModel.cs" />
     <Compile Include="ViewModels\Posts\InputPostViewModel.cs" />
     <Compile Include="ViewModels\Posts\PagablePostsViewModel.cs" />
@@ -505,7 +506,7 @@
     <Content Include="Views\Posts\CreatePost.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
-    <Content Include="Views\Posts\_CreateAnswer.cshtml" />
+    <Content Include="Views\Answers\_CreateAnswer.cshtml" />
     <Content Include="Views\Posts\_CreateComment.cshtml" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />

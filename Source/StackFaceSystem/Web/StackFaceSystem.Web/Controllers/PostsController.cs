@@ -117,26 +117,6 @@
         }
 
         [HttpGet]
-        public ActionResult CreateAnswer()
-        {
-            var url = this.Request.UrlReferrer.PathAndQuery;
-            var postId = url.Substring(url.LastIndexOf('/') + 1);
-            var inputModel = new InputAnswerViewModel
-            {
-                PostId = postId
-            };
-
-            return this.PartialView("_CreateAnswer", inputModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateAnswer(InputAnswerViewModel model)
-        {
-            return null;
-        }
-
-        [HttpGet]
         public ActionResult CreateComment()
         {
             Thread.Sleep(2000);

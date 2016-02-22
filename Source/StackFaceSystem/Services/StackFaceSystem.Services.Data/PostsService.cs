@@ -27,7 +27,7 @@
         {
             var posts = this.posts
                             .All()
-                            .OrderBy(x => x.CreatedOn)
+                            .OrderByDescending(x => x.CreatedOn)
                             .Skip((page - 1) * take)
                             .Take(take);
             return posts;
@@ -42,7 +42,7 @@
         {
             return this.posts
                             .All()
-                            .OrderBy(x => x.CreatedOn)
+                            .OrderByDescending(x => x.CreatedOn)
                             .Take(5);
         }
 
