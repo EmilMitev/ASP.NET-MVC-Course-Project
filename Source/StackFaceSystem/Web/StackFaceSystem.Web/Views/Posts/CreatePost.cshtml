@@ -2,7 +2,7 @@
 
 <fieldset>
     <legend>Add new post</legend>
-    @using (Html.BeginForm("Create", "Posts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("CreatePost", "Posts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
@@ -39,5 +39,10 @@
 
 @section Scripts
 {
+    <script>
+        $('form input[type=submit]').click(function () {
+            tinyMCE.triggerSave();
+        });
+    </script>
     @Scripts.Render("~/bundles/jqueryval")
 }

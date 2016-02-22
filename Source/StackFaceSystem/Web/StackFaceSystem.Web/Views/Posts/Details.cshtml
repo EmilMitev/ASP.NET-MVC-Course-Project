@@ -31,6 +31,7 @@
                 {
                     <a href="#" class="label label-default">@tag</a>
                 }
+
                 @Ajax.ActionLink("Answer", "CreateAnswer", null,
                                                 new AjaxOptions
                                                 {
@@ -115,6 +116,9 @@
         var selector;
         function OnAjaxAnswerSuccess(data) {
             $("#addAnswerToPost").show(1000);
+            $('html, body').animate({
+                scrollTop: $("#addAnswerToPost").offset().top
+            }, 2000);
         }
 
         function OnAjaxCommentBegin(data) {
@@ -126,6 +130,13 @@
             selector = "#" + $(this).attr("updateTargetId");
             console.log(selector);
             $(selector).show(1000);
+            $("body").animate({
+                scrollTop: $(selector).offset().top
+            }, 2000);
+        }
+
+        function hideAddAnswer() {
+            $("#addAnswerToPost").hide(1000);
         }
 
         function hideAddComment() {

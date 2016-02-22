@@ -2,12 +2,13 @@
 
 <fieldset>
     <legend>Add new answer</legend>
-    @using (Html.BeginForm("Create", "Posts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("CreateAnswer", "Posts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
         @Html.ValidationSummary("", new { @class = "text-danger" })
 
+        @Html.HiddenFor(m => m.PostId);
         <div class="form-group">
             @Html.EditorFor(m => m.Content, new { placeholder = "Enter your content" })
         </div>

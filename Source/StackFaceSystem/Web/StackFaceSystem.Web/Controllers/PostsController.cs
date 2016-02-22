@@ -120,13 +120,19 @@
         [HttpGet]
         public ActionResult CreateAnswer()
         {
-            Thread.Sleep(2000);
-            return this.PartialView("_CreateAnswer");
+            var url = this.Request.UrlReferrer.PathAndQuery;
+            var postId = url.Substring(url.LastIndexOf('/') + 1);
+            var inputModel = new InputAnswerViewModel
+            {
+                PostId = postId
+            };
+
+            return this.PartialView("_CreateAnswer", inputModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateAnswer(InputPostViewModel model)
+        public ActionResult CreateAnswer(InputAnswerViewModel model)
         {
             return null;
         }
@@ -140,7 +146,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment(InputPostViewModel model)
+        public ActionResult CreateComment(InputCommentViewModel model)
         {
             return null;
         }

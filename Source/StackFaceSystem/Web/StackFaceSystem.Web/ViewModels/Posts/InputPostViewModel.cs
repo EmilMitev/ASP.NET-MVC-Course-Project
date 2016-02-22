@@ -12,6 +12,7 @@
         [MaxLength(50)]
         public string Title { get; set; }
 
+        [Required]
         [AllowHtml]
         [DataType("tinymce_full")]
         [UIHint("tinymce_full")]
