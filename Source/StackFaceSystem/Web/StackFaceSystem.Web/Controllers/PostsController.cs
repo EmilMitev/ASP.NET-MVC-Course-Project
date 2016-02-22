@@ -50,15 +50,21 @@
         [HttpPost]
         public ActionResult Index(PagablePostsViewModel model)
         {
-            //var page = id;
-            //var posts = this.posts.GetPostsByPage(page, ItemsPerPage).To<PostsViewModel>().ToList();
-            //var postsNumber = this.posts.GetPostsNumber();
-            //var totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
+            var page = model.CurrentPage;
+            var sortType = model.SortField;
+            var sortDirection = model.SortDirection;
 
-            //var viewModel = model;
-            //viewModel.Posts = posts
+            var posts = this.posts.GetPostsByPageAndSort(sortType, sortDirection, page, ItemsPerPage).To<PostsViewModel>().ToList();
 
-            return this.View();
+            var postsNumber = this.posts.GetPostsNumber();
+            var totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
+
+            model.TotalPages = totalPages;
+            model.Posts = posts;
+
+            var viewModel = model;
+
+            return this.View(viewModel);
         }
 
         [HttpGet]
