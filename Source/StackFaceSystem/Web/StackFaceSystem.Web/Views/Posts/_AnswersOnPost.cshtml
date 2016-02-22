@@ -20,16 +20,16 @@
                     </span>
                 </div>
                 <hr class="post-info" />
-                @Ajax.ActionLink("Comment", "CreateComment", "Comments", null,
+                @Ajax.ActionLink("Comment", "CreateComment", "Comments", new { answerId = Model.Id },
                                                 new AjaxOptions
                                                 {
                                                     UpdateTargetId = "addCommentToAnswer" + Model.Id,
                                                     LoadingElementId = "addCommentToAnswerLoading" + Model.Id,
                                                     HttpMethod = "GET",
                                                     InsertionMode = InsertionMode.Replace,
-                                                    OnBegin="OnAjaxCommentBegin",
+                                                    OnBegin = "OnAjaxCommentBegin",
                                                     OnSuccess = "OnAjaxCommentSuccess"
-                                                }, new { @class = "pull-right btn btn-primary btn-sm", updateTargetId= "addCommentToAnswer" + Model.Id })
+                                                }, new { @class = "pull-right btn btn-primary btn-sm", updateTargetId = "addCommentToAnswer" + Model.Id })
             </div>
             <div class="col-lg-offset-1 col-md-11">
                 <div class="panel panel-default">

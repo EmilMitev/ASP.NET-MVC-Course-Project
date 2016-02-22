@@ -9,6 +9,6 @@
 
         int GetAnswerNumberPerPost(int postId);
 
-        void CreateAnswer(string postId, Answer answer);
+        void CreateAnswer(Answer answer);
     }
 }

@@ -16,15 +16,13 @@
         }
 
         [HttpGet]
-        public ActionResult CreateComment()
+        public ActionResult CreateComment(int answerId)
         {
-            // var url = this.Request.UrlReferrer.PathAndQuery;
-            // var postId = url.Substring(url.LastIndexOf('/') + 1);
-            // var inputModel = new InputAnswerViewModel
-            // {
-            //    PostId = postId
-            // };
-            return this.PartialView("_CreateComment");
+            var inputModel = new InputCommentViewModel
+            {
+                AnswerId = answerId
+            };
+            return this.PartialView("_CreateComment", inputModel);
         }
 
         [HttpPost]
@@ -39,15 +37,16 @@
 
             var userId = this.User.Identity.GetUserId();
 
-            var answer = new Comment
+            var comment = new Comment
             {
                 Content = model.Content,
-                UserId = userId
+                UserId = userId,
+                AnswerId = model.AnswerId
             };
 
-            this.comments.CreateComment("somestring", answer);
+            this.comments.CreateComment(comment);
 
-            this.TempData["Notification"] = "You successfully add your post.";
+            this.TempData["Notification"] = "You successfully comment.";
 
             return this.Redirect(this.Request.UrlReferrer.ToString());
         }

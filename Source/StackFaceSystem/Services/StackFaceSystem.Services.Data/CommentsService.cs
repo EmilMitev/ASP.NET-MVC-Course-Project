@@ -17,12 +17,10 @@
             this.identifierProvider = identifierProvider;
         }
 
-        public void CreateComment(string commentId, Comment comment)
+        public void CreateComment(Comment comment)
         {
-            // var intPostId = this.identifierProvider.DecodeId(commentId);
-            // comment.PostId = intPostId;
-            // this.answers.Add(answer);
-            // this.answers.Save();
+            this.comments.Add(comment);
+            this.comments.Save();
         }
     }
 }

@@ -37,10 +37,8 @@
                             .Count();
         }
 
-        public void CreateAnswer(string postId, Answer answer)
+        public void CreateAnswer(Answer answer)
         {
-            var intPostId = this.identifierProvider.DecodeId(postId);
-            answer.PostId = intPostId;
             this.answers.Add(answer);
             this.answers.Save();
         }

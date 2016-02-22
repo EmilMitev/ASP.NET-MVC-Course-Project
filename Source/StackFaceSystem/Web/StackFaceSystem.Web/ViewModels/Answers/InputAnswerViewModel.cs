@@ -5,7 +5,7 @@
 
     public class InputAnswerViewModel
     {
-        public string PostId { get; set; }
+        public int PostId { get; set; }
 
         [Required]
         [AllowHtml]

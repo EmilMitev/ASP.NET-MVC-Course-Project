@@ -4,6 +4,6 @@
 
     public interface ICommentsService
     {
-        void CreateComment(string commentId, Comment comment);
+        void CreateComment(Comment comment);
     }
 }

@@ -17,10 +17,8 @@
         }
 
         [HttpGet]
-        public ActionResult CreateAnswer()
+        public ActionResult CreateAnswer(int postId)
         {
-            var url = this.Request.UrlReferrer.PathAndQuery;
-            var postId = url.Substring(url.LastIndexOf('/') + 1);
             var inputModel = new InputAnswerViewModel
             {
                 PostId = postId
@@ -44,12 +42,13 @@
             var answer = new Answer
             {
                 Content = model.Content,
-                UserId = userId
+                UserId = userId,
+                PostId = model.PostId
             };
 
-            this.answers.CreateAnswer(model.PostId, answer);
+            this.answers.CreateAnswer(answer);
 
-            this.TempData["Notification"] = "You successfully add your post.";
+            this.TempData["Notification"] = "You successfully answer on post.";
 
             return this.Redirect(this.Request.UrlReferrer.ToString());
         }
