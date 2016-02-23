@@ -18,7 +18,7 @@
             <span class="pull-right">
                 @if (this.User.Identity.Name == Model.Author)
                 {
-                    @Ajax.ActionLink(" ", "DeleteComment", "Comments", new { postId = Model.Id, authorName = Model.Author },
+                    @Ajax.ActionLink(" ", "DeleteComment", "Comments", new { commentId = Model.Id, authorName = Model.Author },
                                                 new AjaxOptions
                                                 {
                                                     HttpMethod = "POST"

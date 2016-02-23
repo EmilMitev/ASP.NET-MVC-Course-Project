@@ -2,12 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Web.Mvc;
+    using Answers;
     using AutoMapper;
     using Data.Models;
     using Infrastructure.Mapping;
     using Services.Common;
-    using Answers;
+
     public class DetailsPostViewModel : IMapFrom<Post>, IHaveCustomMappings
     {
         private ISanitizer sanitizer;
@@ -38,6 +41,10 @@
             }
         }
 
+        [Required]
+        [AllowHtml]
+        [DataType("tinymce_full")]
+        [UIHint("tinymce_full")]
         public string Content { get; set; }
 
         public DateTime CreatedOn { get; set; }

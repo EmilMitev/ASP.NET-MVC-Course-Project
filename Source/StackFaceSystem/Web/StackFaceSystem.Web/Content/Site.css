@@ -22,12 +22,6 @@
     white-space: normal;
 }
 
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 #comingSoon {
     display: block;
     margin: auto;
@@ -142,9 +136,14 @@ hr.post-info {
 }
 
 input, select, textarea {
-    max-width: none;
-    margin: auto;
+    max-width: 60%;
 }
+
+    input.custom-form-control,
+    select.custom-form-control,
+    textarea.custom-form-control {
+        margin: auto;
+    }
 
 .field-validation-error {
     color: #ff0000;

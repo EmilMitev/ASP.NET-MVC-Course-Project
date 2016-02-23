@@ -527,6 +527,7 @@
     <Content Include="Views\Shared\DisplayTemplates\AnswersViewModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CommentsPerAnswerViewModel.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CommentsPerAnswerViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DetailsPostViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -52,7 +52,7 @@
         }
 
         [HttpPost]
-        public ActionResult DeleteComment(int postId, string authorName)
+        public ActionResult DeleteComment(int commentId, string authorName)
         {
             // TODO: make that delete data is correct
             return null;

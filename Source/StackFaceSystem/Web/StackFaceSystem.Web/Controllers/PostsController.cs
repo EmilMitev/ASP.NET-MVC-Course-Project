@@ -137,5 +137,12 @@
             this.TempData["Notification"] = "You successfully add your post.";
             return this.RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult DeletePost(string postId, string authorName)
+        {
+            // TODO: make that delete data is correct
+            return null;
+        }
     }
 }
