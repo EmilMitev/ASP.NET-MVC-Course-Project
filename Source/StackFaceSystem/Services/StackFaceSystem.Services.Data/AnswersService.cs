@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using Common;
-    using Contracts.Data;
+    using Contracts;
     using StackFaceSystem.Data.Common;
     using StackFaceSystem.Data.Models;
 
@@ -15,6 +15,11 @@
         {
             this.answers = answers;
             this.identifierProvider = identifierProvider;
+        }
+
+        public Answer GetAnswerById(int id)
+        {
+            return this.answers.GetById(id);
         }
 
         public IQueryable<Answer> GetAnswerOnPost(int postId, int page, int take)

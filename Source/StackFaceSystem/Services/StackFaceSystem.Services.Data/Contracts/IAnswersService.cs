@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Services.Contracts.Data
+﻿namespace StackFaceSystem.Services.Data.Contracts
 {
     using System.Linq;
     using StackFaceSystem.Data.Models;
@@ -10,5 +10,7 @@
         int GetAnswerNumberPerPost(int postId);
 
         void CreateAnswer(Answer answer);
+
+        Answer GetAnswerById(int id);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Web.ViewModels.Posts
+﻿namespace StackFaceSystem.Web.ViewModels.Categories
 {
     using StackFaceSystem.Data.Models;
     using StackFaceSystem.Web.Infrastructure.Mapping;

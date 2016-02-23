@@ -3,12 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Contracts.Data;
     using StackFaceSystem.Data.Common;
     using StackFaceSystem.Data.Models;
-
+    using Contracts;
     public class TagsService : ITagsService
     {
         private readonly IDbRepository<Tag> tags;

@@ -6,9 +6,10 @@
     using Data.Models;
     using Infrastructure.Mapping;
     using Microsoft.AspNet.Identity;
-    using Services.Contracts.Data;
+    using ViewModels.Answers;
+    using ViewModels.Categories;
     using ViewModels.Posts;
-
+    using Services.Data.Contracts;
     public class PostsController : BaseController
     {
         private const int ItemsPerPage = 5;

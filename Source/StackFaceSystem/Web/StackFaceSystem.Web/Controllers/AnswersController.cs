@@ -2,10 +2,9 @@
 {
     using System.Web.Mvc;
     using Microsoft.AspNet.Identity;
-    using Services.Contracts.Data;
+    using Services.Data.Contracts;
     using StackFaceSystem.Data.Models;
-    using StackFaceSystem.Services.Data;
-    using StackFaceSystem.Web.ViewModels.Posts;
+    using ViewModels.Answers;
 
     public class AnswersController : BaseController
     {
@@ -52,5 +51,20 @@
 
             return this.Redirect(this.Request.UrlReferrer.ToString());
         }
+
+        [HttpPost]
+        public ActionResult DeleteAnswer(int answerId, string authorName)
+        {
+            // TODO: make that delete data is correct
+            return null;
+        }
+
+        //[HttpGet]
+        //public ActionResult EditAnswer(int id)
+        //{
+        //    var answerFormDb = this.answers.GetAnswerById(id);
+        //    var model = this.Mapper.Map<EditAnswerViewModel>(answerFormDb);
+        //    return this.PartialView("_EditAnswer", model);
+        //}
     }
 }

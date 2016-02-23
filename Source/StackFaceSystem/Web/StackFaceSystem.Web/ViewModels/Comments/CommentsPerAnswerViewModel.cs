@@ -1,14 +1,16 @@
-﻿namespace StackFaceSystem.Web.ViewModels.Posts
+﻿namespace StackFaceSystem.Web.ViewModels.Comments
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Web.Mvc;
     using AutoMapper;
+    using Infrastructure.Mapping;
     using StackFaceSystem.Data.Models;
     using StackFaceSystem.Services.Common;
-    using StackFaceSystem.Web.Infrastructure.Mapping;
 
     public class CommentsPerAnswerViewModel : IMapFrom<Comment>, IHaveCustomMappings
     {
@@ -29,6 +31,10 @@
             }
         }
 
+        [Required]
+        [AllowHtml]
+        [DataType("tinymce_full")]
+        [UIHint("tinymce_full")]
         public string Content { get; set; }
 
         public DateTime CreatedOn { get; set; }

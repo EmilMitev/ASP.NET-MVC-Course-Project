@@ -260,9 +260,9 @@
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryViewModel.cs" />
     <Compile Include="ViewModels\Categories\PagablePostsOnCategoryViewModel.cs" />
-    <Compile Include="ViewModels\Posts\AnswersViewModel.cs" />
-    <Compile Include="ViewModels\Posts\CategoriesViewModel.cs" />
-    <Compile Include="ViewModels\Posts\CommentsPerAnswerViewModel.cs" />
+    <Compile Include="ViewModels\Answers\AnswersViewModel.cs" />
+    <Compile Include="ViewModels\Categories\CategoriesViewModel.cs" />
+    <Compile Include="ViewModels\Comments\CommentsPerAnswerViewModel.cs" />
     <Compile Include="ViewModels\Posts\DetailsPostViewModel.cs" />
     <Compile Include="ViewModels\Posts\DetailsPostWithPagableAnswersViewModel.cs" />
     <Compile Include="ViewModels\Answers\InputAnswerViewModel.cs" />
@@ -523,6 +523,10 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AnswersViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AnswersViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CommentsPerAnswerViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CommentsPerAnswerViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

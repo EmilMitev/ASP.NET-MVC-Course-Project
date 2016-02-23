@@ -1,0 +1,33 @@
+﻿@model StackFaceSystem.Web.ViewModels.Comments.CommentsPerAnswerViewModel
+
+<div class="panel-body">
+    <div class="col-md-2">
+        <div class="forum-well text-center">
+            <div data-id="@Model.Id" data-action="up" data-subject="comment"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+            <div class="row" data-id="@Model.Id" data-subject="comment" data-action="votesCount">@Model.VotesSum</div>
+            <div data-id="@Model.Id" data-action="down" data-subject="comment"><i class="glyphicon glyphicon-thumbs-down"></i></div>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <p>@Html.Raw(Model.SanitizedContent)</p>
+        <div class="row post-info note">
+            <hr class="post-info" />
+            <span class="pull-left">
+                before @Html.DisplayFor(x => x.CreatedOn) author <a href="#">@Model.Author</a>
+            </span>
+            <span class="pull-right">
+                @if (this.User.Identity.Name == Model.Author)
+                {
+                    @Ajax.ActionLink(" ", "DeleteComment", "Comments", new { postId = Model.Id, authorName = Model.Author },
+                                                new AjaxOptions
+                                                {
+                                                    HttpMethod = "POST"
+                                                }, new { @class = "pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" })
+
+                    <a href="" class="pull-right btn btn-default btn-sm glyphicon glyphicon-pencil" data-toggle="modal" data-target="@("#editModal" + Model.Id)" data-id="@Model.Id"></a>
+                }
+            </span>
+        </div>
+        <hr class="post-info" />
+    </div>
+</div>

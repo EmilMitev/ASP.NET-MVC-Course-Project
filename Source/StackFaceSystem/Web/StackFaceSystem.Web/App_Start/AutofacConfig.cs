@@ -7,8 +7,7 @@
     using Autofac.Integration.Mvc;
     using Controllers;
     using Services.Common;
-    using Services.Contracts.Data;
-    using Services.Data;
+    using Services.Data.Contracts;
     using StackFaceSystem.Data;
     using StackFaceSystem.Data.Common;
 

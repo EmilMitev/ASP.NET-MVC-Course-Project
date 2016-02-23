@@ -2,9 +2,9 @@
 {
     using System.Web.Mvc;
     using Microsoft.AspNet.Identity;
+    using Services.Data.Contracts;
     using StackFaceSystem.Data.Models;
-    using StackFaceSystem.Services.Contracts.Data;
-    using StackFaceSystem.Web.ViewModels.Posts;
+    using ViewModels.Comments;
 
     public class CommentsController : BaseController
     {
@@ -49,6 +49,13 @@
             this.TempData["Notification"] = "You successfully comment.";
 
             return this.Redirect(this.Request.UrlReferrer.ToString());
+        }
+
+        [HttpPost]
+        public ActionResult DeleteComment(int postId, string authorName)
+        {
+            // TODO: make that delete data is correct
+            return null;
         }
     }
 }

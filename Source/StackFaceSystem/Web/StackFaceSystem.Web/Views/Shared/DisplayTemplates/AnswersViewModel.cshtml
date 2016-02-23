@@ -1,0 +1,69 @@
+﻿@model StackFaceSystem.Web.ViewModels.Answers.AnswersViewModel
+<div class="panel-body">
+    <h1 data-answer-id="@Model.Id" style="display:none"></h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <div class="forum-well text-center">
+                    <div data-id="@Model.Id" data-action="up" data-subject="answer"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+                    <div class="row" data-id="@Model.Id" data-subject="answer" data-action="votesCount">@Model.VotesSum</div>
+                    <div data-id="@Model.Id" data-action="down" data-subject="answer"><i class="glyphicon glyphicon-thumbs-down"></i></div>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                <p>@Html.Raw(Model.SanitizedContent)</p>
+                <div class="row post-info note">
+                    <hr class="post-info" />
+                    <span class="pull-left">
+                        before @Html.DisplayFor(x => x.CreatedOn) author <a href="#">@Model.Author</a>
+                    </span>
+                </div>
+                <hr class="post-info" />
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    if (this.User.Identity.Name == Model.Author)
+                    {
+                        @Ajax.ActionLink(" ", "DeleteAnswer", "Answers", new { answerId = Model.Id, authorName = Model.Author },
+                                                new AjaxOptions
+                                                {
+                                                    HttpMethod = "POST"
+                                                }, new { @class = "pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" })
+
+                        <a href="" class="pull-right btn btn-default btn-sm glyphicon glyphicon-pencil" data-toggle="modal" data-target="@("#editModal" + Model.Id)" data-id="@Model.Id"></a>
+                    }
+
+                    @Ajax.ActionLink(" Comment", "CreateComment", "Comments", new { answerId = Model.Id },
+                                                new AjaxOptions
+                                                {
+                                                    UpdateTargetId = "addCommentToAnswer" + Model.Id,
+                                                    LoadingElementId = "addCommentToAnswerLoading" + Model.Id,
+                                                    HttpMethod = "GET",
+                                                    InsertionMode = InsertionMode.Replace,
+                                                    OnBegin = "OnAjaxCommentBegin",
+                                                    OnSuccess = "OnAjaxCommentSuccess"
+                                                }, new { @class = "pull-right btn btn-default btn-sm glyphicon glyphicon-comment", updateTargetId = "addCommentToAnswer" + Model.Id })
+
+
+                }
+            </div>
+            <div class="col-lg-offset-1 col-md-11">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div id="addCommentToAnswer@(Model.Id)" style="display: none"></div>
+                            <div id="addCommentToAnswerLoading@(Model.Id)" style="display: none">
+                                <div class="circle"></div>
+                                <div class="circle1"></div>
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (var comment in Model.CommentsOnAnswer)
+                    {
+                        @Html.Partial("_CommentsOnAnswer", comment)
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

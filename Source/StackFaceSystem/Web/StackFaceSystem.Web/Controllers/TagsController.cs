@@ -1,11 +1,7 @@
 ﻿namespace StackFaceSystem.Web.Controllers
 {
-    using System.Linq;
+    using Services.Data.Contracts;
     using System.Web.Mvc;
-    using Infrastructure.Mapping;
-    using Services.Contracts.Data;
-    using Services.Data;
-    using ViewModels.Tags;
 
     public class TagsController : BaseController
     {

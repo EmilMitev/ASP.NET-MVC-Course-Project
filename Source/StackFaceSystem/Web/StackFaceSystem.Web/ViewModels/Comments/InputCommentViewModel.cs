@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Web.ViewModels.Posts
+﻿namespace StackFaceSystem.Web.ViewModels.Comments
 {
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;

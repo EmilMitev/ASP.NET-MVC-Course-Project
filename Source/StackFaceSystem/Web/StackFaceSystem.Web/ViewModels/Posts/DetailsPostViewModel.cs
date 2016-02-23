@@ -7,7 +7,7 @@
     using Data.Models;
     using Infrastructure.Mapping;
     using Services.Common;
-
+    using Answers;
     public class DetailsPostViewModel : IMapFrom<Post>, IHaveCustomMappings
     {
         private ISanitizer sanitizer;

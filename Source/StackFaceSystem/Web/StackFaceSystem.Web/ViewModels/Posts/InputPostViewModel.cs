@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Web.Mvc;
     using CustomAttributes;
-
+    using Categories;
     public class InputPostViewModel
     {
         [Required]

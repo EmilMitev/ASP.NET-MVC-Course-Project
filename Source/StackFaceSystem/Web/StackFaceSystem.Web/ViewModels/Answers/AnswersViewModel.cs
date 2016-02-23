@@ -1,9 +1,12 @@
-﻿namespace StackFaceSystem.Web.ViewModels.Posts
+﻿namespace StackFaceSystem.Web.ViewModels.Answers
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Web.Mvc;
     using AutoMapper;
+    using Comments;
     using Data.Models;
     using Services.Common;
     using StackFaceSystem.Web.Infrastructure.Mapping;
@@ -27,6 +30,10 @@
             }
         }
 
+        [Required]
+        [AllowHtml]
+        [DataType("tinymce_full")]
+        [UIHint("tinymce_full")]
         public string Content { get; set; }
 
         public DateTime CreatedOn { get; set; }

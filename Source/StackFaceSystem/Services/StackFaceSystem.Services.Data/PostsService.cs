@@ -2,10 +2,9 @@
 {
     using System.Linq;
     using Common;
-    using Contracts.Data;
     using StackFaceSystem.Data.Common;
     using StackFaceSystem.Data.Models;
-
+    using Contracts;
     public class PostsService : IPostsService
     {
         private readonly IDbRepository<Post> posts;

@@ -1,10 +1,9 @@
 ﻿namespace StackFaceSystem.Services.Data
 {
     using System.Linq;
-    using Contracts.Data;
     using StackFaceSystem.Data.Common;
     using StackFaceSystem.Data.Models;
-
+    using Contracts;
     public class CategoriesService : ICategoriesService
     {
         private readonly IDbRepository<Category> categories;
