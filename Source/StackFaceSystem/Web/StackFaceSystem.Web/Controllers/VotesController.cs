@@ -4,6 +4,7 @@
     using Microsoft.AspNet.Identity;
     using Services.Data.Contracts;
 
+    [Authorize]
     public class VotesController : BaseController
     {
         private readonly IVotesService votes;

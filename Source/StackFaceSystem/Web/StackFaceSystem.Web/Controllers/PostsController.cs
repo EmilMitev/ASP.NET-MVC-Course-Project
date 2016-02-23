@@ -94,6 +94,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult CreatePost()
         {
@@ -111,6 +112,7 @@
             return this.View(inputModel);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreatePost(InputPostViewModel model)
@@ -141,6 +143,32 @@
             return this.RedirectToAction("Index");
         }
 
+        [Authorize]
+        [HttpGet]
+        public ActionResult EditPost(string postId)
+        {
+            var postFromDb = this.posts.GetById(postId);
+            var post = this.Mapper.Map<EditPostViewModel>(postFromDb);
+            return this.PartialView("_EditPost", post);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(EditPostViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            this.posts.UpdatePost(model.EncodedId, model.Title, model.Content);
+
+            this.TempData["Notification"] = "You successfully update your post.";
+            return this.Redirect($"/Posts/Details/{model.EncodedId}");
+        }
+
+        [Authorize]
         [HttpPost]
         public ActionResult DeletePost(string postId)
         {
@@ -176,29 +204,6 @@
 
             // Don't work in ajax!!!
             return this.RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public ActionResult EditPost(string postId)
-        {
-            var postFromDb = this.posts.GetById(postId);
-            var post = this.Mapper.Map<EditPostViewModel>(postFromDb);
-            return this.PartialView("_EditPost", post);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditPost(EditPostViewModel model)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(model);
-            }
-
-            this.posts.UpdatePost(model.EncodedId, model.Title, model.Content);
-
-            this.TempData["Notification"] = "You successfully update your post.";
-            return this.Redirect($"/Posts/Details/{model.EncodedId}");
         }
     }
 }

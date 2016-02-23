@@ -15,15 +15,23 @@
             this.comments = comments;
         }
 
+        public void CreateComment(Comment comment)
+        {
+            this.comments.Add(comment);
+            this.comments.Save();
+        }
+
         public Comment GetById(int id)
         {
             var comment = this.comments.GetById(id);
             return comment;
         }
 
-        public void CreateComment(Comment comment)
+        public void UpdateComment(int commentId, string content)
         {
-            this.comments.Add(comment);
+            var comment = this.comments.GetById(commentId);
+            comment.Content = content;
+
             this.comments.Save();
         }
 
@@ -39,14 +47,6 @@
         public void DeleteComment(Comment comment)
         {
             this.comments.Delete(comment);
-            this.comments.Save();
-        }
-
-        public void UpdateComment(int commentId, string content)
-        {
-            var comment = this.comments.GetById(commentId);
-            comment.Content = content;
-
             this.comments.Save();
         }
     }

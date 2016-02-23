@@ -6,6 +6,7 @@
     using StackFaceSystem.Data.Models;
     using ViewModels.Comments;
 
+    [Authorize]
     public class CommentsController : BaseController
     {
         private readonly ICommentsService comments;
@@ -51,27 +52,6 @@
             return this.Redirect(this.Request.UrlReferrer.ToString());
         }
 
-        [HttpPost]
-        public ActionResult DeleteComment(int commentId)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                this.TempData["NotificationError"] = "Something get wrong. Try anaing later.";
-                return this.Redirect($"/Posts/Index");
-            }
-
-            if (this.Request.IsAjaxRequest())
-            {
-                var comment = this.comments.GetById(commentId);
-                this.comments.DeleteComment(comment);
-
-                return this.Json(new { notification = "You successfully delete comment." });
-            }
-
-            // Don't work in ajax!!!
-            return this.Redirect("/Posts/Index");
-        }
-
         [HttpGet]
         public ActionResult EditComment(int commentId)
         {
@@ -93,6 +73,27 @@
 
             this.TempData["Notification"] = "You successfully update your comment.";
             return this.Redirect(this.Request.UrlReferrer.ToString());
+        }
+
+        [HttpPost]
+        public ActionResult DeleteComment(int commentId)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                this.TempData["NotificationError"] = "Something get wrong. Try anaing later.";
+                return this.Redirect($"/Posts/Index");
+            }
+
+            if (this.Request.IsAjaxRequest())
+            {
+                var comment = this.comments.GetById(commentId);
+                this.comments.DeleteComment(comment);
+
+                return this.Json(new { notification = "You successfully delete comment." });
+            }
+
+            // Don't work in ajax!!!
+            return this.Redirect("/Posts/Index");
         }
     }
 }

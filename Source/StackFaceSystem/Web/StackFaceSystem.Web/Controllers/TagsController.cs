@@ -3,6 +3,7 @@
     using System.Web.Mvc;
     using Services.Data.Contracts;
 
+    [Authorize]
     public class TagsController : BaseController
     {
         private readonly ITagsService tags;

@@ -6,12 +6,12 @@
     {
         void CreateComment(Comment comment);
 
-        void DeleteCommentByAnswerId(int answerId);
-
         Comment GetById(int id);
 
-        void DeleteComment(Comment comment);
-
         void UpdateComment(int commentId, string content);
+
+        void DeleteCommentByAnswerId(int answerId);
+
+        void DeleteComment(Comment comment);
     }
 }

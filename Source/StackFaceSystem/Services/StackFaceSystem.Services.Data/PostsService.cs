@@ -17,6 +17,19 @@
             this.identifierProvider = identifierProvider;
         }
 
+        public void CreatePost(Post post)
+        {
+            this.posts.Add(post);
+            this.posts.Save();
+        }
+
+        public Post GetById(string id)
+        {
+            var intId = this.identifierProvider.DecodeId(id);
+            var post = this.posts.GetById(intId);
+            return post;
+        }
+
         public int GetPostsNumber()
         {
             return this.posts.All().Count();
@@ -25,13 +38,6 @@
         public int GetPostsNumberByCategory(string name)
         {
             return this.posts.All().Where(x => x.Category.Name == name).Count();
-        }
-
-        public Post GetById(string id)
-        {
-            var intId = this.identifierProvider.DecodeId(id);
-            var post = this.posts.GetById(intId);
-            return post;
         }
 
         public IQueryable<Post> GetPostsByPageAndSort(string sortType, string sortDirection, int page, int take)
@@ -75,12 +81,6 @@
                             .OrderByDescending(x => x.CreatedOn)
                             .Skip((page - 1) * take)
                             .Take(take);
-        }
-
-        public void CreatePost(Post post)
-        {
-            this.posts.Add(post);
-            this.posts.Save();
         }
 
         public void UpdatePost(string postId, string title, string content)

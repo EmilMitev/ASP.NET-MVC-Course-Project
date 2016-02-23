@@ -6,6 +6,7 @@
     using StackFaceSystem.Data.Models;
     using ViewModels.Answers;
 
+    [Authorize]
     public class AnswersController : BaseController
     {
         private readonly IAnswersService answers;
@@ -54,6 +55,29 @@
             return this.Redirect(this.Request.UrlReferrer.ToString());
         }
 
+        [HttpGet]
+        public ActionResult EditAnswer(int answerId)
+        {
+            var answerFromDb = this.answers.GetById(answerId);
+            var answer = this.Mapper.Map<EditAnswerViewModel>(answerFromDb);
+            return this.PartialView("_EditAnswer", answer);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAnswer(EditAnswerViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            this.answers.UpdateAnswer(model.Id, model.Content);
+
+            this.TempData["Notification"] = "You successfully update your answer.";
+            return this.Redirect(this.Request.UrlReferrer.ToString());
+        }
+
         [HttpPost]
         public ActionResult DeleteAnswer(int answerId)
         {
@@ -77,29 +101,6 @@
 
             // Don't work in ajax!!!
             return this.Redirect("/Posts/Index");
-        }
-
-        [HttpGet]
-        public ActionResult EditAnswer(int answerId)
-        {
-            var answerFromDb = this.answers.GetById(answerId);
-            var answer = this.Mapper.Map<EditAnswerViewModel>(answerFromDb);
-            return this.PartialView("_EditAnswer", answer);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditAnswer(EditAnswerViewModel model)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(model);
-            }
-
-            this.answers.UpdateAnswer(model.Id, model.Content);
-
-            this.TempData["Notification"] = "You successfully update your answer.";
-            return this.Redirect(this.Request.UrlReferrer.ToString());
         }
     }
 }

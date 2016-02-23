@@ -8,6 +8,7 @@
     using ViewModels.Categories;
     using ViewModels.Posts;
 
+    [Authorize]
     public class CategoriesController : BaseController
     {
         private const int ItemsPerPage = 5; // TODO: change it to 10

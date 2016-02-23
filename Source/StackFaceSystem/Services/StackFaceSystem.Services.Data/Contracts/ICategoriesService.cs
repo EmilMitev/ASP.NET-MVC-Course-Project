@@ -5,8 +5,8 @@
 
     public interface ICategoriesService
     {
-        IQueryable<Category> GetAllCategories();
-
         Category GetCategory(string name);
+
+        IQueryable<Category> GetAllCategories();
     }
 }

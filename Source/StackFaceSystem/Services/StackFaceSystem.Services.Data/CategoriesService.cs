@@ -14,19 +14,19 @@
             this.categories = categories;
         }
 
-        public IQueryable<Category> GetAllCategories()
-        {
-            var categories = this.categories
-                            .All()
-                            .OrderBy(x => x.Name);
-            return categories;
-        }
-
         public Category GetCategory(string name)
         {
             var categories = this.categories
                             .All()
                             .FirstOrDefault(x => x.Name == name);
+            return categories;
+        }
+
+        public IQueryable<Category> GetAllCategories()
+        {
+            var categories = this.categories
+                            .All()
+                            .OrderBy(x => x.Name);
             return categories;
         }
     }

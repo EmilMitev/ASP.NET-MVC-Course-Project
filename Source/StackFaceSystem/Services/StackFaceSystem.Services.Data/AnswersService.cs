@@ -16,6 +16,12 @@
             this.answers = answers;
         }
 
+        public void CreateAnswer(Answer answer)
+        {
+            this.answers.Add(answer);
+            this.answers.Save();
+        }
+
         public Answer GetById(int id)
         {
             return this.answers.GetById(id);
@@ -41,9 +47,11 @@
                             .Count();
         }
 
-        public void CreateAnswer(Answer answer)
+        public void UpdateAnswer(int answerId, string content)
         {
-            this.answers.Add(answer);
+            var answer = this.answers.GetById(answerId);
+            answer.Content = content;
+
             this.answers.Save();
         }
 
@@ -60,14 +68,6 @@
         public void DeleteAnswer(Answer answer)
         {
             this.answers.Delete(answer);
-            this.answers.Save();
-        }
-
-        public void UpdateAnswer(int answerId, string content)
-        {
-            var answer = this.answers.GetById(answerId);
-            answer.Content = content;
-
             this.answers.Save();
         }
     }
