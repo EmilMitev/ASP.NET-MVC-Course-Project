@@ -57,5 +57,28 @@
             // TODO: make that delete data is correct
             return null;
         }
+
+        [HttpGet]
+        public ActionResult EditComment(int commentId)
+        {
+            var commentFromDb = this.comments.GetById(commentId);
+            var comment = this.Mapper.Map<EditCommentViewModel>(commentFromDb);
+            return this.PartialView("_EditComment", comment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditComment(EditCommentViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            return null;
+
+            //this.TempData["Notification"] = "You successfully update your post.";
+            //return this.Redirect($"/Posts/Details/{model.EncodedId}");
+        }
     }
 }

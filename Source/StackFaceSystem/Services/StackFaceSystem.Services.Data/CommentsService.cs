@@ -10,6 +10,13 @@
     {
         private readonly IDbRepository<Comment> comments;
 
+        public Comment GetById(int id)
+        {
+            var comment = this.comments.GetById(id);
+            return comment;
+        }
+
+
         public CommentsService(IDbRepository<Comment> comments)
         {
             this.comments = comments;

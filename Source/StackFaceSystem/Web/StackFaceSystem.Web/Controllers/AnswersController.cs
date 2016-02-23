@@ -59,12 +59,28 @@
             return null;
         }
 
-        //[HttpGet]
-        //public ActionResult EditAnswer(int id)
-        //{
-        //    var answerFormDb = this.answers.GetAnswerById(id);
-        //    var model = this.Mapper.Map<EditAnswerViewModel>(answerFormDb);
-        //    return this.PartialView("_EditAnswer", model);
-        //}
+        [HttpGet]
+        public ActionResult EditAnswer(int answerId)
+        {
+            var answerFromDb = this.answers.GetAnswerById(answerId);
+            var answer = this.Mapper.Map<EditAnswerViewModel>(answerFromDb);
+            return this.PartialView("_EditAnswer", answer);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAnswer(EditAnswerViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+            // TODO: make it happend
+            return null;
+            //this.posts.UpdatePost(model.EncodedId, model.Title, model.Content);
+
+            //this.TempData["Notification"] = "You successfully update your post.";
+            //return this.Redirect($"/Posts/Details/{model.EncodedId}");
+        }
     }
 }

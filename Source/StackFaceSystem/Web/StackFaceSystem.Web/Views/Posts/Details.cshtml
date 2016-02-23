@@ -155,14 +155,63 @@
             $.validator.unobtrusive.parse("form");
         }
 
-        $("#backEditPost").click(function () {
-            $("#onEditPost").hide(1000);
-            scrollToTopOfPage();
-            $("#originalPost").show(1000);
-        })
-
         function OnAjaxEditPostBegin(data) {
             $("#originalPost").hide(1000);
+        }
+    </script>
+
+    @* On edit answer *@
+    <script>
+        var answerId;
+        var originalAnswer;
+        var answerSelector;
+        function OnAjaxEditAnswerSuccess(data) {
+            answerSelector = "#onEditAnswer" + answerId;
+            $(answerSelector).show(1000);
+
+            $("html, body").animate({
+                scrollTop: $(answerSelector).offset().top
+            }, 2000);
+
+            $("form").removeData("validator");
+            $("form").removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse("form");
+        }
+
+        function OnAjaxEditAnswerBegin(data) {
+            $(answerSelector).hide(10);
+            $(originalAnswer).show(10);
+
+            answerId = $(this).data("subject");
+            originalAnswer = "#originalAnswer" + answerId;
+            $(originalAnswer).hide(1000);
+        }
+    </script>
+
+    @* On edit comment *@
+    <script>
+        var commentId;
+        var commentSelector;
+        var originalComment;
+        function OnAjaxEditCommentSuccess(data) {
+            commentSelector = "#onEditComment" + commentId;
+            debugger;
+            $(commentSelector).show(1000);
+            $("html, body").animate({
+                scrollTop: $(commentSelector).offset().top
+            }, 2000);
+            $("form").removeData("validator");
+            $("form").removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse("form");
+        }
+
+        function OnAjaxEditCommentBegin(data) {
+            $(commentSelector).hide(10);
+            $(originalComment).show(10);
+
+            commentId = $(this).data("subject");
+            originalComment = "#originalComment" + commentId;
+            $(originalComment).hide(1000);
         }
     </script>
 

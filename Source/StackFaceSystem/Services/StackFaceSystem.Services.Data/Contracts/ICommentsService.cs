@@ -7,5 +7,7 @@
         void CreateComment(Comment comment);
 
         void DeleteCommentByAnswerId(int answerId);
+
+        Comment GetById(int id);
     }
 }
