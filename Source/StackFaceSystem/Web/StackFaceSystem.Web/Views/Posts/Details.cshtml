@@ -59,8 +59,9 @@
                                                      new AjaxOptions
                                                      {
                                                          HttpMethod = "POST",
+                                                         OnSuccess = "OnAjaxDeletePostSuccess",
                                                          Confirm = "Are you sure, you want to do delete this post?"
-                                                     }, new { @class = "pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" })
+                                                     }, new { @class = "pull-right btn btn-danger btn-sm glyphicon glyphicon-remove", data_subject = Model.Post.EncodedId })
 
                         @Ajax.ActionLink(" ", "EditPost", "Posts", new { postId = Model.Post.EncodedId },
                                                          new AjaxOptions
@@ -157,6 +158,11 @@
 
         function OnAjaxEditPostBegin(data) {
             $("#originalPost").hide(1000);
+        }
+
+        function OnAjaxDeletePostSuccess() {
+            var encodedId = $(this).data("subject");
+            window.location = "/Posts/Index";
         }
     </script>
 

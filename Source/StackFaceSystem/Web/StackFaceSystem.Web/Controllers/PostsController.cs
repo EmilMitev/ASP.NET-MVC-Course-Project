@@ -150,28 +150,31 @@
                 return this.Redirect($"/Posts/Details/{postId}");
             }
 
-            // get post
-            var post = this.posts.GetById(postId);
-
-            // get answers on this post
-            var numberOfAnswersToDelete = this.answers.GetAnswerNumberPerPost(post.Id);
-            var answers = this.answers.GetAnswerOnPost(post.Id, 1, numberOfAnswersToDelete).ToList();
-
-            // delete comments on those answers
-            foreach (var answer in answers)
+            if (this.Request.IsAjaxRequest())
             {
-                this.comments.DeleteCommentByAnswerId(answer.Id);
+                // get post
+                var post = this.posts.GetById(postId);
+
+                // get answers on this post
+                var numberOfAnswersToDelete = this.answers.GetAnswerNumberPerPost(post.Id);
+                var answers = this.answers.GetAnswerOnPost(post.Id, 1, numberOfAnswersToDelete).ToList();
+
+                // delete comments on those answers
+                foreach (var answer in answers)
+                {
+                    this.comments.DeleteCommentByAnswerId(answer.Id);
+                }
+
+                // delete answers on this post
+                this.answers.DeleteAnswerByPostId(post.Id);
+
+                // delete post
+                this.posts.DeletePost(post);
+
+                this.TempData["Notification"] = "You successfully delete post.";
             }
 
-            // delete answers on this post
-            this.answers.DeleteAnswerByPostId(post.Id);
-
-            // delete post
-            this.posts.DeletePost(post);
-
-            this.TempData["Notification"] = "You successfully delete post.";
-
-            // TODO: BUG!
+            // Don't work in ajax!!!
             return this.RedirectToAction("Index");
         }
 
