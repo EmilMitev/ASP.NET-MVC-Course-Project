@@ -22,7 +22,7 @@
                     before @Html.DisplayFor(x => x.CreatedOn) author <a href="#">@Model.Author</a>
                 </span>
                 <div class="pull-right">
-                    @if (this.User.Identity.Name == Model.Author)
+                    @if (this.User.Identity.Name == Model.Author || this.User.IsInRole("Administrator") || this.User.IsInRole("Moderator"))
                     {
                         <div class="pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" data-action="commentDelete" data-id="@Model.Id"></div>
 

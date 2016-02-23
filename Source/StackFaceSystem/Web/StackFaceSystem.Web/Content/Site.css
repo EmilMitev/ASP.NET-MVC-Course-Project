@@ -2,7 +2,7 @@
     padding-top: 20px;
     padding-bottom: 20px;
     background: url("/Content/images/Background.jpg") no-repeat fixed;
-    background-size: cover;
+    background-size: 100%;
 }
 
 .body-content {

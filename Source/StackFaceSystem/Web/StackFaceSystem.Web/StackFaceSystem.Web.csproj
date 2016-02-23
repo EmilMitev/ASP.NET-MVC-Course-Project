@@ -231,8 +231,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SmsService.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Moderator\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Moderator\ModeratorAreaRegistration.cs" />
+    <Compile Include="Areas\User\Controllers\ProfileController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnswersController.cs" />
@@ -306,9 +309,15 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Administrator\Views\web.config" />
     <Content Include="Areas\Moderator\Views\web.config" />
     <Content Include="Areas\User\Views\web.config" />
+    <Content Include="Areas\Administration\Views\web.config" />
+    <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administration\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Moderator\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Moderator\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\User\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\User\Views\Profile\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -319,6 +328,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\tinymce\license.txt" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
@@ -531,13 +541,10 @@
     <Content Include="Views\Comments\_EditComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Administrator\Controllers\" />
-    <Folder Include="Areas\Administrator\Models\" />
-    <Folder Include="Areas\Administrator\Views\Shared\" />
-    <Folder Include="Areas\Moderator\Controllers\" />
+    <Folder Include="Areas\Administration\Models\" />
+    <Folder Include="Areas\Administration\Views\Shared\" />
     <Folder Include="Areas\Moderator\Models\" />
     <Folder Include="Areas\Moderator\Views\Shared\" />
-    <Folder Include="Areas\User\Controllers\" />
     <Folder Include="Areas\User\Models\" />
     <Folder Include="Areas\User\Views\Shared\" />
     <Folder Include="ViewModels\Home\" />
@@ -577,6 +584,10 @@
     <ProjectReference Include="..\..\Services\StackFaceSystem.Services.Data\StackFaceSystem.Services.Data.csproj">
       <Project>{d955ad28-394b-4376-aaf4-9092a0305122}</Project>
       <Name>StackFaceSystem.Services.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StackFaceSystem.Common\StackFaceSystem.Common.csproj">
+      <Project>{d02a9b24-703a-4a6d-97cb-275068ea2e5c}</Project>
+      <Name>StackFaceSystem.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\StackFaceSystem.Web.Infrastructure\StackFaceSystem.Web.Infrastructure.csproj">
       <Project>{59502bd3-77ee-4f21-8f3f-5517168110cf}</Project>

@@ -29,7 +29,7 @@
                     <hr class="post-info" />
                     @if (this.User.Identity.IsAuthenticated)
                     {
-                        if (this.User.Identity.Name == Model.Author)
+                        if (this.User.Identity.Name == Model.Author || this.User.IsInRole("Administrator") || this.User.IsInRole("Moderator"))
                         {
                             <div class="pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" data-action="answerDelete" data-id="@Model.Id"></div>
 

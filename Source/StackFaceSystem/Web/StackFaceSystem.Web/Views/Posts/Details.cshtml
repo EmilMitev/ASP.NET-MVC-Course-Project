@@ -53,7 +53,7 @@
                         <span class="label label-default">@tag</span>
                     }
 
-                    @if (this.User.Identity.Name == Model.Post.Author)
+                    @if (this.User.Identity.Name == Model.Post.Author || this.User.IsInRole("Administrator") || this.User.IsInRole("Moderator"))
                     {
                         <div class = "pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" data-action="postDelete" data-id="@Model.Post.EncodedId" ></div>
 
@@ -78,7 +78,7 @@
                                                     HttpMethod = "GET",
                                                     InsertionMode = InsertionMode.Replace,
                                                     OnSuccess = "OnAjaxAnswerSuccess"
-                                                }, new { @class = "pull-right btn btn-primary btn-sm" })
+                                                }, new { @class = "pull-right btn btn-default btn-sm" })
                     }
                 </div>
             </div>
@@ -98,7 +98,7 @@
 <div class="panel panel-default">
     @foreach (var answer in Model.Answers)
     {
-        @Html.Partial("_AnswersOnPost", answer)
+        @Html.Partial("_AnswersOnPost", answer);
     }
 </div>
 
