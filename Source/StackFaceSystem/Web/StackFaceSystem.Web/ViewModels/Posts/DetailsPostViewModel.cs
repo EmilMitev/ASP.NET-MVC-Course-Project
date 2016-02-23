@@ -40,11 +40,7 @@
                 return this.sanitizer.Sanitize(this.Content);
             }
         }
-
-        [Required]
-        [AllowHtml]
-        [DataType("tinymce_full")]
-        [UIHint("tinymce_full")]
+        
         public string Content { get; set; }
 
         public DateTime CreatedOn { get; set; }

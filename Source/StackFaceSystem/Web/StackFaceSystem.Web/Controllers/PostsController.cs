@@ -6,10 +6,11 @@
     using Data.Models;
     using Infrastructure.Mapping;
     using Microsoft.AspNet.Identity;
+    using Services.Data.Contracts;
     using ViewModels.Answers;
     using ViewModels.Categories;
     using ViewModels.Posts;
-    using Services.Data.Contracts;
+
     public class PostsController : BaseController
     {
         private const int ItemsPerPage = 5;
@@ -17,15 +18,17 @@
 
         private readonly IPostsService posts;
         private readonly IAnswersService answers;
+        private readonly ICommentsService comments;
         private readonly ICategoriesService categories;
         private readonly ITagsService tags;
 
-        public PostsController(IPostsService posts, IAnswersService answers, ICategoriesService categories, ITagsService tags)
+        public PostsController(IPostsService posts, IAnswersService answers, ICategoriesService categories, ITagsService tags, ICommentsService comments)
         {
             this.posts = posts;
             this.answers = answers;
             this.categories = categories;
             this.tags = tags;
+            this.comments = comments;
         }
 
         [HttpGet]
@@ -139,10 +142,60 @@
         }
 
         [HttpPost]
-        public ActionResult DeletePost(string postId, string authorName)
+        public ActionResult DeletePost(string postId)
         {
-            // TODO: make that delete data is correct
-            return null;
+            if (!this.ModelState.IsValid)
+            {
+                this.TempData["NotificationError"] = "Something get wrong. Try anaing later.";
+                return this.Redirect($"/Posts/Details/{postId}");
+            }
+
+            // get post
+            var post = this.posts.GetById(postId);
+
+            // get answers on this post
+            var numberOfAnswersToDelete = this.answers.GetAnswerNumberPerPost(post.Id);
+            var answers = this.answers.GetAnswerOnPost(post.Id, 1, numberOfAnswersToDelete).ToList();
+
+            // delete comments on those answers
+            foreach (var answer in answers)
+            {
+                this.comments.DeleteCommentByAnswerId(answer.Id);
+            }
+
+            // delete answers on this post
+            this.answers.DeleteAnswerByPostId(post.Id);
+
+            // delete post
+            this.posts.DeletePost(post);
+
+            this.TempData["Notification"] = "You successfully delete post.";
+
+            // TODO: BUG!
+            return this.RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult EditPost(string postId)
+        {
+            var postFromDb = this.posts.GetById(postId);
+            var post = this.Mapper.Map<EditPostViewModel>(postFromDb);
+            return this.PartialView("_EditPost", post);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(EditPostViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            this.posts.UpdatePost(model.EncodedId, model.Title, model.Content);
+
+            this.TempData["Notification"] = "You successfully update your post.";
+            return this.Redirect($"/Posts/Details/{model.EncodedId}");
         }
     }
 }

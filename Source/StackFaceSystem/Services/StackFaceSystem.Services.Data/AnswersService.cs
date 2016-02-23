@@ -1,5 +1,6 @@
 ﻿namespace StackFaceSystem.Services.Data
 {
+    using System;
     using System.Linq;
     using Common;
     using Contracts;
@@ -9,12 +10,10 @@
     public class AnswersService : IAnswersService
     {
         private readonly IDbRepository<Answer> answers;
-        private readonly IIdentifierProvider identifierProvider;
 
-        public AnswersService(IDbRepository<Answer> answers, IIdentifierProvider identifierProvider)
+        public AnswersService(IDbRepository<Answer> answers)
         {
             this.answers = answers;
-            this.identifierProvider = identifierProvider;
         }
 
         public Answer GetAnswerById(int id)
@@ -45,6 +44,22 @@
         public void CreateAnswer(Answer answer)
         {
             this.answers.Add(answer);
+            this.answers.Save();
+        }
+
+        public void DeleteAnswerByPostId(int postId)
+        {
+            var answers = this.answers.All().Where(x => x.PostId == postId).ToList();
+
+            foreach (var answer in answers)
+            {
+                this.DeleteAnswer(answer);
+            }
+        }
+
+        private void DeleteAnswer(Answer answer)
+        {
+            this.answers.Delete(answer);
             this.answers.Save();
         }
     }

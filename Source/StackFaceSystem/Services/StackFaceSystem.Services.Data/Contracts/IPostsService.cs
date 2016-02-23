@@ -18,5 +18,9 @@
         void CreatePost(Post post);
 
         IQueryable<Post> GetPostByCategory(string name, int page, int take);
+
+        void UpdatePost(string postId, string title, string content);
+
+        void DeletePost(Post post);
     }
 }

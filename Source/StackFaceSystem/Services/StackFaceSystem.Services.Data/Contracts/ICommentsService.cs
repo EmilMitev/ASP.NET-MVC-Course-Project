@@ -5,5 +5,7 @@
     public interface ICommentsService
     {
         void CreateComment(Comment comment);
+
+        void DeleteCommentByAnswerId(int answerId);
     }
 }

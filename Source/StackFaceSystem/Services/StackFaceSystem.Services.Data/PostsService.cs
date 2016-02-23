@@ -2,9 +2,10 @@
 {
     using System.Linq;
     using Common;
+    using Contracts;
     using StackFaceSystem.Data.Common;
     using StackFaceSystem.Data.Models;
-    using Contracts;
+
     public class PostsService : IPostsService
     {
         private readonly IDbRepository<Post> posts;
@@ -79,6 +80,22 @@
         public void CreatePost(Post post)
         {
             this.posts.Add(post);
+            this.posts.Save();
+        }
+
+        public void UpdatePost(string postId, string title, string content)
+        {
+            var intId = this.identifierProvider.DecodeId(postId);
+            var post = this.posts.GetById(intId);
+            post.Title = title;
+            post.Content = content;
+
+            this.posts.Save();
+        }
+
+        public void DeletePost(Post post)
+        {
+            this.posts.Delete(post);
             this.posts.Save();
         }
     }

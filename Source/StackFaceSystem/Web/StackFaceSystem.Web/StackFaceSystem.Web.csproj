@@ -267,6 +267,7 @@
     <Compile Include="ViewModels\Posts\DetailsPostWithPagableAnswersViewModel.cs" />
     <Compile Include="ViewModels\Answers\InputAnswerViewModel.cs" />
     <Compile Include="ViewModels\Comments\InputCommentViewModel.cs" />
+    <Compile Include="ViewModels\Posts\EditPostViewModel.cs" />
     <Compile Include="ViewModels\Posts\InputPostViewModel.cs" />
     <Compile Include="ViewModels\Posts\PagablePostsViewModel.cs" />
     <Compile Include="ViewModels\Posts\PostsViewModel.cs" />
@@ -527,7 +528,7 @@
     <Content Include="Views\Shared\DisplayTemplates\AnswersViewModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CommentsPerAnswerViewModel.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CommentsPerAnswerViewModel.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DetailsPostViewModel.cshtml" />
+    <Content Include="Views\Posts\_EditPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

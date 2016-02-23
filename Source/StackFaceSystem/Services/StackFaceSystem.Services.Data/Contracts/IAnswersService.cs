@@ -12,5 +12,7 @@
         void CreateAnswer(Answer answer);
 
         Answer GetAnswerById(int id);
+
+        void DeleteAnswerByPostId(int postId);
     }
 }
