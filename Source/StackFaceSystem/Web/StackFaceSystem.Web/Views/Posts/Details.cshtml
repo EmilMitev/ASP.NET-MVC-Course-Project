@@ -21,7 +21,7 @@
     <div class="circle1"></div>
 </div>
 <div id="originalPost">
-    <h1 data-post-id="@Model.Post.EncodedId" style="display:none"></h1>
+    <h1 data-postid="@Model.Post.EncodedId" style="display:none"></h1>
     <h3>@Model.Post.Title</h3>
     <hr class="style" />
 
@@ -55,13 +55,7 @@
 
                     @if (this.User.Identity.Name == Model.Post.Author)
                     {
-                        @Ajax.ActionLink(" ", "DeletePost", "Posts", new { postId = Model.Post.EncodedId },
-                                                     new AjaxOptions
-                                                     {
-                                                         HttpMethod = "POST",
-                                                         OnSuccess = "OnAjaxDeletePostSuccess",
-                                                         Confirm = "Are you sure, you want to do delete this post?"
-                                                     }, new { @class = "pull-right btn btn-danger btn-sm glyphicon glyphicon-remove", data_subject = Model.Post.EncodedId })
+                        <div class = "pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" data-action="postDelete" data-id="@Model.Post.EncodedId" ></div>
 
                         @Ajax.ActionLink(" ", "EditPost", "Posts", new { postId = Model.Post.EncodedId },
                                                          new AjaxOptions
@@ -146,6 +140,46 @@
         });
     </script>
 
+    <script>
+        $("div[data-action='postDelete'").click(function () {
+            var id = $(this).data("id");
+            deleteSubject(id, "postDelete");
+        });
+        $("div[data-action='answerDelete'").click(function () {
+            var id = $(this).data("id");
+            deleteSubject(id, "answerDelete");
+        });
+        $("div[data-action='commentDelete'").click(function () {
+            var id = $(this).data("id");
+            deleteSubject(id, "commentDelete");
+        });
+
+        function deleteSubject(id, subjectToDelete) {
+            if (subjectToDelete == "postDelete") {
+                $.post("/Posts/DeletePost", { postId: id },
+                           function (data) {
+                               var message = data.notification;
+                               window.location = "/Posts/Index";
+                           });
+            }
+            else if (subjectToDelete == "answerDelete") {
+                $.post("/Answers/DeleteAnswer", { answerId: id },
+                          function (data) {
+                              var message = data.notification;
+                              location.reload();
+                          });
+            }
+            else if (subjectToDelete == "commentDelete") {
+                $.post("/Comments/DeleteComment", { commentId: id },
+                          function (data) {
+                              var message = data.notification;
+                              location.reload();
+                          });
+            }
+           
+        }
+    </script>
+
     @* For edit post *@
     <script>
         function OnAjaxEditPostSuccess(data) {
@@ -160,10 +194,6 @@
             $("#originalPost").hide(1000);
         }
 
-        function OnAjaxDeletePostSuccess() {
-            var encodedId = $(this).data("subject");
-            window.location = "/Posts/Index";
-        }
     </script>
 
     @* On edit answer *@

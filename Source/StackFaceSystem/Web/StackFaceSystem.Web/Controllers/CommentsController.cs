@@ -52,10 +52,24 @@
         }
 
         [HttpPost]
-        public ActionResult DeleteComment(int commentId, string authorName)
+        public ActionResult DeleteComment(int commentId)
         {
-            // TODO: make that delete data is correct
-            return null;
+            if (!this.ModelState.IsValid)
+            {
+                this.TempData["NotificationError"] = "Something get wrong. Try anaing later.";
+                return this.Redirect($"/Posts/Index");
+            }
+
+            if (this.Request.IsAjaxRequest())
+            {
+                var comment = this.comments.GetById(commentId);
+                this.comments.DeleteComment(comment);
+
+                return this.Json(new { notification = "You successfully delete comment." });
+            }
+
+            // Don't work in ajax!!!
+            return this.Redirect("/Posts/Index");
         }
 
         [HttpGet]
@@ -75,10 +89,10 @@
                 return this.View(model);
             }
 
-            return null;
+            this.comments.UpdateComment(model.Id, model.Content);
 
-            //this.TempData["Notification"] = "You successfully update your post.";
-            //return this.Redirect($"/Posts/Details/{model.EncodedId}");
+            this.TempData["Notification"] = "You successfully update your comment.";
+            return this.Redirect(this.Request.UrlReferrer.ToString());
         }
     }
 }

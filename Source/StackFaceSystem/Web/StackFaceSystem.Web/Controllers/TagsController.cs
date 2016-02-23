@@ -1,7 +1,7 @@
 ﻿namespace StackFaceSystem.Web.Controllers
 {
-    using Services.Data.Contracts;
     using System.Web.Mvc;
+    using Services.Data.Contracts;
 
     public class TagsController : BaseController
     {

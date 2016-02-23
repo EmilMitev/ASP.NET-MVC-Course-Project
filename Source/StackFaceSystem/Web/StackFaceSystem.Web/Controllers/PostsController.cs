@@ -171,7 +171,7 @@
                 // delete post
                 this.posts.DeletePost(post);
 
-                this.TempData["Notification"] = "You successfully delete post.";
+                return this.Json(new { notification = "You successfully delete post." });
             }
 
             // Don't work in ajax!!!

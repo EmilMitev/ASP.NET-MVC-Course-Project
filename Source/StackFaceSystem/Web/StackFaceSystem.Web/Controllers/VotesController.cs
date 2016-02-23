@@ -3,6 +3,7 @@
     using System.Web.Mvc;
     using Microsoft.AspNet.Identity;
     using Services.Data.Contracts;
+
     public class VotesController : BaseController
     {
         private readonly IVotesService votes;

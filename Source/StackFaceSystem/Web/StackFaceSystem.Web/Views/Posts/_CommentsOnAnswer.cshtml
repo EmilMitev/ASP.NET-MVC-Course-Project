@@ -21,14 +21,10 @@
                 <span class="pull-left">
                     before @Html.DisplayFor(x => x.CreatedOn) author <a href="#">@Model.Author</a>
                 </span>
-                <span class="pull-right">
+                <div class="pull-right">
                     @if (this.User.Identity.Name == Model.Author)
                     {
-                        @Ajax.ActionLink(" ", "DeleteComment", "Comments", new { commentId = Model.Id, authorName = Model.Author },
-                                                new AjaxOptions
-                                                {
-                                                    HttpMethod = "POST"
-                                                }, new { @class = "pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" })
+                        <div class="pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" data-action="commentDelete" data-id="@Model.Id"></div>
 
                         @Ajax.ActionLink(" ", "EditComment", "Comments", new { commentId = Model.Id },
                                                 new AjaxOptions
@@ -42,7 +38,7 @@
                                                 }, new { @class = "pull-right btn btn-default btn-sm glyphicon glyphicon-pencil", data_subject = Model.Id })
 
                     }
-                </span>
+                </div>
             </div>
             <hr class="post-info" />
         </div>

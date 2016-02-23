@@ -44,7 +44,7 @@
         {
             configuration.CreateMap<Answer, AnswersViewModel>().ForMember(x => x.Author, opt => opt.MapFrom(x => x.User.UserName));
             configuration.CreateMap<Answer, AnswersViewModel>().ForMember(x => x.VotesSum, opt => opt.MapFrom(x => x.Votes.Any() ? x.Votes.Sum(v => (int)v.Value) : 0));
-            configuration.CreateMap<Answer, AnswersViewModel>().ForMember(x => x.CommentsOnAnswer, opt => opt.MapFrom(x => x.Commets));
+            configuration.CreateMap<Answer, AnswersViewModel>().ForMember(x => x.CommentsOnAnswer, opt => opt.MapFrom(x => x.Commets.Where(c => c.IsDeleted == false)));
         }
     }
 }

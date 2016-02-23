@@ -4,9 +4,10 @@
     using System.Linq;
     using System.Web.Mvc;
     using Infrastructure.Mapping;
+    using Services.Data.Contracts;
     using ViewModels.Categories;
     using ViewModels.Posts;
-    using Services.Data.Contracts;
+
     public class CategoriesController : BaseController
     {
         private const int ItemsPerPage = 5; // TODO: change it to 10

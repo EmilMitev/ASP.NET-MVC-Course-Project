@@ -16,7 +16,7 @@
             this.answers = answers;
         }
 
-        public Answer GetAnswerById(int id)
+        public Answer GetById(int id)
         {
             return this.answers.GetById(id);
         }
@@ -57,9 +57,17 @@
             }
         }
 
-        private void DeleteAnswer(Answer answer)
+        public void DeleteAnswer(Answer answer)
         {
             this.answers.Delete(answer);
+            this.answers.Save();
+        }
+
+        public void UpdateAnswer(int answerId, string content)
+        {
+            var answer = this.answers.GetById(answerId);
+            answer.Content = content;
+
             this.answers.Save();
         }
     }

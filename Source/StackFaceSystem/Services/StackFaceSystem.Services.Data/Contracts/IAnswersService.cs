@@ -11,8 +11,12 @@
 
         void CreateAnswer(Answer answer);
 
-        Answer GetAnswerById(int id);
+        Answer GetById(int id);
 
         void DeleteAnswerByPostId(int postId);
+
+        void DeleteAnswer(Answer answer);
+
+        void UpdateAnswer(int answerId, string content);
     }
 }

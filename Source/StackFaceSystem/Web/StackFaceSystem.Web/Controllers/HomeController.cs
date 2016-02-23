@@ -3,8 +3,9 @@
     using System.Linq;
     using System.Web.Mvc;
     using Infrastructure.Mapping;
-    using ViewModels.Posts;
     using Services.Data.Contracts;
+    using ViewModels.Posts;
+
     public class HomeController : BaseController
     {
         private readonly IPostsService posts;

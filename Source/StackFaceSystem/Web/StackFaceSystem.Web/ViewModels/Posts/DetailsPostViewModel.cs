@@ -40,7 +40,7 @@
                 return this.sanitizer.Sanitize(this.Content);
             }
         }
-        
+
         public string Content { get; set; }
 
         public DateTime CreatedOn { get; set; }
@@ -61,7 +61,7 @@
             configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.Author, opt => opt.MapFrom(x => x.User.UserName));
             configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.Tags, opt => opt.MapFrom(x => x.Tags.Select(t => t.Name)));
             configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.VotesSum, opt => opt.MapFrom(x => x.Votes.Any() ? x.Votes.Sum(v => (int)v.Value) : 0));
-            configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.Answers, opt => opt.MapFrom(x => x.Answers));
+            configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.Answers, opt => opt.MapFrom(x => x.Answers.Where(a => a.IsDeleted == false)));
         }
     }
 }

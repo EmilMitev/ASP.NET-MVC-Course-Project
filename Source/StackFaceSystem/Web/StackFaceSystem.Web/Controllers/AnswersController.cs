@@ -9,9 +9,11 @@
     public class AnswersController : BaseController
     {
         private readonly IAnswersService answers;
+        private readonly ICommentsService comments;
 
-        public AnswersController(IAnswersService answers)
+        public AnswersController(IAnswersService answers, ICommentsService comments)
         {
+            this.comments = comments;
             this.answers = answers;
         }
 
@@ -53,16 +55,34 @@
         }
 
         [HttpPost]
-        public ActionResult DeleteAnswer(int answerId, string authorName)
+        public ActionResult DeleteAnswer(int answerId)
         {
-            // TODO: make that delete data is correct
-            return null;
+            if (!this.ModelState.IsValid)
+            {
+                this.TempData["NotificationError"] = "Something get wrong. Try anaing later.";
+                return this.Redirect($"/Posts/Index");
+            }
+
+            if (this.Request.IsAjaxRequest())
+            {
+                var answer = this.answers.GetById(answerId);
+
+                // delete comments on this answer
+                this.comments.DeleteCommentByAnswerId(answerId);
+
+                this.answers.DeleteAnswer(answer);
+
+                return this.Json(new { notification = "You successfully delete asnwer." });
+            }
+
+            // Don't work in ajax!!!
+            return this.Redirect("/Posts/Index");
         }
 
         [HttpGet]
         public ActionResult EditAnswer(int answerId)
         {
-            var answerFromDb = this.answers.GetAnswerById(answerId);
+            var answerFromDb = this.answers.GetById(answerId);
             var answer = this.Mapper.Map<EditAnswerViewModel>(answerFromDb);
             return this.PartialView("_EditAnswer", answer);
         }
@@ -75,12 +95,11 @@
             {
                 return this.View(model);
             }
-            // TODO: make it happend
-            return null;
-            //this.posts.UpdatePost(model.EncodedId, model.Title, model.Content);
 
-            //this.TempData["Notification"] = "You successfully update your post.";
-            //return this.Redirect($"/Posts/Details/{model.EncodedId}");
+            this.answers.UpdateAnswer(model.Id, model.Content);
+
+            this.TempData["Notification"] = "You successfully update your answer.";
+            return this.Redirect(this.Request.UrlReferrer.ToString());
         }
     }
 }
