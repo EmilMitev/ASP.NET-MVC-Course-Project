@@ -58,7 +58,8 @@
                         @Ajax.ActionLink(" ", "DeletePost", "Posts", new { postId = Model.Post.EncodedId },
                                                      new AjaxOptions
                                                      {
-                                                         HttpMethod = "POST"
+                                                         HttpMethod = "POST",
+                                                         Confirm = "Are you sure, you want to do delete this post?"
                                                      }, new { @class = "pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" })
 
                         @Ajax.ActionLink(" ", "EditPost", "Posts", new { postId = Model.Post.EncodedId },
@@ -72,8 +73,9 @@
                                                              OnSuccess = "OnAjaxEditPostSuccess"
                                                          }, new { @class = "pull-right btn btn-default btn-sm glyphicon glyphicon-pencil" })
                     }
-
-                    @Ajax.ActionLink("Answer", "CreateAnswer", "Answers", new { postId = Model.Post.Id },
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        @Ajax.ActionLink("Answer", "CreateAnswer", "Answers", new { postId = Model.Post.Id },
                                                 new AjaxOptions
                                                 {
                                                     UpdateTargetId = "addAnswerToPost",
@@ -82,6 +84,7 @@
                                                     InsertionMode = InsertionMode.Replace,
                                                     OnSuccess = "OnAjaxAnswerSuccess"
                                                 }, new { @class = "pull-right btn btn-primary btn-sm" })
+                    }
                 </div>
             </div>
         </div>
