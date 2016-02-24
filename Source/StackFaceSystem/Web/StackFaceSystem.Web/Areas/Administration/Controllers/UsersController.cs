@@ -4,15 +4,15 @@
     using System.Web;
     using System.Web.Mvc;
     using Common;
+    using Data;
+    using Data.Models;
     using Infrastructure.Mapping;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity.Owin;
     using Services.Data.Contracts;
     using ViewModels.Users;
     using Web.Controllers;
-    using Microsoft.AspNet.Identity;
-    using Data.Models;
-    using Data;
-    using Microsoft.AspNet.Identity.EntityFramework;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class UsersController : BaseController

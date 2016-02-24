@@ -6,7 +6,6 @@
 
     public class EditProfileViewModel : IMapFrom<ApplicationUser>, IMapTo<ApplicationUser>
     {
-
         [MaxLength(20)]
         public string FirstName { get; set; }
 
