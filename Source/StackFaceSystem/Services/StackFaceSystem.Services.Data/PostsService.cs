@@ -40,7 +40,7 @@
             return this.posts.All().Where(x => x.Category.Name == name).Count();
         }
 
-        public IQueryable<Post> GetPostsByPageAndSort(string sortType, string sortDirection, int page, int take)
+        public IQueryable<Post> GetPostsByPageAndSort(string sortType, string sortDirection, string search, int page, int take)
         {
             IQueryable<Post> posts = null;
             switch (sortType)
@@ -59,8 +59,19 @@
                     break;
             }
 
-            posts = posts.Skip((page - 1) * take)
-                           .Take(take);
+            if (search == string.Empty || search == null)
+            {
+                posts = posts
+                      .Skip((page - 1) * take)
+                      .Take(take);
+            }
+            else
+            {
+                posts = posts
+                    .Where(x => x.Title.Contains(search))
+                    .Skip((page - 1) * take)
+                    .Take(take);
+            }
 
             return posts;
         }

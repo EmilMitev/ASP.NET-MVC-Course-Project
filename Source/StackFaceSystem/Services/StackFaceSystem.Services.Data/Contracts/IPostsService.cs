@@ -9,7 +9,7 @@
 
         Post GetById(string id);
 
-        IQueryable<Post> GetPostsByPageAndSort(string sortType, string sortDirection, int page, int take);
+        IQueryable<Post> GetPostsByPageAndSort(string sortType, string sortDirection, string search, int page, int take);
 
         int GetPostsCount();
 

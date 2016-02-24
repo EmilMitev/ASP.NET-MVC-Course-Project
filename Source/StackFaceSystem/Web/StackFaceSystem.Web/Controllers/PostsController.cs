@@ -35,7 +35,7 @@
         public ActionResult Index(int id = 1)
         {
             var page = id;
-            var posts = this.posts.GetPostsByPageAndSort("Date", "descending", page, ItemsPerPage).To<PostsViewModel>().ToList();
+            var posts = this.posts.GetPostsByPageAndSort("Date", "descending", string.Empty, page, ItemsPerPage).To<PostsViewModel>().ToList();
             var postsNumber = this.posts.GetPostsCount();
             var totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
 
@@ -57,11 +57,22 @@
             var page = model.CurrentPage;
             var sortType = model.SortField;
             var sortDirection = model.SortDirection;
+            var searchValue = model.Search;
 
-            var posts = this.posts.GetPostsByPageAndSort(sortType, sortDirection, page, ItemsPerPage).To<PostsViewModel>().ToList();
+            var posts = this.posts.GetPostsByPageAndSort(sortType, sortDirection, searchValue, page, ItemsPerPage).To<PostsViewModel>().ToList();
+            var postsNumber = 0;
+            var totalPages = 0;
 
-            var postsNumber = this.posts.GetPostsCount();
-            var totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
+            if (model.Search == string.Empty || model.Search == null)
+            {
+                postsNumber = this.posts.GetPostsCount();
+            }
+            else
+            {
+                postsNumber = posts.Count();
+            }
+
+            totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
 
             model.TotalPages = totalPages;
             model.Posts = posts;
