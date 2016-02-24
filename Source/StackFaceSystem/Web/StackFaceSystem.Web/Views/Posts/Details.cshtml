@@ -27,7 +27,7 @@
                 <div class="row post-info note">
                     <hr class="post-info" />
                     <span class="pull-left">
-                        before @Html.DisplayFor(x => x.Post.CreatedOn) category: <a href="/Categories/GetCategoryPosts/@Model.Post.Category">@Model.Post.Category</a> author: <a href="#">@Model.Post.Author</a>
+                        before @Html.DisplayFor(x => x.Post.CreatedOn) category: <a href="/Categories/GetCategoryPosts/@Model.Post.Category">@Model.Post.Category</a> author: <a href="/User/Profile/GetUser?userId=@Model.Post.AuthorId">@Model.Post.Author</a>
                     </span>
                 </div>
 
@@ -42,7 +42,7 @@
 
                     @if (this.User.Identity.Name == Model.Post.Author || this.User.IsInRole("Administrator") || this.User.IsInRole("Moderator"))
                     {
-                        <div class = "pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" data-action="postDelete" data-id="@Model.Post.EncodedId" ></div>
+                        <div class="pull-right btn btn-danger btn-sm glyphicon glyphicon-remove" data-action="postDelete" data-id="@Model.Post.EncodedId"></div>
 
                         @Ajax.ActionLink(" ", "EditPost", "Posts", new { postId = Model.Post.EncodedId },
                                                          new AjaxOptions

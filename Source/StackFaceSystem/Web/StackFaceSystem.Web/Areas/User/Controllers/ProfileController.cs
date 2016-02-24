@@ -66,6 +66,7 @@
         }
 
         // GET: /Profile/Index
+        [HttpGet]
         public ActionResult Index(ManageMessageId? message)
         {
             this.ViewBag.StatusMessage =
@@ -83,6 +84,7 @@
         }
 
         // GET: /Profile/Edit
+        [HttpGet]
         public ActionResult Edit()
         {
             var userId = this.User.Identity.GetUserId();
@@ -109,6 +111,7 @@
         }
 
         // GET: /Profile/ChangePassword
+        [HttpGet]
         public ActionResult ChangePassword()
         {
             return this.View();
@@ -137,6 +140,15 @@
             }
 
             this.AddErrors(result);
+            return this.View(model);
+        }
+
+        // GET: /Profile/GetUser?userId=...
+        [HttpGet]
+        public ActionResult GetUser(string userId)
+        {
+            var user = this.users.GetById(userId);
+            var model = this.Mapper.Map<IndexViewModel>(user);
             return this.View(model);
         }
 

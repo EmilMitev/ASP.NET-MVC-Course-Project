@@ -324,6 +324,7 @@
     <Content Include="Areas\Moderator\Views\ManageCategories\_EditCategoryPartial.cshtml" />
     <Content Include="Areas\User\Views\Profile\Edit.cshtml" />
     <Content Include="Areas\User\Views\Profile\_UserProfilePartial.cshtml" />
+    <Content Include="Areas\User\Views\Profile\GetUser.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

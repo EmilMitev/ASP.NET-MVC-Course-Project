@@ -49,6 +49,8 @@
 
         public string Author { get; set; }
 
+        public string AuthorId { get; set; }
+
         public ICollection<string> Tags { get; set; }
 
         public int VotesSum { get; set; }
@@ -59,6 +61,7 @@
         {
             configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.Category, opt => opt.MapFrom(x => x.Category.Name));
             configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.Author, opt => opt.MapFrom(x => x.User.UserName));
+            configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.AuthorId, opt => opt.MapFrom(x => x.User.Id));
             configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.Tags, opt => opt.MapFrom(x => x.Tags.Select(t => t.Name)));
             configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.VotesSum, opt => opt.MapFrom(x => x.Votes.Any() ? x.Votes.Sum(v => (int)v.Value) : 0));
             configuration.CreateMap<Post, DetailsPostViewModel>().ForMember(x => x.Answers, opt => opt.MapFrom(x => x.Answers.Where(a => a.IsDeleted == false)));
