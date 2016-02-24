@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Web.Areas.User.ViewModels.Manage
+﻿namespace StackFaceSystem.Web.Areas.User.ViewModels.Profile
 {
     using System.ComponentModel.DataAnnotations;
 
