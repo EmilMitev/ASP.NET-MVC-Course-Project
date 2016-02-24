@@ -50,42 +50,6 @@
                         userManager.AddToRole(user.Id, GlobalConstants.UserRoleName);
                     }
                 }
-
-                // Add categories
-                foreach (var category in seed.Categories)
-                {
-                    context.Categories.Add(category);
-                }
-
-                // Add tags
-                foreach (var tag in seed.Tags)
-                {
-                    context.Tags.Add(tag);
-                }
-
-                // Add posts
-                foreach (var post in seed.Posts)
-                {
-                    context.Posts.Add(post);
-                }
-
-                // Add answers
-                foreach (var answer in seed.Answers)
-                {
-                    context.Answers.Add(answer);
-                }
-
-                // Add comments
-                foreach (var comment in seed.Comments)
-                {
-                    context.Comments.Add(comment);
-                }
-
-                // Add rating
-                foreach (var rating in seed.Votes)
-                {
-                    context.Votes.Add(rating);
-                }
             }
         }
     }
