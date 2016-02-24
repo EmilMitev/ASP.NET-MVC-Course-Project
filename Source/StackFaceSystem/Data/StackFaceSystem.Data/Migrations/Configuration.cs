@@ -43,11 +43,6 @@
                         userManager.Create(user, GlobalConstants.AdministratorPassword);
                         userManager.AddToRole(user.Id, GlobalConstants.AdministratorRoleName);
                     }
-                    else if (user.UserName == GlobalConstants.ModeratorUserName)
-                    {
-                        userManager.Create(user, GlobalConstants.ModeratorPassword);
-                        userManager.AddToRole(user.Id, GlobalConstants.ModeratorRoleName);
-                    }
                     else
                     {
                         var userPassword = user.UserName;

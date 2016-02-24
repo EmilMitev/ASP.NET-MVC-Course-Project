@@ -216,10 +216,7 @@
         {
             ApplicationUser user;
 
-            user = new ApplicationUser { UserName = GlobalConstants.AdministratorUserName, Email = GlobalConstants.AdministratorUserName };
-            this.Users.Add(user);
-
-            user = new ApplicationUser { UserName = GlobalConstants.ModeratorUserName, Email = GlobalConstants.ModeratorUserName };
+            user = new ApplicationUser { UserName = "EMitev", Email = GlobalConstants.AdministratorUserName };
             this.Users.Add(user);
 
             for (int i = 1; i <= 5; i++)
