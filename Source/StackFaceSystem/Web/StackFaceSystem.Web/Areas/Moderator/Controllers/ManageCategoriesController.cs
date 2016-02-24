@@ -15,9 +15,15 @@
     {
         private const int CategoriesPerPage = 10;
         private readonly ICategoriesService categories;
+        private readonly IPostsService posts;
+        private readonly IAnswersService answers;
+        private readonly ICommentsService comments;
 
-        public ManageCategoriesController(ICategoriesService categories)
+        public ManageCategoriesController(IPostsService posts, IAnswersService answers, ICommentsService comments, ICategoriesService categories)
         {
+            this.posts = posts;
+            this.answers = answers;
+            this.comments = comments;
             this.categories = categories;
         }
 
@@ -117,6 +123,50 @@
             this.TempData["Notification"] = "You successfully update category";
 
             return this.RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteCategory(int subjectId)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View("Error");
+            }
+
+            if (this.Request.IsAjaxRequest())
+            {
+                // Get category
+                var category = this.categories.GetById(subjectId);
+
+                var postsCount = this.posts.GetPostsCountByCategory(category.Name);
+
+                var posts = this.posts.GetPostByCategory(category.Name, 1, postsCount).ToList();
+
+                foreach (var post in posts)
+                {
+                    // get answers on this post
+                    var numberOfAnswersToDelete = this.answers.GetAnswerCountPerPost(post.Id);
+                    var answers = this.answers.GetAnswerOnPost(post.Id, 1, numberOfAnswersToDelete).ToList();
+
+                    // delete comments on those answers
+                    foreach (var answer in answers)
+                    {
+                        this.comments.DeleteCommentByAnswerId(answer.Id);
+                    }
+
+                    // delete answers on this post
+                    this.answers.DeleteAnswerByPostId(post.Id);
+
+                    // delete post
+                    this.posts.DeletePost(post);
+                }
+
+                this.categories.DeleteCategory(category);
+
+                return this.Json(new { notification = "You successfully delete category." });
+            }
+
+            return this.View("Index");
         }
     }
 }

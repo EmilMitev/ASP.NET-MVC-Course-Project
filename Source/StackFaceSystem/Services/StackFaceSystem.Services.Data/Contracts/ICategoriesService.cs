@@ -7,6 +7,8 @@
     {
         void CreateCategory(Category category);
 
+        Category GetById(int id);
+
         Category GetCategory(string name);
 
         IQueryable<Category> GetAllCategories();
@@ -17,6 +19,6 @@
 
         void UpdateCategory(int categoryId, string name);
 
-        void DeleteCategory(int categoryId);
+        void DeleteCategory(Category category);
     }
 }

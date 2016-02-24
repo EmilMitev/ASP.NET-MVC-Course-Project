@@ -20,6 +20,12 @@
             this.categories.Save();
         }
 
+        public Category GetById(int id)
+        {
+            var categories = this.categories.GetById(id);
+            return categories;
+        }
+
         public Category GetCategory(string name)
         {
             var categories = this.categories
@@ -77,9 +83,8 @@
             this.categories.Save();
         }
 
-        public void DeleteCategory(int categoryId)
+        public void DeleteCategory(Category category)
         {
-            var category = this.categories.GetById(categoryId);
             this.categories.Delete(category);
             this.categories.Save();
         }
