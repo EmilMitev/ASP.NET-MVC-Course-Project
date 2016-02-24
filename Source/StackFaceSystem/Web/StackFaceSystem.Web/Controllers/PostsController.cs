@@ -36,7 +36,7 @@
         {
             var page = id;
             var posts = this.posts.GetPostsByPageAndSort("Date", "descending", page, ItemsPerPage).To<PostsViewModel>().ToList();
-            var postsNumber = this.posts.GetPostsNumber();
+            var postsNumber = this.posts.GetPostsCount();
             var totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
 
             var viewModel = new PagablePostsViewModel
@@ -60,7 +60,7 @@
 
             var posts = this.posts.GetPostsByPageAndSort(sortType, sortDirection, page, ItemsPerPage).To<PostsViewModel>().ToList();
 
-            var postsNumber = this.posts.GetPostsNumber();
+            var postsNumber = this.posts.GetPostsCount();
             var totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
 
             model.TotalPages = totalPages;
@@ -75,7 +75,7 @@
         public ActionResult Details(string id, int page = 1)
         {
             var post = this.posts.GetById(id);
-            var answersNumbers = this.answers.GetAnswerNumberPerPost(post.Id);
+            var answersNumbers = this.answers.GetAnswerCountPerPost(post.Id);
             var totalPages = (int)Math.Ceiling(answersNumbers / (decimal)ItemsPerPage);
 
             var answers = this.answers
@@ -184,7 +184,7 @@
                 var post = this.posts.GetById(postId);
 
                 // get answers on this post
-                var numberOfAnswersToDelete = this.answers.GetAnswerNumberPerPost(post.Id);
+                var numberOfAnswersToDelete = this.answers.GetAnswerCountPerPost(post.Id);
                 var answers = this.answers.GetAnswerOnPost(post.Id, 1, numberOfAnswersToDelete).ToList();
 
                 // delete comments on those answers

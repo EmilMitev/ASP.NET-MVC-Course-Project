@@ -30,12 +30,12 @@
             return post;
         }
 
-        public int GetPostsNumber()
+        public int GetPostsCount()
         {
             return this.posts.All().Count();
         }
 
-        public int GetPostsNumberByCategory(string name)
+        public int GetPostsCountByCategory(string name)
         {
             return this.posts.All().Where(x => x.Category.Name == name).Count();
         }

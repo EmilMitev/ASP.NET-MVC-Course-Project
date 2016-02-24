@@ -55,13 +55,7 @@
 </div>
 <hr class="style" />
 
-@if (this.TempData["Notification"] != null)
-{
-    <div class="alert alert-dismissible alert-success">
-        <button type="button" class="close" data-dismiss="alert">&#10006;</button>
-        @TempData["Notification"].ToString()
-    </div>
-}
+@Html.Partial("_ErrorOrSuccessPartial")
 
 @foreach (var post in Model.Posts)
 {

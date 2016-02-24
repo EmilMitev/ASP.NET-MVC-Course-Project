@@ -39,7 +39,7 @@
             return answers;
         }
 
-        public int GetAnswerNumberPerPost(int postId)
+        public int GetAnswerCountPerPost(int postId)
         {
             return this.answers
                             .All()

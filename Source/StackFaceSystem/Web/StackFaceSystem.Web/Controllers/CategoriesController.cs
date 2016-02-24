@@ -22,13 +22,13 @@
         }
 
         [HttpGet]
-        public ActionResult Index(string id, int page = 1)
+        public ActionResult GetCategoryPosts(string id, int page = 1)
         {
             var categoryFromDb = this.categories.GetCategory(id);
             var category = this.Mapper.Map<CategoryViewModel>(categoryFromDb);
 
             var posts = this.posts.GetPostByCategory(id, page, ItemsPerPage).To<PostsViewModel>().ToList();
-            var postsNumber = this.posts.GetPostsNumberByCategory(id);
+            var postsNumber = this.posts.GetPostsCountByCategory(id);
             var totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
 
             var viewModel = new PagablePostsOnCategoryViewModel

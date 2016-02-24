@@ -1,19 +1,6 @@
 ﻿@model StackFaceSystem.Web.ViewModels.Posts.DetailsPostWithPagableAnswersViewModel
 <hr class="style" />
-@if (this.TempData["Notification"] != null)
-{
-    <div class="alert alert-dismissible alert-success">
-        <button type="button" class="close" data-dismiss="alert">&#10006;</button>
-        @TempData["Notification"].ToString()
-    </div>
-}
-@if (this.TempData["NotificationError"] != null)
-{
-    <div class="alert alert-dismissible alert-danger">
-        <button type="button" class="close" data-dismiss="alert">&#10006;</button>
-        @TempData["NotificationError"].ToString()
-    </div>
-}
+@Html.Partial("_ErrorOrSuccessPartial")
 
 <div id="onEditPost" style="display: none"></div>
 <div id="onEditPostLoading" style="display: none">
@@ -40,7 +27,7 @@
                 <div class="row post-info note">
                     <hr class="post-info" />
                     <span class="pull-left">
-                        before @Html.DisplayFor(x => x.Post.CreatedOn) category: <a href="/Categories/Index/@Model.Post.Category">@Model.Post.Category</a> author: <a href="#">@Model.Post.Author</a>
+                        before @Html.DisplayFor(x => x.Post.CreatedOn) category: <a href="/Categories/GetCategoryPosts/@Model.Post.Category">@Model.Post.Category</a> author: <a href="#">@Model.Post.Author</a>
                     </span>
                 </div>
 

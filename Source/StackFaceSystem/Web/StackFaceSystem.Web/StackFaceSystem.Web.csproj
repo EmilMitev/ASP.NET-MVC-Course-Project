@@ -233,8 +233,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersController.cs" />
-    <Compile Include="Areas\Moderator\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Moderator\Controllers\ManageCategoriesController.cs" />
     <Compile Include="Areas\Moderator\ModeratorAreaRegistration.cs" />
+    <Compile Include="Areas\Moderator\ViewModels\ManageCategories\CategoryViewModel.cs" />
+    <Compile Include="Areas\Moderator\ViewModels\ManageCategories\InputCategoryViewModel.cs" />
+    <Compile Include="Areas\Moderator\ViewModels\ManageCategories\PagableSortableCategoriesViewModel.cs" />
     <Compile Include="Areas\User\Controllers\ProfileController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -315,9 +318,10 @@
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Users\Index.cshtml" />
     <Content Include="Areas\Moderator\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Moderator\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Moderator\Views\ManageCategories\Index.cshtml" />
     <Content Include="Areas\User\Views\_ViewStart.cshtml" />
     <Content Include="Areas\User\Views\Profile\Index.cshtml" />
+    <Content Include="Areas\Moderator\Views\ManageCategories\_CreateCategory.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -535,15 +539,15 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.json" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
-    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\GetCategoryPosts.cshtml" />
     <Content Include="Views\Posts\_EditPost.cshtml" />
     <Content Include="Views\Answers\_EditAnswer.cshtml" />
     <Content Include="Views\Comments\_EditComment.cshtml" />
+    <Content Include="Views\Shared\_ErrorOrSuccessPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Administration\Views\Shared\" />
-    <Folder Include="Areas\Moderator\Models\" />
     <Folder Include="Areas\Moderator\Views\Shared\" />
     <Folder Include="Areas\User\Models\" />
     <Folder Include="Areas\User\Views\Shared\" />

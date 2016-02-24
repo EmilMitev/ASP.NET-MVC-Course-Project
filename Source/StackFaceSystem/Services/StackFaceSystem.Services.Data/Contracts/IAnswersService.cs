@@ -11,7 +11,7 @@
 
         IQueryable<Answer> GetAnswerOnPost(int postId, int page, int take);
 
-        int GetAnswerNumberPerPost(int postId);
+        int GetAnswerCountPerPost(int postId);
 
         void UpdateAnswer(int answerId, string content);
 

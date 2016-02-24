@@ -11,9 +11,9 @@
 
         IQueryable<Post> GetPostsByPageAndSort(string sortType, string sortDirection, int page, int take);
 
-        int GetPostsNumber();
+        int GetPostsCount();
 
-        int GetPostsNumberByCategory(string name);
+        int GetPostsCountByCategory(string name);
 
         IQueryable<Post> GetNewestPost();
 

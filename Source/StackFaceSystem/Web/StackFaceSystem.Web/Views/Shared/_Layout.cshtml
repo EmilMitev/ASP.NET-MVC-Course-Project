@@ -25,7 +25,7 @@
                     <li>@Html.ActionLink("Posts", "Index", "Posts", new { area = string.Empty }, null)</li>
                     @if (this.User.IsInRole("Administrator") || this.User.IsInRole("Moderator"))
                     {
-                        <li>@Html.ActionLink("Categories", "Index", "Categories", new { area = "Moderator" }, null)</li>
+                        <li>@Html.ActionLink("Manage Categories", "Index", "ManageCategories", new { area = "Moderator" }, null)</li>
                     }
                     @if (this.User.IsInRole("Administrator"))
                     {
