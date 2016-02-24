@@ -8,5 +8,7 @@
         IQueryable<ApplicationUser> All();
 
         ApplicationUser GetById(string id);
+
+        void UpdateUser(ApplicationUser user);
     }
 }

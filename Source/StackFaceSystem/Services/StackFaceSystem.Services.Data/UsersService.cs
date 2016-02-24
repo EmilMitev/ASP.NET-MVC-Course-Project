@@ -25,5 +25,22 @@
         {
             return this.users.GetById(id);
         }
+
+        public void UpdateUser(ApplicationUser user)
+        {
+            var userFromDb = this.users.GetById(user.Id);
+
+            userFromDb.FirstName = user.FirstName;
+            userFromDb.LastName = user.LastName;
+            userFromDb.ImageUrl = user.ImageUrl;
+            userFromDb.FacebookUrl = user.FacebookUrl;
+            userFromDb.TwitterUrl = user.TwitterUrl;
+            userFromDb.GoogleUrl = user.GoogleUrl;
+            userFromDb.LinkedInUrl = user.LinkedInUrl;
+            userFromDb.GitHubUrl = user.GitHubUrl;
+            userFromDb.Adress = user.Adress;
+
+            this.users.SaveChanges();
+        }
     }
 }

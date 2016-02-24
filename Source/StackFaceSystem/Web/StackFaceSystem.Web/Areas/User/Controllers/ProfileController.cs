@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+    using Data.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
@@ -16,9 +17,18 @@
     {
         private readonly IUsersService users;
 
+        private ApplicationSignInManager signInManager;
+        private ApplicationUserManager userManager;
+
         public ProfileController(IUsersService users)
         {
             this.users = users;
+        }
+
+        public ProfileController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            this.UserManager = userManager;
+            this.SignInManager = signInManager;
         }
 
         public enum ManageMessageId
@@ -27,6 +37,32 @@
             ChangePasswordSuccess,
             SetPasswordSuccess,
             Error
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+
+            private set
+            {
+                this.signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return this.userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+
+            private set
+            {
+                this.userManager = value;
+            }
         }
 
         // GET: /Profile/Index
@@ -49,15 +85,27 @@
         // GET: /Profile/Edit
         public ActionResult Edit()
         {
-            return this.View();
+            var userId = this.User.Identity.GetUserId();
+            var user = this.users.GetById(userId);
+            var model = this.Mapper.Map<EditProfileViewModel>(user);
+            return this.View(model);
         }
 
         // POST: /Profile/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ChangePasswordViewModel model)
+        public ActionResult Edit(EditProfileViewModel model)
         {
-            return this.View(model);
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var user = this.Mapper.Map<ApplicationUser>(model);
+            user.Id = this.User.Identity.GetUserId();
+            this.users.UpdateUser(user);
+
+            return this.RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
         }
 
         // GET: /Profile/ChangePassword
@@ -71,24 +119,24 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            //if (!this.ModelState.IsValid)
-            //{
-            //    return this.View(model);
-            //}
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
 
-            //var result = await this.UserManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-            //if (result.Succeeded)
-            //{
-            //    var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
-            //    if (user != null)
-            //    {
-            //        await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            //    }
+            var result = await this.UserManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
 
-            //    return this.RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
-            //}
+                return this.RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+            }
 
-            //this.AddErrors(result);
+            this.AddErrors(result);
             return this.View(model);
         }
 
