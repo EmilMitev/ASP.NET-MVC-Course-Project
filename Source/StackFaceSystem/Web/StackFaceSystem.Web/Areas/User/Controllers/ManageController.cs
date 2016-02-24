@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Web.Controllers
+﻿namespace StackFaceSystem.Web.Areas.User.Controllers
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -7,7 +7,8 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-    using StackFaceSystem.Web.ViewModels.Manage;
+    using ViewModels.Manage;
+    using Web.Controllers;
 
     [Authorize]
     public class ManageController : BaseController

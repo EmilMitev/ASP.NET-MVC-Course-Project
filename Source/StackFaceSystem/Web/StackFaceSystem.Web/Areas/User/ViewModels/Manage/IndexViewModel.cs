@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Web.ViewModels.Manage
+﻿namespace StackFaceSystem.Web.Areas.User.ViewModels.Manage
 {
     using System.Collections.Generic;
     using Microsoft.AspNet.Identity;

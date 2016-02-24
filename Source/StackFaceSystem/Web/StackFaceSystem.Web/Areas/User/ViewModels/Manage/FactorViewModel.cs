@@ -1,4 +1,4 @@
-﻿namespace StackFaceSystem.Web.ViewModels.Manage
+﻿namespace StackFaceSystem.Web.Areas.User.ViewModels.Manage
 {
     public class FactorViewModel
     {
