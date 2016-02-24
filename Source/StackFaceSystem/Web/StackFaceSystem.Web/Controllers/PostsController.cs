@@ -109,11 +109,7 @@
         [HttpGet]
         public ActionResult CreatePost()
         {
-            var categories = this.Cache
-                                  .Get(
-                                      "categories",
-                                      () => this.categories.GetAllCategories().To<CategoriesViewModel>().ToList(),
-                                      60 * 60);
+            var categories = this.categories.GetAllCategories().To<CategoriesViewModel>().ToList();
 
             var inputModel = new InputPostViewModel
             {
@@ -130,7 +126,8 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var categories = this.Cache.Get("categories", () => this.categories.GetAllCategories().To<CategoriesViewModel>().ToList(), 60 * 60);
+                var categories = this.categories.GetAllCategories().To<CategoriesViewModel>().ToList();
+
                 model.Categories = categories;
 
                 return this.View(model);
