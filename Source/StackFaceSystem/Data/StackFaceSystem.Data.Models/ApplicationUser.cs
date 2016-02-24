@@ -7,6 +7,25 @@
 
     public class ApplicationUser : IdentityUser
     {
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public string FacebookUrl { get; set; }
+
+        public string TwitterUrl { get; set; }
+
+        public string GoogleUrl { get; set; }
+
+        public string LinkedInUrl { get; set; }
+
+        public string GitHubUrl { get; set; }
+
+        public string Adress { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

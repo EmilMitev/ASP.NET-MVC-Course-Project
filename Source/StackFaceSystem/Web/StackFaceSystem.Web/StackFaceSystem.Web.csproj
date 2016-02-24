@@ -279,16 +279,11 @@
     <Compile Include="ViewModels\Posts\InputPostViewModel.cs" />
     <Compile Include="ViewModels\Posts\PagablePostsViewModel.cs" />
     <Compile Include="ViewModels\Posts\PostsViewModel.cs" />
-    <Compile Include="Areas\User\ViewModels\Profile\AddPhoneNumberViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\Profile\ChangePasswordViewModel.cs" />
-    <Compile Include="Areas\User\ViewModels\Profile\ConfigureTwoFactorViewModel.cs" />
-    <Compile Include="Areas\User\ViewModels\Profile\FactorViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\Profile\IndexViewModel.cs" />
-    <Compile Include="Areas\User\ViewModels\Profile\ManageLoginsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\User\ViewModels\Profile\SetPasswordViewModel.cs" />
-    <Compile Include="Areas\User\ViewModels\Profile\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\Tags\TagViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -298,7 +293,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\Background.jpg" />
     <Content Include="Content\images\ComingSoon.png" />
+    <Content Include="Content\images\FaceBook.png" />
+    <Content Include="Content\images\GitHub.png" />
+    <Content Include="Content\images\Google.png" />
+    <Content Include="Content\images\LinkedIn.png" />
     <Content Include="Content\images\Logo.png" />
+    <Content Include="Content\images\Twitter.png" />
     <Content Include="Content\images\User-Profile.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="favicon.ico" />
@@ -322,6 +322,8 @@
     <Content Include="Areas\User\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Moderator\Views\ManageCategories\_CreateCategoryPartial.cshtml" />
     <Content Include="Areas\Moderator\Views\ManageCategories\_EditCategoryPartial.cshtml" />
+    <Content Include="Areas\User\Views\Profile\Edit.cshtml" />
+    <Content Include="Areas\User\Views\Profile\_UserProfilePartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -510,12 +512,9 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Areas\User\Views\Profile\AddPhoneNumber.cshtml" />
     <Content Include="Areas\User\Views\Profile\ChangePassword.cshtml" />
     <Content Include="Areas\User\Views\Profile\Index.cshtml" />
-    <Content Include="Areas\User\Views\Profile\ManageLogins.cshtml" />
     <Content Include="Areas\User\Views\Profile\SetPassword.cshtml" />
-    <Content Include="Areas\User\Views\Profile\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />

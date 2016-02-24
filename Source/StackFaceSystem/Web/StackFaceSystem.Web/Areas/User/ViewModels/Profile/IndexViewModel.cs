@@ -1,18 +1,28 @@
 ﻿namespace StackFaceSystem.Web.Areas.User.ViewModels.Profile
 {
-    using System.Collections.Generic;
-    using Microsoft.AspNet.Identity;
+    using Data.Models;
+    using Infrastructure.Mapping;
 
-    public class IndexViewModel
+    public class IndexViewModel : IMapFrom<ApplicationUser>
     {
-        public bool HasPassword { get; set; }
+        public string FirstName { get; set; }
 
-        public IList<UserLoginInfo> Logins { get; set; }
+        public string LastName { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
 
-        public bool TwoFactor { get; set; }
+        public string ImageUrl { get; set; }
 
-        public bool BrowserRemembered { get; set; }
+        public string FacebookUrl { get; set; }
+
+        public string TwitterUrl { get; set; }
+
+        public string GoogleUrl { get; set; }
+
+        public string LinkedInUrl { get; set; }
+
+        public string GitHubUrl { get; set; }
+
+        public string Adress { get; set; }
     }
 }

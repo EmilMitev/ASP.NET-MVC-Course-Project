@@ -1,0 +1,54 @@
+﻿@model StackFaceSystem.Web.Areas.User.ViewModels.Profile.IndexViewModel
+
+<div class="row">
+    <div class="col-md-3 well">
+        @if (Model.ImageUrl == null)
+        {
+            <div class="row text-center"><img src="http://virtuelcampus.univ-msila.dz/segc/images/icones/administrator.png" width="200" /></div>
+        }
+        else
+        {
+            <div class="row text-center"><img src="@Model.ImageUrl" width="200" /></div>
+        }
+
+        <div id="socialIcons" class="row text-center">
+            @if (@Model.TwitterUrl == null)
+            {
+                <img class="inactiveSocialSiteIcon" src="~/Content/images/Twitter.png" width="30" />
+            }
+            else {<a href="#"><img src="@Model.TwitterUrl" width="30" /></a>}
+
+            @if (Model.FacebookUrl == null)
+            {
+                <img class="inactiveSocialSiteIcon" src="~/Content/images/FaceBook.png" width="30" />}
+            else { <a href="#"><img src="@Model.FacebookUrl" width="30" /></a>}
+
+            @if (Model.GitHubUrl == null)
+            {
+                <img class="inactiveSocialSiteIcon" src="~/Content/images/GitHub.png" width="30" />
+            }
+            else {  <a href="#"><img src="@Model.GitHubUrl" width="30" /></a>}
+
+            @if (Model.GoogleUrl == null)
+            {
+                <img class="inactiveSocialSiteIcon" src="~/Content/images/Google.png" width="30" />
+            }
+            else { <a href="#"><img src="@Model.GoogleUrl" width="30" /></a>}
+
+            @if (Model.LinkedInUrl == null)
+            {
+                <img class="inactiveSocialSiteIcon" src="~/Content/images/LinkedIn.png" width="30" />
+            }
+            else { <a href="#"><img src="@Model.LinkedInUrl" width="30" /></a>}
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <fieldset>
+            <legend>General Information</legend>
+            <div class="well"><i class="glyphicon glyphicon-user"></i>  @(Model.FirstName == null || Model.LastName == null ? "None" : Model.FirstName + " " + Model.LastName)</div>
+            <div class="well"><i class="glyphicon glyphicon-envelope"></i>  @Model.Email</div>
+            <div class="well"><i class="glyphicon glyphicon-globe"></i>  @(Model.Adress == null ? "None" : Model.Adress )</div>
+        </fieldset>
+    </div>
+</div>
