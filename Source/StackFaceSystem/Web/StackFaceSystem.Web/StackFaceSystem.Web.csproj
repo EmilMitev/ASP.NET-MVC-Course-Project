@@ -321,7 +321,7 @@
     <Content Include="Areas\Moderator\Views\ManageCategories\Index.cshtml" />
     <Content Include="Areas\User\Views\_ViewStart.cshtml" />
     <Content Include="Areas\User\Views\Profile\Index.cshtml" />
-    <Content Include="Areas\Moderator\Views\ManageCategories\_CreateCategory.cshtml" />
+    <Content Include="Areas\Moderator\Views\ManageCategories\_CreateCategoryPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -521,14 +521,14 @@
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Shared\_Posts.cshtml" />
     <Content Include="Views\Posts\Details.cshtml" />
-    <Content Include="Views\Posts\_AnswersOnPost.cshtml" />
-    <Content Include="Views\Posts\_CommentsOnAnswer.cshtml" />
+    <Content Include="Views\Posts\_AnswersOnPostPartial.cshtml" />
+    <Content Include="Views\Posts\_CommentsOnAnswerPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Posts\CreatePost.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
-    <Content Include="Views\Answers\_CreateAnswer.cshtml" />
-    <Content Include="Views\Comments\_CreateComment.cshtml" />
+    <Content Include="Views\Answers\_CreateAnswerPartial.cshtml" />
+    <Content Include="Views\Comments\_CreateCommentPartial.cshtml" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
@@ -540,9 +540,9 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Views\Categories\GetCategoryPosts.cshtml" />
-    <Content Include="Views\Posts\_EditPost.cshtml" />
+    <Content Include="Views\Posts\_EditPostPartial.cshtml" />
     <Content Include="Views\Answers\_EditAnswer.cshtml" />
-    <Content Include="Views\Comments\_EditComment.cshtml" />
+    <Content Include="Views\Comments\_EditCommentPartial.cshtml" />
     <Content Include="Views\Shared\_ErrorOrSuccessPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>

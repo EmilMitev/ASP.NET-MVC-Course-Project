@@ -149,7 +149,7 @@
         {
             var postFromDb = this.posts.GetById(postId);
             var post = this.Mapper.Map<EditPostViewModel>(postFromDb);
-            return this.PartialView("_EditPost", post);
+            return this.PartialView("_EditPostPartial", post);
         }
 
         [Authorize]

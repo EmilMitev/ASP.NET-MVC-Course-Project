@@ -26,7 +26,7 @@
                 PostId = postId
             };
 
-            return this.PartialView("_CreateAnswer", inputModel);
+            return this.PartialView("_CreateAnswerPartial", inputModel);
         }
 
         [HttpPost]

@@ -69,7 +69,7 @@
         [HttpGet]
         public ActionResult CreateCategory()
         {
-            return this.PartialView("_CreateCategory");
+            return this.PartialView("_CreateCategoryPartial");
         }
 
         [HttpPost]

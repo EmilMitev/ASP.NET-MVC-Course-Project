@@ -23,7 +23,7 @@
             {
                 AnswerId = answerId
             };
-            return this.PartialView("_CreateComment", inputModel);
+            return this.PartialView("_CreateCommentPartial", inputModel);
         }
 
         [HttpPost]
@@ -57,7 +57,7 @@
         {
             var commentFromDb = this.comments.GetById(commentId);
             var comment = this.Mapper.Map<EditCommentViewModel>(commentFromDb);
-            return this.PartialView("_EditComment", comment);
+            return this.PartialView("_EditCommentPartial", comment);
         }
 
         [HttpPost]
