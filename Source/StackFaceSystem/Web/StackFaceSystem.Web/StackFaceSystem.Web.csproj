@@ -236,6 +236,7 @@
     <Compile Include="Areas\Moderator\Controllers\ManageCategoriesController.cs" />
     <Compile Include="Areas\Moderator\ModeratorAreaRegistration.cs" />
     <Compile Include="Areas\Moderator\ViewModels\ManageCategories\CategoryViewModel.cs" />
+    <Compile Include="Areas\Moderator\ViewModels\ManageCategories\EditCategoryViewModel.cs" />
     <Compile Include="Areas\Moderator\ViewModels\ManageCategories\InputCategoryViewModel.cs" />
     <Compile Include="Areas\Moderator\ViewModels\ManageCategories\PagableSortableCategoriesViewModel.cs" />
     <Compile Include="Areas\User\Controllers\ProfileController.cs" />
@@ -322,6 +323,7 @@
     <Content Include="Areas\User\Views\_ViewStart.cshtml" />
     <Content Include="Areas\User\Views\Profile\Index.cshtml" />
     <Content Include="Areas\Moderator\Views\ManageCategories\_CreateCategoryPartial.cshtml" />
+    <Content Include="Areas\Moderator\Views\ManageCategories\_EditCategoryPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

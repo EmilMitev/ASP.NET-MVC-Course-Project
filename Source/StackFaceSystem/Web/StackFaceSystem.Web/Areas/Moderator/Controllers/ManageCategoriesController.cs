@@ -4,11 +4,12 @@
     using System.Linq;
     using System.Web.Mvc;
     using Common;
+    using Data.Models;
     using Infrastructure.Mapping;
     using Services.Data.Contracts;
     using ViewModels.ManageCategories;
     using Web.Controllers;
-    using Data.Models;
+
     [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.ModeratorRoleName)]
     public class ManageCategoriesController : BaseController
     {
@@ -82,13 +83,38 @@
                 return this.View(model);
             }
 
-            var category = new Category
-            {
-                Name = model.Name
-            };
+            var category = this.Mapper.Map<Category>(model);
 
             this.categories.CreateCategory(category);
             this.TempData["Notification"] = "You successfully add category";
+
+            return this.RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult EditCategory(int id, string name)
+        {
+            var categoryToEdit = new EditCategoryViewModel
+            {
+                Id = id,
+                Name = name
+            };
+
+            return this.PartialView("_EditCategoryPartial", categoryToEdit);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCategory(EditCategoryViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                this.TempData["NotificationError"] = "Something is wrong, please try again later";
+                return this.View(model);
+            }
+
+            this.categories.UpdateCategory(model.Id, model.Name);
+            this.TempData["Notification"] = "You successfully update category";
 
             return this.RedirectToAction("Index");
         }

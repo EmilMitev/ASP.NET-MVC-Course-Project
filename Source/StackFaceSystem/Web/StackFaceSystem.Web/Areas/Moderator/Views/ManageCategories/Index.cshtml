@@ -22,6 +22,7 @@
                                                              InsertionMode = InsertionMode.Replace,
                                                              OnSuccess = "OnAjaxAddCategorySuccess"
                                                          }, new { @class = "btn btn-default btn-sm pull-right" })
+    <div id="editCategory" class="well" style="display:none"></div>
     <table class="table">
         <thead>
             <tr>
@@ -43,14 +44,21 @@
                     <td>@category.ModifiedOn</td>
                     <td><a href="/Categories/GetCategoryPosts/@category.Name">View</a></td>
                     <td>
-                        <div class="btn btn-sm btn-default glyphicon glyphicon-pencil"></div>
-                        <div class="btn btn-sm btn-default glyphicon glyphicon-remove"></div>
+                        @Ajax.ActionLink(" ", "EditCategory", "ManageCategories", new { id = category.Id, name = category.Name },
+                                                         new AjaxOptions
+                                                         {
+                                                             UpdateTargetId = "editCategory",
+                                                             HttpMethod = "GET",
+                                                             InsertionMode = InsertionMode.Replace,
+                                                             OnSuccess = "OnAjaxEditCategorySuccess"
+                                                         }, new { @class = "btn btn-sm btn-default glyphicon glyphicon-pencil" })
+                        <div class="btn btn-sm btn-danger glyphicon glyphicon-remove"></div>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <div id="addCategory" class="well" style="display:none;"></div>
+    <div id="addCategory" class="well" style="display:none"></div>
 </div>
 
 <nav class="text-center">
@@ -141,12 +149,28 @@
             $.validator.unobtrusive.parse("form");
         }
 
+        function OnAjaxEditCategorySuccess() {
+            $("#editCategory").show(1000);
+            $("html, body").animate({
+                scrollTop: $("html").offset().top
+            }, 2000);
+            $("form").removeData("validator");
+            $("form").removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse("form");
+        }
+
         $("body").on("click", "#cancel-create-category", function () {
             $("#addCategory").hide(1000);
             $("html, body").animate({
                 scrollTop: $("html").offset().top
             }, 2000);
         })
-    </script>
 
+        $("body").on("click", "#cancel-edit-category", function () {
+            $("#editCategory").hide(1000);
+            $("html, body").animate({
+                scrollTop: $("html").offset().top
+            }, 2000);
+        })
+    </script>
 }

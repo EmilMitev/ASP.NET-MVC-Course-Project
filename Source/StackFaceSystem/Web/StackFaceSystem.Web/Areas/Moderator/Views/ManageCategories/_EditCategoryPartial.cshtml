@@ -1,0 +1,24 @@
+﻿@model StackFaceSystem.Web.Areas.Moderator.ViewModels.ManageCategories.EditCategoryViewModel
+
+<div class="row">
+    @using (Html.BeginForm("EditCategory", "ManageCategories", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true)
+
+        <div class="col-md-1">
+            @Html.HiddenFor(x=>x.Id)
+        </div>
+
+        <div class="col-md-4">
+            @Html.EditorFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-sm btn-success glyphicon glyphicon-ok"></button>
+            <button id="cancel-edit-category" type="reset" class="btn btn-sm btn-danger glyphicon glyphicon-remove"></button>
+        </div>
+    }
+</div>
