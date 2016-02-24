@@ -1,1 +1,68 @@
-﻿<div>This is user controller in administration area</div>
+﻿@model StackFaceSystem.Web.Areas.Administration.ViewModels.Users.IndexViewModel
+
+<h3>Change users roles:</h3>
+
+<div id="changeUserRole" class="well" style="display:none"></div>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Username</td>
+                    <td>@user.Email</td>
+                    <td>@user.Role</td>
+                    <td>
+                        @Ajax.ActionLink("Change", "EditUserRole", "Users", new { id = user.Id },
+                                                         new AjaxOptions
+                                                         {
+                                                             UpdateTargetId = "changeUserRole",
+                                                             HttpMethod = "GET",
+                                                             InsertionMode = InsertionMode.Replace,
+                                                             OnSuccess = "OnAjaxEditUserRoleSuccess"
+                                                         }, new { @class = "btn btn-sm btn-default glyphicon glyphicon-pencil" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section Scripts{
+    <script>
+        function OnAjaxEditUserRoleSuccess() {
+            $("#changeUserRole").show(1000);
+            $("html, body").animate({
+                scrollTop: $("html").offset().top
+            }, 2000);
+        }
+
+        $("body").on("click", "#cancel-edit-user-role", function () {
+            $("#changeUserRole").hide(1000);
+            $("html, body").animate({
+                scrollTop: $("html").offset().top
+            }, 2000);
+        })
+
+        $("body").on("click", "div[data-action='editUserRole']", function () {
+            var id = $(this).attr("data-id");
+            var role = $("#newRoleSelector").val();
+            $.post("/Administration/Users/ChangeRole", { userId: id, role: role },
+           function (data) {
+               location.reload();
+           });
+        });
+
+    </script>
+}

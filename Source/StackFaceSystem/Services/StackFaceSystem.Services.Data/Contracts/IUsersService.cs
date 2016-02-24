@@ -5,7 +5,7 @@
 
     public interface IUsersService
     {
-        IQueryable<ApplicationUser> All();
+        IQueryable<ApplicationUser> GetAll();
 
         ApplicationUser GetById(string id);
 

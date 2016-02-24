@@ -14,11 +14,9 @@
             this.users = users;
         }
 
-        public IQueryable<ApplicationUser> All()
+        public IQueryable<ApplicationUser> GetAll()
         {
-            return this.users
-                .All()
-                .Where(u => !u.Roles.Select(y => y.UserId).Contains(string.Empty));
+            return this.users.All().OrderBy(x => x.UserName);
         }
 
         public ApplicationUser GetById(string id)

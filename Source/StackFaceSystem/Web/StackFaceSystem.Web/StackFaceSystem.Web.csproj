@@ -233,6 +233,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Administration\ViewModels\Users\IndexViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\Users\UserViewModel.cs" />
     <Compile Include="Areas\Moderator\Controllers\ManageCategoriesController.cs" />
     <Compile Include="Areas\Moderator\ModeratorAreaRegistration.cs" />
     <Compile Include="Areas\Moderator\ViewModels\ManageCategories\CategoryViewModel.cs" />
@@ -325,6 +327,7 @@
     <Content Include="Areas\User\Views\Profile\Edit.cshtml" />
     <Content Include="Areas\User\Views\Profile\_UserProfilePartial.cshtml" />
     <Content Include="Areas\User\Views\Profile\GetUser.cshtml" />
+    <Content Include="Areas\Administration\Views\Users\_UserDetailsPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -545,7 +548,6 @@
     <Content Include="Views\Shared\_ErrorOrSuccessPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Administration\ViewModels\" />
     <Folder Include="Areas\Administration\Views\Shared\" />
     <Folder Include="Areas\Moderator\Views\Shared\" />
     <Folder Include="Areas\User\Views\Shared\" />
