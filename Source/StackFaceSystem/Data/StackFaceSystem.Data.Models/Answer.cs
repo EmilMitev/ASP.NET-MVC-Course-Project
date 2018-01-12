@@ -9,8 +9,8 @@
     {
         public Answer()
         {
-            this.Votes = new HashSet<Vote>();
-            this.Commets = new HashSet<Comment>();
+            Votes = new HashSet<Vote>();
+            Commets = new HashSet<Comment>();
         }
 
         [Required]

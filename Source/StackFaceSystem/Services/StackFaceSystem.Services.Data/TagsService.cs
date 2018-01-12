@@ -9,11 +9,11 @@
 
     public class TagsService : ITagsService
     {
-        private readonly IDbRepository<Tag> tags;
+        private readonly IDbRepository<Tag> m_Tags;
 
         public TagsService(IDbRepository<Tag> tags)
         {
-            this.tags = tags;
+            m_Tags = tags;
         }
 
         public IQueryable<Tag> CheckExist(string tags)
@@ -24,7 +24,7 @@
 
             foreach (var tag in tagsAsList)
             {
-                Tag tagFromDb = this.tags.All().FirstOrDefault(x => x.Name == tag);
+                Tag tagFromDb = m_Tags.All().FirstOrDefault(x => x.Name == tag);
                 if (tagFromDb == null)
                 {
                     var tagToAdd = new Tag
@@ -32,8 +32,8 @@
                         Name = tag
                     };
 
-                    this.tags.Add(tagToAdd);
-                    this.tags.Save();
+                    m_Tags.Add(tagToAdd);
+                    m_Tags.Save();
                     tagsList.Add(tagToAdd);
                 }
                 else
@@ -47,7 +47,7 @@
 
         public IQueryable<Tag> GetAllTags()
         {
-            return this.tags.All().OrderBy(x => x.Name);
+            return m_Tags.All().OrderBy(x => x.Name);
         }
     }
 }

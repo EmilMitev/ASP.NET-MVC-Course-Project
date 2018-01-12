@@ -4,15 +4,14 @@
     using System.Linq;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Models;
     using StackFaceSystem.Common;
 
     public sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
-            this.AutomaticMigrationsEnabled = true;
-            this.AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(ApplicationDbContext context)
@@ -23,15 +22,9 @@
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-                IdentityRole role;
-                role = new IdentityRole { Name = GlobalConstants.AdministratorRoleName };
-                roleManager.Create(role);
-
-                role = new IdentityRole { Name = GlobalConstants.ModeratorRoleName };
-                roleManager.Create(role);
-
-                role = new IdentityRole { Name = GlobalConstants.UserRoleName };
-                roleManager.Create(role);
+                roleManager.Create(new IdentityRole { Name = GlobalConstants.AdministratorRoleName });
+                roleManager.Create(new IdentityRole { Name = GlobalConstants.ModeratorRoleName });
+                roleManager.Create(new IdentityRole { Name = GlobalConstants.UserRoleName });
             }
         }
     }

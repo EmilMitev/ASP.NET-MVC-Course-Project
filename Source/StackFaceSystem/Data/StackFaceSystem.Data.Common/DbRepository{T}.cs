@@ -5,7 +5,6 @@
     using System.Linq;
     using Models;
 
-    // TODO: Why BaseModel<int> instead BaseModel<TKey>?
     public class DbRepository<T> : IDbRepository<T>
         where T : BaseModel<int>
     {
@@ -16,8 +15,8 @@
                 throw new ArgumentException("An instance of DbContext is required to use this repository.");
             }
 
-            this.Context = context;
-            this.DbSet = this.Context.Set<T>();
+            Context = context;
+            DbSet = Context.Set<T>();
         }
 
         private IDbSet<T> DbSet { get; set; }
@@ -26,22 +25,22 @@
 
         public IQueryable<T> All()
         {
-            return this.DbSet.Where(x => !x.IsDeleted);
+            return DbSet.Where(x => !x.IsDeleted);
         }
 
         public IQueryable<T> AllWithDeleted()
         {
-            return this.DbSet;
+            return DbSet;
         }
 
         public T GetById(int id)
         {
-            return this.All().FirstOrDefault(x => x.Id == id);
+            return All().FirstOrDefault(x => x.Id == id);
         }
 
         public void Add(T entity)
         {
-            this.DbSet.Add(entity);
+            DbSet.Add(entity);
         }
 
         public void Delete(T entity)
@@ -52,12 +51,12 @@
 
         public void HardDelete(T entity)
         {
-            this.DbSet.Remove(entity);
+            DbSet.Remove(entity);
         }
 
         public void Save()
         {
-            this.Context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

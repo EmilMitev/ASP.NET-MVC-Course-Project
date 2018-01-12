@@ -8,36 +8,39 @@
 
     public class PostsService : IPostsService
     {
-        private readonly IDbRepository<Post> posts;
-        private readonly IIdentifierProvider identifierProvider;
+        private readonly IDbRepository<Post> m_Posts;
+        private readonly IIdentifierProvider m_IdentifierProvider;
 
         public PostsService(IDbRepository<Post> posts, IIdentifierProvider identifierProvider)
         {
-            this.posts = posts;
-            this.identifierProvider = identifierProvider;
+            m_Posts = posts;
+            m_IdentifierProvider = identifierProvider;
         }
 
         public void CreatePost(Post post)
         {
-            this.posts.Add(post);
-            this.posts.Save();
+            m_Posts.Add(post);
+            m_Posts.Save();
         }
 
         public Post GetById(string id)
         {
-            var intId = this.identifierProvider.DecodeId(id);
-            var post = this.posts.GetById(intId);
-            return post;
+            var intId = m_IdentifierProvider.DecodeId(id);
+            return m_Posts.GetById(intId);
         }
 
         public int GetPostsCount()
         {
-            return this.posts.All().Count();
+            return m_Posts
+                        .All()
+                        .Count();
         }
 
         public int GetPostsCountByCategory(string name)
         {
-            return this.posts.All().Where(x => x.Category.Name == name).Count();
+            return m_Posts
+                        .All()
+                        .Count(x => x.Category.Name == name);
         }
 
         public IQueryable<Post> GetPostsByPageAndSort(string sortType, string sortDirection, string search, int page, int take)
@@ -46,68 +49,64 @@
             switch (sortType)
             {
                 case "Date":
-                    posts = sortDirection == "ascending" ? this.posts.All().OrderBy(x => x.CreatedOn) : this.posts.All().OrderByDescending(x => x.CreatedOn);
+                    posts = sortDirection == "ascending" ? m_Posts.All().OrderBy(x => x.CreatedOn) : m_Posts.All().OrderByDescending(x => x.CreatedOn);
                     break;
                 case "Title":
-                    posts = sortDirection == "ascending" ? this.posts.All().OrderBy(x => x.Title) : this.posts.All().OrderByDescending(x => x.Title);
+                    posts = sortDirection == "ascending" ? m_Posts.All().OrderBy(x => x.Title) : m_Posts.All().OrderByDescending(x => x.Title);
                     break;
                 case "User":
-                    posts = sortDirection == "ascending" ? this.posts.All().OrderBy(x => x.User.UserName) : this.posts.All().OrderByDescending(x => x.User.UserName);
+                    posts = sortDirection == "ascending" ? m_Posts.All().OrderBy(x => x.User.UserName) : m_Posts.All().OrderByDescending(x => x.User.UserName);
                     break;
                 case "Category":
-                    posts = sortDirection == "ascending" ? this.posts.All().OrderBy(x => x.Category.Name) : this.posts.All().OrderByDescending(x => x.Category.Name);
+                    posts = sortDirection == "ascending" ? m_Posts.All().OrderBy(x => x.Category.Name) : m_Posts.All().OrderByDescending(x => x.Category.Name);
                     break;
             }
 
-            if (search == string.Empty || search == null)
+            if (string.IsNullOrEmpty(search))
             {
-                posts = posts
-                      .Skip((page - 1) * take)
-                      .Take(take);
+                return posts?
+                        .Skip((page - 1) * take)
+                        .Take(take);
             }
-            else
-            {
-                posts = posts
+
+            return posts?
                     .Where(x => x.Title.Contains(search))
                     .Skip((page - 1) * take)
                     .Take(take);
-            }
-
-            return posts;
         }
 
         public IQueryable<Post> GetNewestPost()
         {
-            return this.posts
-                            .All()
-                            .OrderByDescending(x => x.CreatedOn)
-                            .Take(5);
+            return m_Posts
+                        .All()
+                        .OrderByDescending(x => x.CreatedOn)
+                        .Take(5);
         }
 
         public IQueryable<Post> GetPostByCategory(string name, int page, int take)
         {
-            return this.posts
-                            .All()
-                            .Where(x => x.Category.Name == name)
-                            .OrderByDescending(x => x.CreatedOn)
-                            .Skip((page - 1) * take)
-                            .Take(take);
+            return m_Posts
+                        .All()
+                        .Where(x => x.Category.Name == name)
+                        .OrderByDescending(x => x.CreatedOn)
+                        .Skip((page - 1) * take)
+                        .Take(take);
         }
 
         public void UpdatePost(string postId, string title, string content)
         {
-            var intId = this.identifierProvider.DecodeId(postId);
-            var post = this.posts.GetById(intId);
+            var intId = m_IdentifierProvider.DecodeId(postId);
+            var post = m_Posts.GetById(intId);
             post.Title = title;
             post.Content = content;
 
-            this.posts.Save();
+            m_Posts.Save();
         }
 
         public void DeletePost(Post post)
         {
-            this.posts.Delete(post);
-            this.posts.Save();
+            m_Posts.Delete(post);
+            m_Posts.Save();
         }
     }
 }

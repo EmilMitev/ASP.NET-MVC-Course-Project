@@ -7,26 +7,28 @@
 
     public class UsersService : IUsersService
     {
-        private readonly IUserDbRepository<ApplicationUser> users;
+        private readonly IUserDbRepository<ApplicationUser> m_Users;
 
         public UsersService(IUserDbRepository<ApplicationUser> users)
         {
-            this.users = users;
+            m_Users = users;
         }
 
         public IQueryable<ApplicationUser> GetAll()
         {
-            return this.users.All().OrderBy(x => x.UserName);
+            return m_Users
+                    .All()
+                    .OrderBy(x => x.UserName);
         }
 
         public ApplicationUser GetById(string id)
         {
-            return this.users.GetById(id);
+            return m_Users.GetById(id);
         }
 
         public void UpdateUser(ApplicationUser user)
         {
-            var userFromDb = this.users.GetById(user.Id);
+            var userFromDb = m_Users.GetById(user.Id);
 
             userFromDb.FirstName = user.FirstName;
             userFromDb.LastName = user.LastName;
@@ -38,7 +40,7 @@
             userFromDb.GitHubUrl = user.GitHubUrl;
             userFromDb.Adress = user.Adress;
 
-            this.users.SaveChanges();
+            m_Users.SaveChanges();
         }
     }
 }

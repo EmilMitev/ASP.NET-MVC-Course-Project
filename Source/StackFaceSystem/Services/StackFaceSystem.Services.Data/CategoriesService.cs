@@ -7,39 +7,36 @@
 
     public class CategoriesService : ICategoriesService
     {
-        private readonly IDbRepository<Category> categories;
+        private readonly IDbRepository<Category> m_Categories;
 
         public CategoriesService(IDbRepository<Category> categories)
         {
-            this.categories = categories;
+            m_Categories = categories;
         }
 
         public void CreateCategory(Category category)
         {
-            this.categories.Add(category);
-            this.categories.Save();
+            m_Categories.Add(category);
+            m_Categories.Save();
         }
 
         public Category GetById(int id)
         {
-            var categories = this.categories.GetById(id);
-            return categories;
+            return m_Categories.GetById(id);
         }
 
         public Category GetCategory(string name)
         {
-            var categories = this.categories
-                            .All()
-                            .FirstOrDefault(x => x.Name == name);
-            return categories;
+            return m_Categories
+                        .All()
+                        .FirstOrDefault(x => x.Name == name);
         }
 
         public IQueryable<Category> GetAllCategories()
         {
-            var categories = this.categories
-                            .All()
-                            .OrderBy(x => x.Name);
-            return categories;
+            return m_Categories
+                        .All()
+                        .OrderBy(x => x.Name);
         }
 
         public IQueryable<Category> GetCategoriesByPageAndSort(string sortType, string sortDirection, int page, int take)
@@ -48,45 +45,42 @@
             switch (sortType)
             {
                 case "Id":
-                    categories = sortDirection == "ascending" ? this.categories.All().OrderBy(x => x.Id) : this.categories.All().OrderByDescending(x => x.Id);
+                    categories = sortDirection == "ascending" ? m_Categories.All().OrderBy(x => x.Id) : m_Categories.All().OrderByDescending(x => x.Id);
                     break;
                 case "Name":
-                    categories = sortDirection == "ascending" ? this.categories.All().OrderBy(x => x.Name) : this.categories.All().OrderByDescending(x => x.Name);
+                    categories = sortDirection == "ascending" ? m_Categories.All().OrderBy(x => x.Name) : m_Categories.All().OrderByDescending(x => x.Name);
                     break;
                 case "CreatedOn":
-                    categories = sortDirection == "ascending" ? this.categories.All().OrderBy(x => x.CreatedOn) : this.categories.All().OrderByDescending(x => x.CreatedOn);
+                    categories = sortDirection == "ascending" ? m_Categories.All().OrderBy(x => x.CreatedOn) : m_Categories.All().OrderByDescending(x => x.CreatedOn);
                     break;
                 case "ModifiedOn":
-                    categories = sortDirection == "ascending" ? this.categories.All().OrderBy(x => x.ModifiedOn) : this.categories.All().OrderByDescending(x => x.ModifiedOn);
+                    categories = sortDirection == "ascending" ? m_Categories.All().OrderBy(x => x.ModifiedOn) : m_Categories.All().OrderByDescending(x => x.ModifiedOn);
                     break;
             }
 
-            categories = categories
-                           .Skip((page - 1) * take)
-                           .Take(take);
-
-            return categories;
+            return categories?
+                        .Skip((page - 1) * take)
+                        .Take(take);
         }
 
         public int GetAllCategoriesCount()
         {
-            var number = this.categories
-                            .All()
-                            .Count();
-            return number;
+            return m_Categories
+                        .All()
+                        .Count();
         }
 
         public void UpdateCategory(int categoryId, string name)
         {
-            var category = this.categories.GetById(categoryId);
+            var category = m_Categories.GetById(categoryId);
             category.Name = name;
-            this.categories.Save();
+            m_Categories.Save();
         }
 
         public void DeleteCategory(Category category)
         {
-            this.categories.Delete(category);
-            this.categories.Save();
+            m_Categories.Delete(category);
+            m_Categories.Save();
         }
     }
 }

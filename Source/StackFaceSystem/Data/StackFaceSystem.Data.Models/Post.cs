@@ -9,9 +9,9 @@
     {
         public Post()
         {
-            this.Answers = new HashSet<Answer>();
-            this.Votes = new HashSet<Vote>();
-            this.Tags = new HashSet<Tag>();
+            Answers = new HashSet<Answer>();
+            Votes = new HashSet<Vote>();
+            Tags = new HashSet<Tag>();
         }
 
         [Required]

@@ -9,7 +9,7 @@
     {
         public Comment()
         {
-            this.Votes = new HashSet<Vote>();
+            Votes = new HashSet<Vote>();
         }
 
         [Required]

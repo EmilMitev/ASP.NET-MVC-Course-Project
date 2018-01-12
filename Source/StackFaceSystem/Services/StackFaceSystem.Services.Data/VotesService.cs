@@ -7,112 +7,88 @@
 
     public class VotesService : IVotesService
     {
-        private readonly IDbRepository<Vote> votes;
+        private readonly IDbRepository<Vote> m_Votes;
 
         public VotesService(IDbRepository<Vote> votes)
         {
-            this.votes = votes;
+            m_Votes = votes;
         }
 
         public int RegisterVote(string userId, string subject, int id, int voteType)
         {
-            Vote vote;
-
-            if (subject == "post")
+            Vote existingVote;
+            switch (subject)
             {
-                vote = this.votes.All().FirstOrDefault(x => x.UserId == userId && x.PostId == id);
-                if (vote == null)
-                {
-                    vote = new Vote
+                case "post":
+                    existingVote = m_Votes.All().FirstOrDefault(x => x.UserId == userId && x.PostId == id);
+                    if (existingVote == null)
                     {
-                        UserId = userId,
-                        PostId = id,
-                        Value = (VoteValue)voteType
-                    };
-                    this.votes.Add(vote);
-                }
-                else
-                {
-                    if (vote.Value == (VoteValue)voteType)
-                    {
-                        vote.Value = VoteValue.Neutral;
+                        m_Votes.Add(new Vote
+                        {
+                            UserId = userId,
+                            PostId = id,
+                            Value = (VoteValue)voteType
+                        });
                     }
-                    else if (vote.Value != (VoteValue)voteType)
+                    else
                     {
-                        vote.Value = (VoteValue)voteType;
+                        GetVoteValue(voteType, existingVote);
                     }
-                }
 
-                this.votes.Save();
+                    m_Votes.Save();
 
-                return this.votes.All()
-                                    .Where(x => x.PostId == id)
-                                    .Sum(x => (int)x.Value);
+                    return m_Votes.All().Where(x => x.PostId == id).Sum(x => (int)x.Value);
+                case "answer":
+                    existingVote = m_Votes.All().FirstOrDefault(x => x.UserId == userId && x.AnswerId == id);
+                    if (existingVote == null)
+                    {
+                        m_Votes.Add(new Vote
+                        {
+                            UserId = userId,
+                            AnswerId = id,
+                            Value = (VoteValue)voteType
+                        });
+                    }
+                    else
+                    {
+                        GetVoteValue(voteType, existingVote);
+                    }
+
+                    m_Votes.Save();
+                    return m_Votes.All().Where(x => x.AnswerId == id).Sum(x => (int)x.Value);
+                case "comment":
+                    existingVote = m_Votes.All().FirstOrDefault(x => x.UserId == userId && x.CommentId == id);
+                    if (existingVote == null)
+                    {
+                        m_Votes.Add(new Vote
+                        {
+                            UserId = userId,
+                            CommentId = id,
+                            Value = (VoteValue)voteType
+                        });
+                    }
+                    else
+                    {
+                        GetVoteValue(voteType, existingVote);
+                    }
+
+                    m_Votes.Save();
+
+                    return m_Votes.All().Where(x => x.CommentId == id).Sum(x => (int)x.Value);
+                default:
+                    return 0;
             }
-            else if (subject == "answer")
-            {
-                vote = this.votes.All().FirstOrDefault(x => x.UserId == userId && x.AnswerId == id);
-                if (vote == null)
-                {
-                    vote = new Vote
-                    {
-                        UserId = userId,
-                        AnswerId = id,
-                        Value = (VoteValue)voteType
-                    };
-                    this.votes.Add(vote);
-                }
-                else
-                {
-                    if (vote.Value == (VoteValue)voteType)
-                    {
-                        vote.Value = VoteValue.Neutral;
-                    }
-                    else if (vote.Value != (VoteValue)voteType)
-                    {
-                        vote.Value = (VoteValue)voteType;
-                    }
-                }
+        }
 
-                this.votes.Save();
-                return this.votes.All()
-                                    .Where(x => x.AnswerId == id)
-                                    .Sum(x => (int)x.Value);
+        private static void GetVoteValue(int voteType, Vote vote)
+        {
+            if (vote.Value == (VoteValue)voteType)
+            {
+                vote.Value = VoteValue.Neutral;
             }
-            else if (subject == "comment")
+            else if (vote.Value != (VoteValue)voteType)
             {
-                vote = this.votes.All().FirstOrDefault(x => x.UserId == userId && x.CommentId == id);
-                if (vote == null)
-                {
-                    vote = new Vote
-                    {
-                        UserId = userId,
-                        CommentId = id,
-                        Value = (VoteValue)voteType
-                    };
-                    this.votes.Add(vote);
-                }
-                else
-                {
-                    if (vote.Value == (VoteValue)voteType)
-                    {
-                        vote.Value = VoteValue.Neutral;
-                    }
-                    else if (vote.Value != (VoteValue)voteType)
-                    {
-                        vote.Value = (VoteValue)voteType;
-                    }
-                }
-
-                this.votes.Save();
-
-                return this.votes.All()
-                                    .Where(x => x.CommentId == id)
-                                    .Sum(x => (int)x.Value);
-            }
-            else
-            {
-                return 0;
+                vote.Value = (VoteValue)voteType;
             }
         }
     }

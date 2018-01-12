@@ -1,6 +1,5 @@
 ﻿namespace StackFaceSystem.Services.Data.Contracts
 {
-    using System.Collections.Generic;
     using System.Linq;
     using StackFaceSystem.Data.Models;
 

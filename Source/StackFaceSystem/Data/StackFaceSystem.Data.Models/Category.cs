@@ -8,7 +8,7 @@
     {
         public Category()
         {
-            this.Posts = new HashSet<Post>();
+            Posts = new HashSet<Post>();
         }
 
         [Required]

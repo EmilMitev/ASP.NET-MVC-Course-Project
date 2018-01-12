@@ -8,46 +8,49 @@
 
     public class CommentsService : ICommentsService
     {
-        private readonly IDbRepository<Comment> comments;
+        private readonly IDbRepository<Comment> m_Comments;
 
         public CommentsService(IDbRepository<Comment> comments)
         {
-            this.comments = comments;
+            m_Comments = comments;
         }
 
         public void CreateComment(Comment comment)
         {
-            this.comments.Add(comment);
-            this.comments.Save();
+            m_Comments.Add(comment);
+            m_Comments.Save();
         }
 
         public Comment GetById(int id)
         {
-            var comment = this.comments.GetById(id);
-            return comment;
+            return m_Comments.GetById(id);
         }
 
         public void UpdateComment(int commentId, string content)
         {
-            var comment = this.comments.GetById(commentId);
+            var comment = m_Comments.GetById(commentId);
             comment.Content = content;
 
-            this.comments.Save();
+            m_Comments.Save();
         }
 
         public void DeleteCommentByAnswerId(int answerId)
         {
-            var comments = this.comments.All().Where(x => x.AnswerId == answerId).ToList();
+            var comments = m_Comments
+                                .All()
+                                .Where(x => x.AnswerId == answerId)
+                                .ToList();
+
             foreach (var comment in comments)
             {
-                this.DeleteComment(comment);
+                DeleteComment(comment);
             }
         }
 
         public void DeleteComment(Comment comment)
         {
-            this.comments.Delete(comment);
-            this.comments.Save();
+            m_Comments.Delete(comment);
+            m_Comments.Save();
         }
     }
 }
