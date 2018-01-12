@@ -9,13 +9,13 @@
     [Authorize]
     public class AnswersController : BaseController
     {
-        private readonly IAnswersService answers;
-        private readonly ICommentsService comments;
+        private readonly IAnswersService m_Answers;
+        private readonly ICommentsService m_Comments;
 
         public AnswersController(IAnswersService answers, ICommentsService comments)
         {
-            this.comments = comments;
-            this.answers = answers;
+            m_Comments = comments;
+            m_Answers = answers;
         }
 
         [HttpGet]
@@ -26,20 +26,20 @@
                 PostId = postId
             };
 
-            return this.PartialView("_CreateAnswerPartial", inputModel);
+            return PartialView("_CreateAnswerPartial", inputModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateAnswer(InputAnswerViewModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                this.TempData["NotificationError"] = "Sorry but something wrong. Please try angain later and don't forget content on answer";
-                return this.Redirect(this.Request.UrlReferrer.ToString());
+                TempData["NotificationError"] = "Sorry but something wrong. Please try angain later and don't forget content on answer";
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
-            var userId = this.User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
 
             var answer = new Answer
             {
@@ -48,59 +48,59 @@
                 PostId = model.PostId
             };
 
-            this.answers.CreateAnswer(answer);
+            m_Answers.CreateAnswer(answer);
 
-            this.TempData["Notification"] = "You successfully answer on post.";
+            TempData["Notification"] = "You successfully answer on post.";
 
-            return this.Redirect(this.Request.UrlReferrer.ToString());
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [HttpGet]
         public ActionResult EditAnswer(int answerId)
         {
-            var answerFromDb = this.answers.GetById(answerId);
-            var answer = this.Mapper.Map<EditAnswerViewModel>(answerFromDb);
-            return this.PartialView("_EditAnswer", answer);
+            var answerFromDb = m_Answers.GetById(answerId);
+            var answer = Mapper.Map<EditAnswerViewModel>(answerFromDb);
+            return PartialView("_EditAnswer", answer);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditAnswer(EditAnswerViewModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
-            this.answers.UpdateAnswer(model.Id, model.Content);
+            m_Answers.UpdateAnswer(model.Id, model.Content);
 
-            this.TempData["Notification"] = "You successfully update your answer.";
-            return this.Redirect(this.Request.UrlReferrer.ToString());
+            TempData["Notification"] = "You successfully update your answer.";
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [HttpPost]
         public ActionResult DeleteAnswer(int answerId)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                this.TempData["NotificationError"] = "Something get wrong. Try anaing later.";
-                return this.Redirect($"/Posts/Index");
+                TempData["NotificationError"] = "Something get wrong. Try anaing later.";
+                return Redirect($"/Posts/Index");
             }
 
-            if (this.Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest())
             {
-                var answer = this.answers.GetById(answerId);
+                var answer = m_Answers.GetById(answerId);
 
-                // delete comments on this answer
-                this.comments.DeleteCommentByAnswerId(answerId);
+                // delete comments on  answer
+                m_Comments.DeleteCommentByAnswerId(answerId);
 
-                this.answers.DeleteAnswer(answer);
+                m_Answers.DeleteAnswer(answer);
 
-                return this.Json(new { notification = "You successfully delete asnwer." });
+                return Json(new { notification = "You successfully delete asnwer." });
             }
 
             // Don't work in ajax!!!
-            return this.Redirect("/Posts/Index");
+            return Redirect("/Posts/Index");
         }
     }
 }

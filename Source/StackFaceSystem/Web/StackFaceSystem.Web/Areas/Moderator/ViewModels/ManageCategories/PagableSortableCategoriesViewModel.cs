@@ -1,10 +1,6 @@
 ﻿namespace StackFaceSystem.Web.Areas.Moderator.ViewModels.ManageCategories
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class PagableSortableCategoriesViewModel
     {

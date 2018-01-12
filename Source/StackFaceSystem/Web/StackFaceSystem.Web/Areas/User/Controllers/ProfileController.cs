@@ -1,13 +1,11 @@
 ﻿namespace StackFaceSystem.Web.Areas.User.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using Data.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
-    using Microsoft.Owin.Security;
     using Services.Data.Contracts;
     using ViewModels.Profile;
     using Web.Controllers;
@@ -15,20 +13,20 @@
     [Authorize]
     public class ProfileController : BaseController
     {
-        private readonly IUsersService users;
+        private readonly IUsersService m_Users;
 
-        private ApplicationSignInManager signInManager;
-        private ApplicationUserManager userManager;
+        private ApplicationSignInManager m_SignInManager;
+        private ApplicationUserManager m_UserManager;
 
         public ProfileController(IUsersService users)
         {
-            this.users = users;
+            m_Users = users;
         }
 
         public ProfileController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
-            this.UserManager = userManager;
-            this.SignInManager = signInManager;
+            UserManager = userManager;
+            SignInManager = signInManager;
         }
 
         public enum ManageMessageId
@@ -43,12 +41,12 @@
         {
             get
             {
-                return this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return m_SignInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
 
             private set
             {
-                this.signInManager = value;
+                m_SignInManager = value;
             }
         }
 
@@ -56,12 +54,12 @@
         {
             get
             {
-                return this.userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return m_UserManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
 
             private set
             {
-                this.userManager = value;
+                m_UserManager = value;
             }
         }
 
@@ -69,28 +67,28 @@
         [HttpGet]
         public ActionResult Index(ManageMessageId? message)
         {
-            this.ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.EditProfileSuccess ? "Your profile has been update."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : string.Empty;
+            ViewBag.StatusMessage =
+               message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+               : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+               : message == ManageMessageId.EditProfileSuccess ? "Your profile has been update."
+               : message == ManageMessageId.Error ? "An error has occurred."
+               : string.Empty;
 
-            var userId = this.User.Identity.GetUserId();
-            var user = this.users.GetById(userId);
-            var model = this.Mapper.Map<IndexViewModel>(user);
+            var userId = User.Identity.GetUserId();
+            var user = m_Users.GetById(userId);
+            var model = Mapper.Map<IndexViewModel>(user);
 
-            return this.View(model);
+            return View(model);
         }
 
         // GET: /Profile/Edit
         [HttpGet]
         public ActionResult Edit()
         {
-            var userId = this.User.Identity.GetUserId();
-            var user = this.users.GetById(userId);
-            var model = this.Mapper.Map<EditProfileViewModel>(user);
-            return this.View(model);
+            var userId = User.Identity.GetUserId();
+            var user = m_Users.GetById(userId);
+            var model = Mapper.Map<EditProfileViewModel>(user);
+            return View(model);
         }
 
         // POST: /Profile/Edit
@@ -98,23 +96,23 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditProfileViewModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
-            var user = this.Mapper.Map<ApplicationUser>(model);
-            user.Id = this.User.Identity.GetUserId();
-            this.users.UpdateUser(user);
+            var user = Mapper.Map<ApplicationUser>(model);
+            user.Id = User.Identity.GetUserId();
+            m_Users.UpdateUser(user);
 
-            return this.RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
+            return RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
         }
 
         // GET: /Profile/ChangePassword
         [HttpGet]
         public ActionResult ChangePassword()
         {
-            return this.View();
+            return View();
         }
 
         // POST: /Profile/ChangePassword
@@ -122,41 +120,41 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
-            var result = await this.UserManager.ChangePasswordAsync(this.User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
-                    await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
 
-                return this.RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
 
-            this.AddErrors(result);
-            return this.View(model);
+            AddErrors(result);
+            return View(model);
         }
 
         // GET: /Profile/GetUser?userId=...
         [HttpGet]
         public ActionResult GetUser(string userId)
         {
-            var user = this.users.GetById(userId);
-            var model = this.Mapper.Map<IndexViewModel>(user);
-            return this.View(model);
+            var user = m_Users.GetById(userId);
+            var model = Mapper.Map<IndexViewModel>(user);
+            return View(model);
         }
 
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
-                this.ModelState.AddModelError(string.Empty, error);
+                ModelState.AddModelError(string.Empty, error);
             }
         }
     }

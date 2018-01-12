@@ -5,12 +5,12 @@
 
     public class TagsAttribute : ValidationAttribute
     {
-        private readonly int length;
+        private readonly int m_Length;
 
         public TagsAttribute(int length, string error)
             : base(error)
         {
-            this.length = length;
+            m_Length = length;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -21,15 +21,15 @@
                 var tags = tagsAsString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 if (tags.Length > 7)
                 {
-                    var errorMessage = this.FormatErrorMessage(validationContext.DisplayName);
+                    var errorMessage = FormatErrorMessage(validationContext.DisplayName);
                     return new ValidationResult(errorMessage);
                 }
 
                 foreach (var tag in tags)
                 {
-                    if (tag.Length > this.length)
+                    if (tag.Length > m_Length)
                     {
-                        var errorMessage = this.FormatErrorMessage(validationContext.DisplayName);
+                        var errorMessage = FormatErrorMessage(validationContext.DisplayName);
                         return new ValidationResult(errorMessage);
                     }
                 }

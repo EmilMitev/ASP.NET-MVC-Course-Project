@@ -9,11 +9,11 @@
     [Authorize]
     public class CommentsController : BaseController
     {
-        private readonly ICommentsService comments;
+        private readonly ICommentsService m_Comments;
 
         public CommentsController(ICommentsService comments)
         {
-            this.comments = comments;
+            m_Comments = comments;
         }
 
         [HttpGet]
@@ -23,20 +23,20 @@
             {
                 AnswerId = answerId
             };
-            return this.PartialView("_CreateCommentPartial", inputModel);
+            return PartialView("_CreateCommentPartial", inputModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateComment(InputCommentViewModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                this.TempData["NotificationError"] = "Sorry but something wrong. Please try angain later and don't forget content on comment";
-                return this.Redirect(this.Request.UrlReferrer.ToString());
+                TempData["NotificationError"] = "Sorry but something wrong. Please try angain later and don't forget content on comment";
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
-            var userId = this.User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
 
             var comment = new Comment
             {
@@ -45,55 +45,55 @@
                 AnswerId = model.AnswerId
             };
 
-            this.comments.CreateComment(comment);
+            m_Comments.CreateComment(comment);
 
-            this.TempData["Notification"] = "You successfully comment.";
+            TempData["Notification"] = "You successfully comment.";
 
-            return this.Redirect(this.Request.UrlReferrer.ToString());
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [HttpGet]
         public ActionResult EditComment(int commentId)
         {
-            var commentFromDb = this.comments.GetById(commentId);
-            var comment = this.Mapper.Map<EditCommentViewModel>(commentFromDb);
-            return this.PartialView("_EditCommentPartial", comment);
+            var commentFromDb = m_Comments.GetById(commentId);
+            var comment = Mapper.Map<EditCommentViewModel>(commentFromDb);
+            return PartialView("_EditCommentPartial", comment);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditComment(EditCommentViewModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
-            this.comments.UpdateComment(model.Id, model.Content);
+            m_Comments.UpdateComment(model.Id, model.Content);
 
-            this.TempData["Notification"] = "You successfully update your comment.";
-            return this.Redirect(this.Request.UrlReferrer.ToString());
+            TempData["Notification"] = "You successfully update your comment.";
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [HttpPost]
         public ActionResult DeleteComment(int commentId)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                this.TempData["NotificationError"] = "Something get wrong. Try anaing later.";
-                return this.Redirect($"/Posts/Index");
+                TempData["NotificationError"] = "Something get wrong. Try anaing later.";
+                return Redirect($"/Posts/Index");
             }
 
-            if (this.Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest())
             {
-                var comment = this.comments.GetById(commentId);
-                this.comments.DeleteComment(comment);
+                var comment = m_Comments.GetById(commentId);
+                m_Comments.DeleteComment(comment);
 
-                return this.Json(new { notification = "You successfully delete comment." });
+                return Json(new { notification = "You successfully delete comment." });
             }
 
             // Don't work in ajax!!!
-            return this.Redirect("/Posts/Index");
+            return Redirect("/Posts/Index");
         }
     }
 }

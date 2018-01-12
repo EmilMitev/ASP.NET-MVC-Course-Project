@@ -5,10 +5,7 @@
 
     public class GlimpseSecurityPolicy : IRuntimePolicy
     {
-        public RuntimeEvent ExecuteOn
-        {
-            get { return RuntimeEvent.EndRequest | RuntimeEvent.ExecuteResource; }
-        }
+        public RuntimeEvent ExecuteOn => RuntimeEvent.EndRequest | RuntimeEvent.ExecuteResource;
 
         public RuntimePolicy Execute(IRuntimePolicyContext policyContext)
         {

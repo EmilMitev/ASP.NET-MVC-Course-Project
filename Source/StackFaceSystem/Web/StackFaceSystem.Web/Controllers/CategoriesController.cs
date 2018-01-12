@@ -12,23 +12,23 @@
     public class CategoriesController : BaseController
     {
         private const int ItemsPerPage = 5; // TODO: change it to 10
-        private readonly ICategoriesService categories;
-        private readonly IPostsService posts;
+        private readonly ICategoriesService m_Categories;
+        private readonly IPostsService m_Posts;
 
         public CategoriesController(ICategoriesService categories, IPostsService posts)
         {
-            this.categories = categories;
-            this.posts = posts;
+            m_Categories = categories;
+            m_Posts = posts;
         }
 
         [HttpGet]
         public ActionResult GetCategoryPosts(string id, int page = 1)
         {
-            var categoryFromDb = this.categories.GetCategory(id);
-            var category = this.Mapper.Map<CategoryViewModel>(categoryFromDb);
+            var categoryFromDb = m_Categories.GetCategory(id);
+            var category = Mapper.Map<CategoryViewModel>(categoryFromDb);
 
-            var posts = this.posts.GetPostByCategory(id, page, ItemsPerPage).To<PostsViewModel>().ToList();
-            var postsNumber = this.posts.GetPostsCountByCategory(id);
+            var posts = m_Posts.GetPostByCategory(id, page, ItemsPerPage).To<PostsViewModel>().ToList();
+            var postsNumber = m_Posts.GetPostsCountByCategory(id);
             var totalPages = (int)Math.Ceiling(postsNumber / (decimal)ItemsPerPage);
 
             var viewModel = new PagablePostsOnCategoryViewModel
@@ -39,7 +39,7 @@
                 Posts = posts
             };
 
-            return this.View(viewModel);
+            return View(viewModel);
         }
     }
 }

@@ -14,29 +14,29 @@
     public class ManageCategoriesController : BaseController
     {
         private const int CategoriesPerPage = 10;
-        private readonly ICategoriesService categories;
-        private readonly IPostsService posts;
-        private readonly IAnswersService answers;
-        private readonly ICommentsService comments;
+        private readonly ICategoriesService m_Categories;
+        private readonly IPostsService m_Posts;
+        private readonly IAnswersService m_Answers;
+        private readonly ICommentsService m_Comments;
 
         public ManageCategoriesController(IPostsService posts, IAnswersService answers, ICommentsService comments, ICategoriesService categories)
         {
-            this.posts = posts;
-            this.answers = answers;
-            this.comments = comments;
-            this.categories = categories;
+            m_Posts = posts;
+            m_Answers = answers;
+            m_Comments = comments;
+            m_Categories = categories;
         }
 
         [HttpGet]
         public ActionResult Index(int id = 1)
         {
             int page = id;
-            var categoriesCount = this.categories.GetAllCategoriesCount();
+            var categoriesCount = m_Categories.GetAllCategoriesCount();
             var sortType = "Id";
             var sortDirection = "ascending";
             var totalPages = (int)Math.Ceiling(categoriesCount / (decimal)CategoriesPerPage);
 
-            var categories = this.categories.GetCategoriesByPageAndSort(sortType, sortDirection, page, CategoriesPerPage).To<CategoryViewModel>().ToList();
+            var categories = m_Categories.GetCategoriesByPageAndSort(sortType, sortDirection, page, CategoriesPerPage).To<CategoryViewModel>().ToList();
 
             var viewModel = new PagableSortableCategoriesViewModel
             {
@@ -47,19 +47,19 @@
                 Categories = categories
             };
 
-            return this.View(viewModel);
+            return View(viewModel);
         }
 
         [HttpPost]
         public ActionResult Index(PagableSortableCategoriesViewModel model)
         {
             int page = model.CurrentPage;
-            var categoriesCount = this.categories.GetAllCategoriesCount();
+            var categoriesCount = m_Categories.GetAllCategoriesCount();
             var sortType = model.SortType;
             var sortDirection = model.SortDirection;
             var totalPages = (int)Math.Ceiling(categoriesCount / (decimal)CategoriesPerPage);
 
-            var categories = this.categories.GetCategoriesByPageAndSort(sortType, sortDirection, page, CategoriesPerPage).To<CategoryViewModel>().ToList();
+            var categories = m_Categories.GetCategoriesByPageAndSort(sortType, sortDirection, page, CategoriesPerPage).To<CategoryViewModel>().ToList();
 
             var viewModel = new PagableSortableCategoriesViewModel
             {
@@ -70,31 +70,31 @@
                 Categories = categories
             };
 
-            return this.View(viewModel);
+            return View(viewModel);
         }
 
         [HttpGet]
         public ActionResult CreateCategory()
         {
-            return this.PartialView("_CreateCategoryPartial");
+            return PartialView("_CreateCategoryPartial");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateCategory(InputCategoryViewModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                this.TempData["NotificationError"] = "Something is wrong, please try again later";
-                return this.View(model);
+                TempData["NotificationError"] = "Something is wrong, please try again later";
+                return View(model);
             }
 
-            var category = this.Mapper.Map<Category>(model);
+            var category = Mapper.Map<Category>(model);
 
-            this.categories.CreateCategory(category);
-            this.TempData["Notification"] = "You successfully add category";
+            m_Categories.CreateCategory(category);
+            TempData["Notification"] = "You successfully add category";
 
-            return this.RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -106,67 +106,67 @@
                 Name = name
             };
 
-            return this.PartialView("_EditCategoryPartial", categoryToEdit);
+            return PartialView("_EditCategoryPartial", categoryToEdit);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditCategory(EditCategoryViewModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                this.TempData["NotificationError"] = "Something is wrong, please try again later";
-                return this.View(model);
+                TempData["NotificationError"] = "Something is wrong, please try again later";
+                return View(model);
             }
 
-            this.categories.UpdateCategory(model.Id, model.Name);
-            this.TempData["Notification"] = "You successfully update category";
+            m_Categories.UpdateCategory(model.Id, model.Name);
+            TempData["Notification"] = "You successfully update category";
 
-            return this.RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult DeleteCategory(int subjectId)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return this.View("Error");
+                return View("Error");
             }
 
-            if (this.Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest())
             {
                 // Get category
-                var category = this.categories.GetById(subjectId);
+                var category = m_Categories.GetById(subjectId);
 
-                var postsCount = this.posts.GetPostsCountByCategory(category.Name);
+                var postsCount = m_Posts.GetPostsCountByCategory(category.Name);
 
-                var posts = this.posts.GetPostByCategory(category.Name, 1, postsCount).ToList();
+                var posts = m_Posts.GetPostByCategory(category.Name, 1, postsCount).ToList();
 
                 foreach (var post in posts)
                 {
-                    // get answers on this post
-                    var numberOfAnswersToDelete = this.answers.GetAnswerCountPerPost(post.Id);
-                    var answers = this.answers.GetAnswerOnPost(post.Id, 1, numberOfAnswersToDelete).ToList();
+                    // get answers on  post
+                    var numberOfAnswersToDelete = m_Answers.GetAnswerCountPerPost(post.Id);
+                    var answers = m_Answers.GetAnswerOnPost(post.Id, 1, numberOfAnswersToDelete).ToList();
 
                     // delete comments on those answers
                     foreach (var answer in answers)
                     {
-                        this.comments.DeleteCommentByAnswerId(answer.Id);
+                        m_Comments.DeleteCommentByAnswerId(answer.Id);
                     }
 
-                    // delete answers on this post
-                    this.answers.DeleteAnswerByPostId(post.Id);
+                    // delete answers on  post
+                    m_Answers.DeleteAnswerByPostId(post.Id);
 
                     // delete post
-                    this.posts.DeletePost(post);
+                    m_Posts.DeletePost(post);
                 }
 
-                this.categories.DeleteCategory(category);
+                m_Categories.DeleteCategory(category);
 
-                return this.Json(new { notification = "You successfully delete category." });
+                return Json(new { notification = "You successfully delete category." });
             }
 
-            return this.View("Index");
+            return View("Index");
         }
     }
 }

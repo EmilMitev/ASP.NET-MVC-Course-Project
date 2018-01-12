@@ -7,11 +7,11 @@
     [Authorize]
     public class VotesController : BaseController
     {
-        private readonly IVotesService votes;
+        private readonly IVotesService m_Votes;
 
         public VotesController(IVotesService votes)
         {
-            this.votes = votes;
+            m_Votes = votes;
         }
 
         [HttpPost]
@@ -27,11 +27,11 @@
                 voteType = -1;
             }
 
-            var userId = this.User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
 
-            var votesCount = this.votes.RegisterVote(userId, subjectType, subjectId, voteType);
+            var votesCount = m_Votes.RegisterVote(userId, subjectType, subjectId, voteType);
 
-            return this.Json(new { Count = votesCount });
+            return Json(new { Count = votesCount });
         }
     }
 }

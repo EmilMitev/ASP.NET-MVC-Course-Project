@@ -8,23 +8,22 @@
 
     public class HomeController : BaseController
     {
-        private readonly IPostsService posts;
+        private readonly IPostsService m_Posts;
 
         public HomeController(IPostsService posts)
         {
-            this.posts = posts;
+            m_Posts = posts;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var postsList = this.Cache
-                                   .Get(
-                                       "homePosts",
-                                       () => this.posts.GetNewestPost().To<PostsViewModel>().ToList(),
-                                       15 * 60);
+            var postsList = Cache.Get(
+                                    "homePosts",
+                                    () => m_Posts.GetNewestPost().To<PostsViewModel>().ToList(),
+                                    15 * 60);
 
-            return this.View(postsList);
+            return View(postsList);
         }
     }
 }

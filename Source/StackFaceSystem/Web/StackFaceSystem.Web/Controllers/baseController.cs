@@ -9,13 +9,7 @@
     {
         public ICacheService Cache { get; set; }
 
-        protected IMapper Mapper
-        {
-            get
-            {
-                return AutoMapperConfig.Configuration.CreateMapper();
-            }
-        }
+        protected IMapper Mapper => AutoMapperConfig.Configuration.CreateMapper();
 
         protected override void OnException(ExceptionContext filterContext)
         {

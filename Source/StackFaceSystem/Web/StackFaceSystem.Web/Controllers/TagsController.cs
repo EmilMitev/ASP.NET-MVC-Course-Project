@@ -6,11 +6,11 @@
     [Authorize]
     public class TagsController : BaseController
     {
-        private readonly ITagsService tags;
+        private readonly ITagsService m_Tags;
 
         public TagsController(ITagsService tags)
         {
-            this.tags = tags;
+             m_Tags = tags;
         }
 
         [HttpPost]
